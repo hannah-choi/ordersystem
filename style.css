@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Alata&display=swap");
+
+body{
+    font-family: "Alata", sans-serif;
+    background-color: lightgray;
+}
+
+button:focus,
+input:focus {
+  outline: 0;
+}
+
+
+div.wrapper{
+    /* border:1px solid red; */
+    background-color: white;
+}
+
+
+div.wrapper{
+    width:900px;
+    margin:0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div.wrapper header{
+    width:100%;
+}
+
+div.wrapper .header{
+    padding:1rem;
+}
+
+div.menu_container{
+    width:65%;
+    border:1px solid blue;
+    display: flex;
+}
+
+div.bill_container{
+    width:30%;
+    /* border:1px solid magenta; */
+    margin-left: 5%;
+}
+
+
+
+ul.menu_list{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-between;
+}
+
+div.menu_container .menu_nav{
+    border:1px solid green;
+}
+
+div.menu_container .menu_nav li{
+    display: inline-block;
+    padding: 1rem;
+}
+
+
+div.menu_container .menu_area{
+    width:90%;
+    border:1px solid cyan;
+    margin-left:2rem;
+    margin-bottom: 2rem;
+}
+
+
+ul.menu_list span.prod_name{
+    margin-top: 0.5rem;
+    margin-bottom: 0.3rem;
+}
+
+ul.menu_list span.prod_price{
+    margin-bottom: 1rem;
+    
+}
+
+ul.menu_list span{
+    display: block;
+}
+
+
+ul.menu_list li{
+    width:30%;
+}
+
+ul.menu_list li img{
+    width:100%;
+}
+
+
+/* bill_list */
+
+
+
+
+div.bill_container header{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+div.bill_container h2{
+    display: inline;
+}
+
+
+div.bill_container span.total{
+    margin:1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+div.bill_container span.total_value{
+    font-size: 1.5rem;
+}
+
+ul.order_list{
+    margin-bottom: 1rem;
+}
+
+ul.order_list li{
+    width:100%;
+    /* border:1px solid salmon; */
+    padding:1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul.order_list li span.order_price{
+    padding-left:4rem;
+}
+
+ul.order_list li input.order_delete{
+    background-color: white;
+    border:none;
+    font-family: inherit;
+    font-size: 1.5rem;
+}
+
+
+div.bill_container input#pay_button{
+
+    font:inherit;
+    padding:1rem 1.5rem;
+    background-color: black;
+    color:white;
+
+    display: block;
+    position: absolute;
+    left:1rem;
+    bottom: 1rem;
+}
