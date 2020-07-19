@@ -1,8 +1,42 @@
 @import url("https://fonts.googleapis.com/css2?family=Alata&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
+
+
+/*border*/
+
+/* div.menu_container{
+      border:1px solid blue;
+}
+div.bill_container{
+    border:1px solid magenta;
+}
+
+div.menu_container .menu_nav{
+border:1px solid green;
+}
+
+div.menu_container .menu_area{
+    border:1px solid cyan;
+}
+
+ul.order_list li span{
+    border:1px solid brown;
+} */
+
+/*****/
 
 body{
-    font-family: "Alata", sans-serif;
+    font-family: 'Karla', sans-serif;
+    font-weight: 400;
     background-color: lightgray;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    line-height: 1.2;
 }
 
 button:focus,
@@ -12,14 +46,12 @@ input:focus {
 
 
 div.wrapper{
-    /* border:1px solid red; */
     background-color: white;
 }
 
 
 div.wrapper{
-    width:900px;
-    margin:0 auto;
+    width:950px;
     display: flex;
     flex-wrap: wrap;
 }
@@ -33,15 +65,26 @@ div.wrapper .header{
 }
 
 div.menu_container{
-    width:65%;
-    border:1px solid blue;
+    /* border:1px solid blue; */
+    width:57%;
     display: flex;
+    margin-left: 2%;
 }
 
 div.bill_container{
-    width:30%;
+    width:37%;
     /* border:1px solid magenta; */
-    margin-left: 5%;
+    position: relative;
+    margin-left: 1%;
+    margin-right: 3%;
+    padding: 1rem;
+    min-height: 500px;
+}
+
+header.header img{
+    width: 110px;
+    margin-left: 2.3rem;
+    margin-top: 1rem;
 }
 
 
@@ -54,26 +97,28 @@ ul.menu_list{
 }
 
 div.menu_container .menu_nav{
-    border:1px solid green;
+    /* border:1px solid green; */
+    letter-spacing: 1px;
 }
 
 div.menu_container .menu_nav li{
     display: inline-block;
-    padding: 1rem;
+    padding: 1rem 2rem 2rem 0rem;
+    font-size: 1.1rem;
 }
 
 
 div.menu_container .menu_area{
-    width:90%;
-    border:1px solid cyan;
-    margin-left:2rem;
-    margin-bottom: 2rem;
+    width:87%;
+    /* border:1px solid cyan; */
+    margin: 0 auto 2rem auto;
 }
 
 
 ul.menu_list span.prod_name{
-    margin-top: 0.5rem;
-    margin-bottom: 0.3rem;
+    margin-top: 0.6rem;
+    color:#555555;
+    margin-bottom: 0.4rem;
 }
 
 ul.menu_list span.prod_price{
@@ -87,7 +132,7 @@ ul.menu_list span{
 
 
 ul.menu_list li{
-    width:30%;
+    width:32%;
 }
 
 ul.menu_list li img{
@@ -98,12 +143,16 @@ ul.menu_list li img{
 /* bill_list */
 
 
-
-
 div.bill_container header{
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 0 0 1rem 0;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+div.bill_container header i{
+    font-size: 1rem;
 }
 
 div.bill_container h2{
@@ -111,15 +160,27 @@ div.bill_container h2{
 }
 
 
-div.bill_container span.total{
-    margin:1rem;
-    display: flex;
-    justify-content: space-between;
-}
 
 div.bill_container span.total_value{
     font-size: 1.5rem;
 }
+
+
+div.bill_container li span.order_prod_name{
+    width:50%;
+}
+
+ul.order_list li span.order_quantity{
+    padding-left: 1rem;
+}
+
+
+ul.order_list li span.order_price{
+    padding-left:2rem;
+    font-size: 1.1rem;
+    width:25%;
+}
+
 
 ul.order_list{
     margin-bottom: 1rem;
@@ -128,33 +189,47 @@ ul.order_list{
 ul.order_list li{
     width:100%;
     /* border:1px solid salmon; */
-    padding:1rem;
+    padding:1rem 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px solid #d8d8d8;
 }
 
-ul.order_list li span.order_price{
-    padding-left:4rem;
-}
+
+
 
 ul.order_list li input.order_delete{
     background-color: white;
     border:none;
-    font-family: inherit;
-    font-size: 1.5rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 2rem;
+    margin-top:-0.3rem;
 }
 
 
+div.bill_container div.total{
+    padding:1rem 1rem 0 1rem;
+    left:0;
+    right:0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: absolute;
+    bottom:2rem;
+    font-size: 1.1rem;
+    /* border:1px solid gold; */
+    
+}
+
 div.bill_container input#pay_button{
 
+    margin-top: 1.5rem;
     font:inherit;
+    width:100%;
     padding:1rem 1.5rem;
     background-color: black;
     color:white;
 
     display: block;
-    position: absolute;
-    left:1rem;
-    bottom: 1rem;
 }
