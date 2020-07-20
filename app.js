@@ -1,6 +1,4 @@
 //오로지 데이터만 관리하는 용도
-
-
 const app = {
     data: [
         //메뉴 3개, 상품 최소 2-3개, 이미지 로컬로 준비해서 images에 넣을것 
@@ -118,7 +116,6 @@ const app = {
                 id: 2
             }]
         }
-
     ],
     init() { //index에서 이 함수를 호출시 초기화시키는 용도
         menuList.setState(this.data)

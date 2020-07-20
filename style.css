@@ -175,48 +175,63 @@ div.bill_container span.total_value{
 }
 
 
-div.bill_container li span.order_prod_name{
-    width:50%;
-}
 
-ul.order_list li span.order_quantity{
-    padding-left: 1rem;
-}
-
-
-ul.order_list li span.order_price{
-    padding-left:2rem;
-    font-size: 1.1rem;
-    width:25%;
-}
-
-
-ul.order_list{
+table.order_table{
     margin-bottom: 1rem;
+    width:100%;
 }
 
-ul.order_list li{
+table.order_table tr{
     width:100%;
     /* border:1px solid salmon; */
-    padding:1rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     border-bottom: 1px solid #d8d8d8;
 }
 
 
+table.order_table td.order_prod_name{
+    width:50%;
+}
+
+table.order_table td{
+    padding:0rem 0 1rem 0;
+    vertical-align: center;
+}
+
+table.order_table td:last-child{
+    text-align: right;
+}
+
+/* table.order_table td:first-child{
+    padding:1rem 0 1rem 0;
+    vertical-align: center;
+} */
 
 
-ul.order_list li input.order_delete{
+table.order_table td.order_quantity{
+    text-align: right;
+    padding-left:1rem;
+}
+
+table.order_table td.order_price{
+    padding-left:0.5rem;
+    font-size: 1rem;
+    width:28%;
+    text-align: right;
+}
+
+
+table.order_table td.order_delete{
+    padding-left: 1rem;
+    width:5%;
+}
+
+table.order_table input.order_delete{
     background-color:inherit;
     border:none;
     font-family: 'Raleway', sans-serif;
     font-size: 2rem;
-    margin-top:-0.3rem;
-
+    top:3px;
 }
-
 
 div.bill_container div.total{
     padding:2rem 2rem 1rem 2rem;
