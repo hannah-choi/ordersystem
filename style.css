@@ -1,7 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Alata&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cantarell&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Amiko&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap');
 
 /*border*/
 
@@ -29,7 +30,7 @@ ul.order_list li span{
 body{
     font-family: 'Karla', sans-serif;
     font-weight: 400;
-    background-color: lightgray;
+    background-color:#999999;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -56,6 +57,16 @@ div.wrapper{
     flex-wrap: wrap;
 }
 
+
+
+div.menu_container{
+    /* border:1px solid blue; */
+    width:60%;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+
 div.wrapper header{
     width:100%;
 }
@@ -64,47 +75,44 @@ div.wrapper .header{
     padding:1rem;
 }
 
-div.menu_container{
-    /* border:1px solid blue; */
-    width:57%;
-    display: flex;
-    margin-left: 2%;
-}
 
 div.bill_container{
-    width:37%;
+    width:40%;
     /* border:1px solid magenta; */
     position: relative;
-    margin-left: 1%;
-    margin-right: 3%;
-    padding: 1rem;
-    min-height: 500px;
+    padding: 7rem 2rem 2rem 2rem;
+    min-height: 400px;
+    background-color: #f8f8f8;
 }
 
-header.header img{
+
+ul.menu_list{
+    display: flex;
+    flex-flow:row wrap;
+    text-align: center;
+    justify-content: space-between;
+}
+
+
+div.menu_container header.header img{
     width: 110px;
-    margin-left: 2.3rem;
+    margin-left: 1.5rem;
     margin-top: 1rem;
 }
 
 
 
-ul.menu_list{
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    justify-content: space-between;
-}
-
 div.menu_container .menu_nav{
     /* border:1px solid green; */
-    letter-spacing: 1px;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 1.5px;
 }
 
 div.menu_container .menu_nav li{
     display: inline-block;
     padding: 1rem 2rem 2rem 0rem;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    margin-right: 0.5rem;
 }
 
 
@@ -147,8 +155,9 @@ div.bill_container header{
     display: flex;
     justify-content: space-between;
     padding: 0 0 1rem 0;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
+    font-size: 1rem;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 1.5px;
 }
 
 div.bill_container header i{
@@ -200,16 +209,17 @@ ul.order_list li{
 
 
 ul.order_list li input.order_delete{
-    background-color: white;
+    background-color:inherit;
     border:none;
     font-family: 'Raleway', sans-serif;
     font-size: 2rem;
     margin-top:-0.3rem;
+
 }
 
 
 div.bill_container div.total{
-    padding:1rem 1rem 0 1rem;
+    padding:2rem 2rem 1rem 2rem;
     left:0;
     right:0;
     display: flex;
@@ -226,6 +236,7 @@ div.bill_container input#pay_button{
 
     margin-top: 1.5rem;
     font:inherit;
+    letter-spacing: 1px;
     width:100%;
     padding:1rem 1.5rem;
     background-color: black;
