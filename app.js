@@ -117,8 +117,32 @@ const app = {
             }]
         }
     ],
+
+    orderData: [
+        //주문한 제품의 데이터
+        {
+            name: "Li Shan Oolong",
+            price: 45.00,
+            quantity: 1
+
+        },
+        {
+            name: "Premium Jasmine Green Tea",
+            price: 15.00,
+            quantity: 1
+        },
+        {
+            name: "Roasted Shanlinsi Oolong",
+            price: 28.00,
+            quantity: 2
+        },
+
+    ],
+
+
     init() { //index에서 이 함수를 호출시 초기화시키는 용도
         menuList.setState(this.data)
+        orderList.setState(this.orderData)
     }
 }
 
