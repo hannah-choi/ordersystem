@@ -1,18 +1,17 @@
 
+class OrderList {
 
-
-
-const orderList = {
-
-    $table: document.querySelector('.order_table'), //전역변수는 가급적 쓰지않기위해 클래스를 쓰는것
-    //함수가 호출될때마다 새로 변수에 테이블이 부여되는것을 막기 위해서 밖에다 써준다 
+    // constructor() {
+    //     this.$table = document.querySelector('.order_table')
+    // }
 
     setState(data) {
         this.data = data;
         this.orderRender();
-    },
+    }
 
     orderRender() {
+        let $table = document.querySelector('.order_table')
         let contents = "";
         for (let i = 0; i < this.data.length; i++) {
             contents += `<tr>
@@ -34,8 +33,8 @@ const orderList = {
         </tr>`
         }
 
-        this.$table.innerHTML = contents;
+        $table.innerHTML = contents;
     }
 }
 
-export default orderList
+export default OrderList
