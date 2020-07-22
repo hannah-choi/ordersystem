@@ -1,9 +1,9 @@
 
 class OrderList {
 
-    // constructor() {
-    //     this.$table = document.querySelector('.order_table')
-    // }
+    constructor() {
+        this.$table = document.querySelector('.order_table')
+    }
 
     setState(data) {
         this.data = data;
@@ -11,10 +11,9 @@ class OrderList {
     }
 
     orderRender() {
-        let $table = document.querySelector('.order_table')
         let contents = "";
         for (let i = 0; i < this.data.length; i++) {
-            contents += `<tr>
+            contents += `<tr data-key="orderedItem">
             <td class="order_prod_name">${this.data[i].name}</td>
             <td class="order_quantity"><label for="quantity"><select name="quantity" id="quantity">
                         <option value="1">1</option>
@@ -29,11 +28,11 @@ class OrderList {
                         <option value="10">10</option>
                     </select></td>
             <td class="order_price">£ ${this.data[i].price.toFixed(2)}</td>
-            <td class="order_delete"><input type="button" class="order_delete" value="×"></td>
+            <td class="order_delete"><input type="button" class="order_delete" value="×" data-key="deleteItem"></td>
         </tr>`
         }
 
-        $table.innerHTML = contents;
+        this.$table.innerHTML = contents;
     }
 }
 

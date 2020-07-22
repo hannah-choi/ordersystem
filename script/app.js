@@ -5,7 +5,7 @@ import OrderList from "./orderList.js"
 
 class App {
     constructor(menuData) {
-        this.menuList = new MenuList(2) //선택된 탭을 구분짓고자 파라메터로 넣어준다
+        this.menuList = new MenuList() //선택된 탭을 구분짓고자 파라메터로 넣어준다
         this.orderList = new OrderList();
         this.$app = document.querySelector('#app') //선언하는 부분이므로 constructor안에 넣는다 
         this.data = menuData
@@ -31,34 +31,31 @@ class App {
         ]
     }
     init() {
-        this.menuList.setState(this.data)
+        this.menuList.setState(this.data, 0)
         this.orderList.setState(this.orderData)
 
 
 
-        this.$app.addEventListener('click', function (e) {
-            //console.log(e.target.parentElement.parentElement.id)
+        this.$app.addEventListener('click', ({ target }) => {
+            // console.log(e.target.parentElement.parentElement)
             //console.log(e.target.parentElement.parentElement.nodeName)
-            switch (e.target.parentElement.parentElement.nodeName) {
-                case ('UL'):
-                    alert('menulist item')
+            switch (target.dataset.key) {
+                case ('navItem'):
+                    this.menuList.setState(this.data, target.dataset.index)
                     break;
-                case ('NAV'):
-                    alert('nav menu')
+                case ('menuItem'):
+                    alert('menuItem')
                     break;
-                case ('TBODY'):
-                    alert('ordered item')
+                case ('deleteItem'):
+                    alert('delete Item')
                     break;
-                case ('HEADER'):
-                    alert('all clear button')
-                    break;
-                case ('TR'):
-                    alert('delete list button')
+                case ('icon_trash'):
+                    alert('delete all')
                     break;
                 case ('TD'):
                     alert('quantity')
                     break;
-                case ('FORM'):
+                case ('total'):
                     alert('pay button')
                     break;
                 default:

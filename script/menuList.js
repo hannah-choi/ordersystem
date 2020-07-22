@@ -1,11 +1,14 @@
 class MenuList {
-    constructor(selectTab) {
-        this.$nav = document.querySelector('.ul_nav')
-        this.selectTab = selectTab
+    constructor() {
+        this.$nav = document.querySelector('.ul_nav') //반복적으로 변수에 할당을 하고싶지 않을때, 전역변수 대신에 이곳에 선언을 하는 것(과부하 방지)
+        this.$menuList = document.querySelector('.menu_list');
+        this.selectTab = null;
     }
 
-    setState(data) { //app.js에서 데이터를 받아서 데이터를 갱신해주는 용도 
+    setState(data, selectTab) { //app.js에서 데이터를 받아서 데이터를 갱신해주는 용도 
+        //상태를 변경해주는 함수
         this.data = data;
+        this.selectTab = selectTab;
         this.navRender();
         this.listRender();
     }
@@ -13,30 +16,27 @@ class MenuList {
     navRender() { //html요소를 직접적으로 만드는 함수
         let contents = "";
         for (let i = 0; i < this.data.length; i++) {
-            if (i === this.selectTab) {
-                contents += `<li data-index="${i}" class="active">${this.data[i].menu}</li>`
-            } else {
-                contents += `<li data-index="${i}">${this.data[i].menu}</li>`
-            } //가공해서 넣어주기
+            contents += `<li data-index="${i}" class="${i === parseInt(this.selectTab) ? "active" : ""}" data-key="navItem">${this.data[i].menu}</li>`
         }
         this.$nav.innerHTML = contents;
     }
 
+    //+ 기호를 앞에 붙이면 parseInt처럼 사용가능 
+
+
     listRender() {
-        let $menuList = document.querySelector('.menu_list');
         let contents = "";
         let index = 0; //클릭한 li의 인덱스
-
         let menuList = this.data[index].list.length;
 
         for (let i = 0; i < menuList; i++) {
             const list = this.data[index].list[i]
             const fileName = list.name.split(' ').join('').toLowerCase();
-            contents += `<li><img
+            contents += `<li data-key="menuItem"><img
             src="images/${list.category}_${fileName}.webp"> 
             <span class="prod_name">${list.name}</span><span class="prod_price">£ ${list.price.toFixed(2)}</span></li>`
         }
-        $menuList.innerHTML = contents;
+        this.$menuList.innerHTML = contents;
     }
 }
 
