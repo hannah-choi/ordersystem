@@ -9,53 +9,37 @@ class App {
         this.orderList = new OrderList();
         this.$app = document.querySelector('#app') //선언하는 부분이므로 constructor안에 넣는다 
         this.data = menuData
-        this.orderData = [
-            //주문한 제품의 데이터
-            {
-                name: "Li Shan Oolong",
-                price: 45.00,
-                quantity: 1
-
-            },
-            {
-                name: "Premium Jasmine Green Tea",
-                price: 15.00,
-                quantity: 1
-            },
-            {
-                name: "Roasted Shanlinsi Oolong",
-                price: 28.00,
-                quantity: 2
-            },
-
-        ]
+        this.orderData = []
     }
     init() {
         this.menuList.setState(this.data, 0)
-        this.orderList.setState(this.orderData)
+        this.orderList.setState(this.orderData, 0)
 
 
 
         this.$app.addEventListener('click', ({ target }) => {
-            // console.log(e.target.parentElement.parentElement)
-            //console.log(e.target.parentElement.parentElement.nodeName)
-            switch (target.dataset.key) {
-                case ('navItem'):
+            let dataIndex = "";
+            switch (target.dataset.key) { //스위치는 괄호업ㅅ이
+                case 'navItem':
                     this.menuList.setState(this.data, target.dataset.index)
                     break;
-                case ('menuItem'):
-                    alert('menuItem')
+                case 'menuItem':
+                    //this.orderData//지금은 비어있는배열에 push해서 상품을 넣어준다
+                    let selected = this.data[this.menuList.selectTab].list[target.dataset.index];
+                    this.orderData.push(selected)
+                    this.orderList.setState(this.orderData)
                     break;
-                case ('deleteItem'):
+                case 'deleteItem':
                     alert('delete Item')
                     break;
-                case ('icon_trash'):
-                    alert('delete all')
+                case 'icon_trash':
+                    this.orderData.splice(0,)
+                    this.orderList.setState(this.orderData)
                     break;
-                case ('TD'):
+                case 'TD':
                     alert('quantity')
                     break;
-                case ('total'):
+                case 'total':
                     alert('pay button')
                     break;
                 default:

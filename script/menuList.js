@@ -13,7 +13,7 @@ class MenuList {
         this.listRender();
     }
 
-    navRender() { //html요소를 직접적으로 만드는 함수
+    navRender() { //html요소를 직접적으로 그려주는 함수
         let contents = "";
         for (let i = 0; i < this.data.length; i++) {
             contents += `<li data-index="${i}" class="${i === parseInt(this.selectTab) ? "active" : ""}" data-key="navItem">${this.data[i].menu}</li>`
@@ -26,13 +26,13 @@ class MenuList {
 
     listRender() {
         let contents = "";
-        let index = 0; //클릭한 li의 인덱스
+        let index = this.selectTab; //클릭한 li의 인덱스
         let menuList = this.data[index].list.length;
 
         for (let i = 0; i < menuList; i++) {
             const list = this.data[index].list[i]
             const fileName = list.name.split(' ').join('').toLowerCase();
-            contents += `<li data-key="menuItem"><img
+            contents += `<li data-key="menuItem"><img data-key="menuItem" data-index="${i}"
             src="images/${list.category}_${fileName}.webp"> 
             <span class="prod_name">${list.name}</span><span class="prod_price">£ ${list.price.toFixed(2)}</span></li>`
         }
