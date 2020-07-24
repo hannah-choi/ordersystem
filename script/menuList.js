@@ -38,6 +38,8 @@ class MenuList {
         }
         this.$menuList.innerHTML = contents;
     }
+
+
 }
 
 export default MenuList

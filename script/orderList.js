@@ -3,15 +3,21 @@ class OrderList {
 
     constructor() {
         this.$table = document.querySelector('.order_table')
+        this.$total = document.querySelector('.total')
     }
 
     setState(data) {
         this.data = data;
         this.orderRender();
         this.makeSelect();
+        this.totalRender('0.00');
+        this.selectbox = document.getElementById('quantity');
     }
 
     orderRender() {
+
+
+
         let contents = "";
         for (let i = 0; i < this.data.length; i++) {
             contents += `<tr data-key="orderedItem" data-index="${i}">
@@ -23,9 +29,10 @@ class OrderList {
             <td class="order_delete"><input type="button" class="order_delete" value="×" data-key="deleteItem"></td>
         </tr>`
         }
-
         this.$table.innerHTML = contents;
+
     }
+
 
     makeSelect() {
 
@@ -36,6 +43,13 @@ class OrderList {
         let selectbox = `<select name="quantity" id="quantity">${options}</select>`
         return selectbox
     }
+
+    totalRender(value) {
+        let totalDiv = `<span class="total_text">Total</span><span class="total_value">£ ${value}</span>`
+        this.$total.innerHTML = totalDiv
+    }
+
+
 }
 
 export default OrderList

@@ -6,50 +6,50 @@ const menuData = [
             name: "Alishan Jingsyuan",
             price: 18.00,
             category: 'loosetea',
-            id: 0
+            id: 'l0'
 
         },
         {
             name: "Lishan Oolong",
             price: 45.00,
             category: 'loosetea',
-            id: 1
+            id: 'l1'
         },
         {
             name: "Tie Guan Yin",
             price: 25.00,
             category: 'loosetea',
-            id: 2
+            id: 'l2'
         },
         {
             name: "Roasted Shanlinsi Oolong",
             price: 28.00,
             category: 'loosetea',
-            id: 3
+            id: 'l3'
         },
         {
             name: "Premium Jasmine Green Tea",
             price: 15.00,
             category: 'loosetea',
-            id: 4
+            id: 'l4'
         },
         {
             name: "Oriental Beauty",
             price: 24.00,
             category: 'loosetea',
-            id: 5
+            id: 'l5'
         },
         {
             name: "Aged Tie Guan Yin",
             price: 35.00,
             category: 'loosetea',
-            id: 6
+            id: 'l6'
         },
         {
             name: "Aged Dongding Oolong",
             price: 42.00,
             category: 'loosetea',
-            id: 7
+            id: 'l7'
         }]
 
     },
@@ -59,37 +59,37 @@ const menuData = [
             name: "Si Ji Chun",
             price: 5.00,
             category: 'teabag',
-            id: 0
+            id: 't0'
         },
         {
             name: "Alishan Jingsyuan",
             price: 5.00,
             category: 'teabag',
-            id: 1
+            id: 't1'
         },
         {
             name: "Lightly Roasted DongDing Oolong",
             price: 5.00,
             category: 'teabag',
-            id: 2
+            id: 't2'
         },
         {
             name: "Tie Guan Yin",
             price: 5.00,
             category: 'teabag',
-            id: 3
+            id: 't3'
         },
         {
             name: "Premium Jasmine Green Tea",
             price: 5.00,
             category: 'teabag',
-            id: 4
+            id: 't4'
         },
         {
             name: "Guei Fei Tea",
             price: 5.00,
             category: 'teabag',
-            id: 5
+            id: 't5'
         }]
     },
 
@@ -99,19 +99,19 @@ const menuData = [
             name: "Alishan Oolong + Premium Jasmine Green Tea",
             price: 40.00,
             category: 'giftbox',
-            id: 0
+            id: 'g0'
         },
         {
             name: "Si ji Chun + Lightly roasted Oolong Tea",
             price: 30.00,
             category: 'giftbox',
-            id: 1
+            id: 'g1'
         },
         {
             name: "Lightly Roasted Oolong Tea + Premium Jasmine Green Tea",
             price: 35.00,
             category: 'giftbox',
-            id: 2
+            id: 'g2'
         }]
     }
 ]

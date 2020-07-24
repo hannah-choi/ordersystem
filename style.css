@@ -162,7 +162,11 @@ div.bill_container header{
 
 div.bill_container header i{
     font-size: 1rem;
+    cursor: pointer;
+    z-index: 2;
 }
+
+
 
 div.bill_container h2{
     display: inline;
@@ -233,8 +237,8 @@ table.order_table input.order_delete{
     top:3px;
 }
 
-div.bill_container form.total{
-    padding:2rem 2rem 1rem 2rem;
+div.bill_container div.total{
+    padding:2rem 2.2rem 6rem 2rem;
     left:0;
     right:0;
     display: flex;
@@ -247,8 +251,13 @@ div.bill_container form.total{
     
 }
 
-div.bill_container form.total div.buttonwrapper{
+div.bill_container div#div_button{
+    left:0;
+    right:0;
+    padding:2rem;
     width: 100%;
+    position: absolute;
+    bottom:1rem;
 }
 
 div.bill_container input#pay_button{
