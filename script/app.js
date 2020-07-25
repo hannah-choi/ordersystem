@@ -13,6 +13,7 @@ class App {
         this.sum = [];
         this.sumValue = 0;
         this.$total = document.querySelector('.total')
+
     }
     init() {
         this.menuList.setState(this.data, 0)
@@ -30,25 +31,49 @@ class App {
                     let selected = this.data[this.menuList.selectTab].list[target.dataset.index];
 
 
-                    this.orderData.push(selected);
-                    this.sum.push(selected.price);
-
-                    this.sumValue = this.sum.reduce(function (a, b) {
-                        return a + b
-                    }, 0)
+                    //this.sum.push(selected.price)
 
 
-                    this.orderList.setState(this.orderData);
-                    this.orderList.totalRender(this.sumValue.toFixed(2));
 
-                    // for (let i = 0; i < this.orderData.length; i++) {
-                    //     let sameclick = 0;
-                    //     if (selected.id === this.orderData[i].id) {
-                    //         sameclick += 1;
-                    //     } else {
-                    //         this.orderData.push(selected);
-                    //         this.orderList.setState(this.orderData);
-                    //     }
+                    // this.sumValue = this.sum.reduce(function (a, b) {
+                    //     return a + b
+                    // }, 0)
+
+                    //숙제 : sum이라는 배열없이도 가능! orderData(selected.price와 같으므로)
+
+
+                    if ((this.orderData.find(data => data === selected) === undefined)) { //숙제 : find함수 말고 다른애로 변경
+                        selected.count = 0;
+                        this.orderData.push(selected);
+                        //this.menuData.push({...selected, count:0})
+                        console.log(this.orderData.map(orderData => orderData.price))
+                        this.orderList.setState(this.orderData);
+                    } else {
+                        //1. 카운트를 증가시킨다
+                        //this.orderData[selected].count?
+                        let selectedIndex = this.orderData.findIndex(data => data === selected) // 선택한 아이템의 인덱스를 찾아준다
+                        this.orderData[selectedIndex].count++;
+                        console.log(this.orderData[selectedIndex].count)
+
+                        //2. 증가된 데이터를 orderData에 반영
+
+                    }
+
+                    console.log(this.orderData)
+
+                    //undefined가 나오면 push를 해주고 아니면 이미 있다는 뜻이니까 push를 해줄 필요가 없음
+
+
+                    // this.sum.push(selected.price);
+
+                    // this.sumValue = this.sum.reduce(function (a, b) {
+                    //     return a + b
+                    // }, 0)
+
+                    // this.orderList.setState(this.orderData);
+                    // this.orderList.totalRender(this.sumValue.toFixed(2));
+
+
 
 
 
@@ -57,7 +82,7 @@ class App {
                 case 'deleteItem':
                     alert('delete Item')
                     break;
-                case 'icon_trash':
+                case 'icon_trash': // 숙제(옵션) 삭제되는 기능까지 구현
                     this.orderData.splice(0,)
                     this.sum.splice(0,)
                     this.orderList.setState(this.orderData)

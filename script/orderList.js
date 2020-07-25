@@ -11,7 +11,6 @@ class OrderList {
         this.orderRender();
         this.makeSelect();
         this.totalRender('0.00');
-        this.selectbox = document.getElementById('quantity');
     }
 
     orderRender() {
@@ -34,11 +33,11 @@ class OrderList {
     }
 
 
-    makeSelect() {
+    makeSelect(count) { //숙제 :카운트 파라메터를 받아서 i랑 비교할 것
 
         let options = ""
         for (let i = 1; i <= 10; i++) {
-            options += `<option value="${i}">${i}</option>`
+            options += `<option value="${i}" ${i === count ? 'selected' : ''}>${i}</option>`
         }
         let selectbox = `<select name="quantity" id="quantity">${options}</select>`
         return selectbox
