@@ -13,6 +13,18 @@ class OrderList {
         this.totalRender('0.00');
     }
 
+
+    makeSelect(count) { //카운트 파라메터를 받아서 i랑 비교할 것 
+
+        let options = ""
+        for (let i = 1; i <= 10; i++) {
+            options += `<option value="${i}" ${i === count ? "selected" : ""}>${i}</option>`
+        }
+        let selectbox = `<select name="quantity" id="quantity">${options}</select>`
+        return selectbox
+    }
+
+
     orderRender() {
 
 
@@ -33,15 +45,6 @@ class OrderList {
     }
 
 
-    makeSelect(count) { //숙제 :카운트 파라메터를 받아서 i랑 비교할 것
-
-        let options = ""
-        for (let i = 1; i <= 10; i++) {
-            options += `<option value="${i}" ${i === count ? 'selected' : ''}>${i}</option>`
-        }
-        let selectbox = `<select name="quantity" id="quantity">${options}</select>`
-        return selectbox
-    }
 
     totalRender(value) {
         let totalDiv = `<span class="total_text">Total</span><span class="total_value">£ ${value}</span>`

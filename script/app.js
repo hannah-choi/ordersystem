@@ -10,8 +10,7 @@ class App {
         this.$app = document.querySelector('#app') //선언하는 부분이므로 constructor안에 넣는다 
         this.data = menuData
         this.orderData = []
-        this.sum = [];
-        this.sumValue = 0;
+        this.sumValue = [];
         this.$total = document.querySelector('.total')
 
     }
@@ -29,53 +28,37 @@ class App {
                 case 'menuItem':
                     //this.orderData//지금은 비어있는배열에 push해서 상품을 넣어준다
                     let selected = this.data[this.menuList.selectTab].list[target.dataset.index];
-
-
-                    //this.sum.push(selected.price)
-
-
-
-                    // this.sumValue = this.sum.reduce(function (a, b) {
-                    //     return a + b
-                    // }, 0)
-
-                    //숙제 : sum이라는 배열없이도 가능! orderData(selected.price와 같으므로)
-
+                    let selectedIndex = this.orderData.findIndex(data => data === selected) //위와 어떻게 다른가?
+                    //this.sumValue = this.orderData.map(orderData => orderData.price)
 
                     if ((this.orderData.find(data => data === selected) === undefined)) { //숙제 : find함수 말고 다른애로 변경
                         selected.count = 0;
-                        this.orderData.push(selected);
+                        this.orderData.push(selected)
+                        this.sumValue.push(selected.price)
                         //this.menuData.push({...selected, count:0})
-                        console.log(this.orderData.map(orderData => orderData.price))
-                        this.orderList.setState(this.orderData);
+
+
                     } else {
                         //1. 카운트를 증가시킨다
                         //this.orderData[selected].count?
-                        let selectedIndex = this.orderData.findIndex(data => data === selected) // 선택한 아이템의 인덱스를 찾아준다
+                        // 선택한 아이템의 인덱스를 찾아준다
                         this.orderData[selectedIndex].count++;
-                        console.log(this.orderData[selectedIndex].count)
+                        this.sumValue.push(this.orderData[selectedIndex].price)
+                        this.orderList.makeSelect(this.orderData[selectedIndex].count)
+
+                        //같은 가격일때는 가격만 배열에 업데이트
+
+                        ////console.log(this.orderData[selectedIndex].count)
 
                         //2. 증가된 데이터를 orderData에 반영
 
                     }
 
-                    console.log(this.orderData)
+                    this.orderList.setState(this.orderData);
+                    this.orderList.totalRender(this.sumValue.reduce((a, b) => a + b, 0).toFixed(2));
+                    //console.log(this.orderData)
 
                     //undefined가 나오면 push를 해주고 아니면 이미 있다는 뜻이니까 push를 해줄 필요가 없음
-
-
-                    // this.sum.push(selected.price);
-
-                    // this.sumValue = this.sum.reduce(function (a, b) {
-                    //     return a + b
-                    // }, 0)
-
-                    // this.orderList.setState(this.orderData);
-                    // this.orderList.totalRender(this.sumValue.toFixed(2));
-
-
-
-
 
 
                     break;
