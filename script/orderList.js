@@ -6,12 +6,15 @@ class OrderList {
         this.$total = document.querySelector('.total')
     }
 
-    setState(data) {
+    setState(data, count) {
         this.data = data;
-        this.orderRender();
         this.makeSelect();
+        this.orderRender();
         this.totalRender('0.00');
     }
+
+
+
 
 
     makeSelect(count) { //카운트 파라메터를 받아서 i랑 비교할 것 
@@ -19,6 +22,7 @@ class OrderList {
         let options = ""
         for (let i = 1; i <= 10; i++) {
             options += `<option value="${i}" ${i === count ? "selected" : ""}>${i}</option>`
+            //options += `<option value="${i}" ${i === count ? "selected" : ""}>${i}</option>`
         }
         let selectbox = `<select name="quantity" id="quantity">${options}</select>`
         return selectbox
@@ -43,6 +47,7 @@ class OrderList {
         this.$table.innerHTML = contents;
 
     }
+
 
 
 

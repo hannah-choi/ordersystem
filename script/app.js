@@ -31,8 +31,8 @@ class App {
                     let selectedIndex = this.orderData.findIndex(data => data === selected) //위와 어떻게 다른가?
                     //this.sumValue = this.orderData.map(orderData => orderData.price)
 
-                    if ((this.orderData.find(data => data === selected) === undefined)) { //숙제 : find함수 말고 다른애로 변경
-                        selected.count = 0;
+                    if (selectedIndex === -1) { //숙제 : find함수 말고 다른애로 변경
+                        selected.count = 1;
                         this.orderData.push(selected)
                         this.sumValue.push(selected.price)
                         //this.menuData.push({...selected, count:0})
@@ -44,7 +44,9 @@ class App {
                         // 선택한 아이템의 인덱스를 찾아준다
                         this.orderData[selectedIndex].count++;
                         this.sumValue.push(this.orderData[selectedIndex].price)
-                        this.orderList.makeSelect(this.orderData[selectedIndex].count)
+
+
+
 
                         //같은 가격일때는 가격만 배열에 업데이트
 
@@ -54,9 +56,12 @@ class App {
 
                     }
 
+
                     this.orderList.setState(this.orderData);
+                    this.orderList.makeSelect(this.orderData[selectedIndex].count)
+                    console.log(this.orderData[selectedIndex].count)
                     this.orderList.totalRender(this.sumValue.reduce((a, b) => a + b, 0).toFixed(2));
-                    //console.log(this.orderData)
+
 
                     //undefined가 나오면 push를 해주고 아니면 이미 있다는 뜻이니까 push를 해줄 필요가 없음
 
