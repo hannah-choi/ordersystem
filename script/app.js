@@ -21,14 +21,15 @@ class App {
 
 
         this.$app.addEventListener('click', ({ target }) => {
+            let selected = this.data[this.menuList.selectTab].list[target.dataset.index];
+            let selectedIndex = this.orderData.findIndex(data => data === selected) //위와 어떻게 다른가?
             switch (target.dataset.key) { //스위치는 괄호업ㅅ이
                 case 'navItem':
                     this.menuList.setState(this.data, target.dataset.index)
                     break;
                 case 'menuItem':
                     //this.orderData//지금은 비어있는배열에 push해서 상품을 넣어준다
-                    let selected = this.data[this.menuList.selectTab].list[target.dataset.index];
-                    let selectedIndex = this.orderData.findIndex(data => data === selected) //위와 어떻게 다른가?
+
                     //this.sumValue = this.orderData.map(orderData => orderData.price)
 
                     if (selectedIndex === -1) { //숙제 : find함수 말고 다른애로 변경
@@ -44,6 +45,7 @@ class App {
                         // 선택한 아이템의 인덱스를 찾아준다
                         this.orderData[selectedIndex].count++;
                         this.sumValue.push(this.orderData[selectedIndex].price)
+                        this.orderList.makeSelect(this.orderData[selectedIndex].count)
 
 
 
@@ -58,8 +60,7 @@ class App {
 
 
                     this.orderList.setState(this.orderData);
-                    this.orderList.makeSelect(this.orderData[selectedIndex].count)
-                    console.log(this.orderData[selectedIndex].count)
+
                     this.orderList.totalRender(this.sumValue.reduce((a, b) => a + b, 0).toFixed(2));
 
 
@@ -68,7 +69,12 @@ class App {
 
                     break;
                 case 'deleteItem':
-                    alert('delete Item')
+
+                    this.orderData.splice(selectedIndex, 1)
+                    this.sumValue.splice(selectedIndex, 1)
+                    this.orderList.setState(this.orderData);
+                    this.orderList.totalRender(this.sumValue.reduce((a, b) => a + b, 0).toFixed(2));
+
                     break;
                 case 'icon_trash': // 숙제(옵션) 삭제되는 기능까지 구현
                     this.orderData.splice(0,)
