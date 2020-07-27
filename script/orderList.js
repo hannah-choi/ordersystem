@@ -13,10 +13,6 @@ class OrderList {
         this.totalRender('0.00');
     }
 
-
-
-
-
     makeSelect(count) { //카운트 파라메터를 받아서 i랑 비교할 것 
         let options = ""
         for (let i = 1; i <= 10; i++) {
@@ -27,11 +23,7 @@ class OrderList {
         return selectbox
     }
 
-
     orderRender(count) {
-
-
-
         let contents = "";
         for (let i = 0; i < this.data.length; i++) {
             contents += `<tr data-key="orderedItem" data-index="${i}">
@@ -47,15 +39,10 @@ class OrderList {
 
     }
 
-
-
-
     totalRender(value) {
         let totalDiv = `<span class="total_text">Total</span><span class="total_value">£ ${value}</span>`
         this.$total.innerHTML = totalDiv
     }
-
-
 }
 
 export default OrderList

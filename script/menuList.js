@@ -20,10 +20,7 @@ class MenuList {
         }
         this.$nav.innerHTML = contents;
     }
-
     //+ 기호를 앞에 붙이면 parseInt처럼 사용가능 
-
-
     listRender() {
         let contents = "";
         let index = this.selectTab; //클릭한 li의 인덱스
@@ -38,8 +35,6 @@ class MenuList {
         }
         this.$menuList.innerHTML = contents;
     }
-
-
 }
 
 export default MenuList
