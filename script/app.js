@@ -23,6 +23,7 @@ class App {
         this.$app.addEventListener('click', ({ target }) => {
             let selected = this.data[this.menuList.selectTab].list[target.dataset.index];
             let selectedIndex = this.orderData.findIndex(data => data === selected) //위와 어떻게 다른가?
+
             switch (target.dataset.key) { //스위치는 괄호업ㅅ이
                 case 'navItem':
                     this.menuList.setState(this.data, target.dataset.index)
@@ -33,34 +34,24 @@ class App {
                     //this.sumValue = this.orderData.map(orderData => orderData.price)
 
                     if (selectedIndex === -1) { //숙제 : find함수 말고 다른애로 변경
-                        selected.count = 1;
+                        selected.count = 0;
                         this.orderData.push(selected)
                         this.sumValue.push(selected.price)
+                        this.orderList.setState(this.orderData, selected.count)
                         //this.menuData.push({...selected, count:0})
 
 
                     } else {
-                        //1. 카운트를 증가시킨다
-                        //this.orderData[selected].count?
-                        // 선택한 아이템의 인덱스를 찾아준다
+
                         this.orderData[selectedIndex].count++;
                         this.sumValue.push(this.orderData[selectedIndex].price)
-                        this.orderList.makeSelect(this.orderData[selectedIndex].count)
-
-
-
-
-                        //같은 가격일때는 가격만 배열에 업데이트
-
-                        ////console.log(this.orderData[selectedIndex].count)
-
-                        //2. 증가된 데이터를 orderData에 반영
+                        this.orderList.setState(this.orderData, this.orderData[selectedIndex].count)
+                        //this.orderList.makeSelect(this.orderData[selectedIndex].count)
 
                     }
 
 
-                    this.orderList.setState(this.orderData);
-
+                    //this.orderList.setState(this.orderData, this.orderData[selectedIndex].count);
                     this.orderList.totalRender(this.sumValue.reduce((a, b) => a + b, 0).toFixed(2));
 
 
@@ -69,9 +60,9 @@ class App {
 
                     break;
                 case 'deleteItem':
-
                     this.orderData.splice(selectedIndex, 1)
                     this.sumValue.splice(selectedIndex, 1)
+
                     this.orderList.setState(this.orderData);
                     this.orderList.totalRender(this.sumValue.reduce((a, b) => a + b, 0).toFixed(2));
 

@@ -8,8 +8,8 @@ class OrderList {
 
     setState(data, count) {
         this.data = data;
-        this.makeSelect();
-        this.orderRender();
+        this.makeSelect(count);
+        this.orderRender(count);
         this.totalRender('0.00');
     }
 
@@ -18,7 +18,6 @@ class OrderList {
 
 
     makeSelect(count) { //카운트 파라메터를 받아서 i랑 비교할 것 
-
         let options = ""
         for (let i = 1; i <= 10; i++) {
             options += `<option value="${i}" ${i === count ? "selected" : ""}>${i}</option>`
@@ -29,7 +28,7 @@ class OrderList {
     }
 
 
-    orderRender() {
+    orderRender(count) {
 
 
 
@@ -38,7 +37,7 @@ class OrderList {
             contents += `<tr data-key="orderedItem" data-index="${i}">
             <td class="order_prod_name">${this.data[i].name}</td>
             <td class="order_quantity"><label for="quantity">
-                ${this.makeSelect()}
+                ${this.makeSelect(count)}
                     </td>
             <td class="order_price">£ ${this.data[i].price.toFixed(2)}</td>
             <td class="order_delete"><input type="button" class="order_delete" value="×" data-key="deleteItem"></td>
