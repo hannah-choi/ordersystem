@@ -3,13 +3,23 @@ class OrderList {
     constructor() {
         this.$table = document.querySelector('.order_table')
         this.$total = document.querySelector('.total')
+        // this.data = []
+        // this.selected = this.menudata[this.menuList.selectTab].list[target.dataset.index];
+        // this.selectedIndex = this.menudata.findIndex(data => data === selected) //위와 어떻게 다른가?
     }
 
-    setState(data) {
+    setState(data, menuData, menuList) {
         this.data = data;
+        this.menuData = menuData;
+        this.menuList = menuList;
         this.orderRender();
     }
-
+    // selected(target) {
+    //     return this.menuData[this.menuList.selectTab].list[target.dataset.index]
+    // }
+    // selectedIndex(target) {
+    //     return this.orderData.findIndex(data => data === this.selected(target))
+    // }
     makeSelect(count) { //카운트 파라메터를 받아서 i랑 비교할 것 
         let options = ""
         for (let i = 1; i <= 10; i++) {
@@ -45,36 +55,33 @@ class OrderList {
         this.$total.innerHTML = totalDiv
     }
 
-
-    selected(target) {
-        return this.data[this.menuList.selectTab].list[target.dataset.index]
-    }
-
-    selectedIndex(target) {
-        return this.orderData.findIndex(data => data === this.selected(target))
-    }
-
-
     menuItemClick(target) {
-        //this.orderData//지금은 비어있는배열에 push해서 상품을 넣어준다
-        //this.sumValue = this.orderData.map(orderData => orderData.price)
-        if (this.selectedIndex(target) === -1) { //숙제 : find함수 말고 다른애로 변경
-            const selected = this.selected(target)
+        //this.data[this.menuList.selectTab].list[target.dataset.index]  
+        //console.log(this.menuData.list)
+        const selectedList = this.menuData.list.filter(data => data.category === this.menuList.selectTab)
+        const selected = selectedList[target.dataset.index]
+        //console.log(this.data.findIndex(data => data === selected))
+        // //const selectedIndex = this.menuData.list.findIndex(data => data === selected)
+        const selectedIndex = this.data.findIndex(data => data === selected)
+        //console.log(this.data[selectedIndex] === undefined)
+
+        if (selectedIndex === -1) { //숙제 : find함수 말고 다른애로 변경
             selected.count = 1;
-            this.orderData.push(selected)
-            this.orderList.setState(this.orderData, selected.count)
-            //this.menuData.push({...selected, count:0})
+            this.data.push(selected)
+            this.setState(this.data, selected.count)
         } else {
-            //console.log(this.selectedIndex(target))
-            this.orderData[this.selectedIndex(target)].count++;
-            this.orderList.setState(this.orderData, this.orderData[this.selectedIndex(target)].count)
-            //this.orderList.makeSelect(this.orderData[selectedIndex].count)
+            selected.count++;
+            this.setState(this.data, this.data[selectedIndex].count)
         }
-        //this.orderList.setState(this.orderData, this.orderData[selectedIndex].count);
 
-        //undefined가 나오면 push를 해주고 아니면 이미 있다는 뜻이니까 push를 해줄 필요가 없음
-
-        console.log()
+        // if (selectedIndex === -1) { //숙제 : find함수 말고 다른애로 변경
+        //     selected.count = 1;
+        //     this.data.push(selected)
+        //     this.orderList.setState(this.data, selected.count)
+        // } else {
+        //     this.data[selectedIndex].count++;
+        //     this.orderList.setState(this.data, this.data[selectedIndex].count)
+        // }
 
     }
 
@@ -101,8 +108,6 @@ class OrderList {
         this.orderData[dataindex].count = target.value;
         this.orderList.setState(this.orderData)
     }
-
-
 }
 
 export default OrderList

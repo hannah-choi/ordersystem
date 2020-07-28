@@ -8,12 +8,12 @@ class App {
         this.menuList = new MenuList() //선택된 탭을 구분짓고자 파라메터로 넣어준다
         this.orderList = new OrderList();
         this.data = menuData
-        this.orderData = []
+        this.orderData = [];
         this.$app = document.querySelector('#app') //선언하는 부분이므로 constructor안에 넣는다
     }
     init() {
         this.menuList.setState(this.data, 0)
-        this.orderList.setState(this.orderData)
+        this.orderList.setState(this.orderData, this.data, this.menuList)
         this.$app.addEventListener('click', ({ target }) => {
 
             switch (target.dataset.key) { //스위치는 괄호업ㅅ이
