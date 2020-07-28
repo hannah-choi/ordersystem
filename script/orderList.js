@@ -3,7 +3,8 @@ class OrderList {
     constructor() {
         this.$table = document.querySelector('.order_table')
         this.$total = document.querySelector('.total')
-        // this.data = []
+        this.data = []
+        //this.setState(this.data, this.menuData, this.menuList)
         // this.selected = this.menudata[this.menuList.selectTab].list[target.dataset.index];
         // this.selectedIndex = this.menudata.findIndex(data => data === selected) //위와 어떻게 다른가?
     }
@@ -56,15 +57,9 @@ class OrderList {
     }
 
     menuItemClick(target) {
-        //this.data[this.menuList.selectTab].list[target.dataset.index]  
-        //console.log(this.menuData.list)
         const selectedList = this.menuData.list.filter(data => data.category === this.menuList.selectTab)
         const selected = selectedList[target.dataset.index]
-        //console.log(this.data.findIndex(data => data === selected))
-        // //const selectedIndex = this.menuData.list.findIndex(data => data === selected)
         const selectedIndex = this.data.findIndex(data => data === selected)
-        //console.log(this.data[selectedIndex] === undefined)
-
         if (selectedIndex === -1) { //숙제 : find함수 말고 다른애로 변경
             selected.count = 1;
             this.data.push(selected)
@@ -73,16 +68,6 @@ class OrderList {
             selected.count++;
             this.setState(this.data, this.data[selectedIndex].count)
         }
-
-        // if (selectedIndex === -1) { //숙제 : find함수 말고 다른애로 변경
-        //     selected.count = 1;
-        //     this.data.push(selected)
-        //     this.orderList.setState(this.data, selected.count)
-        // } else {
-        //     this.data[selectedIndex].count++;
-        //     this.orderList.setState(this.data, this.data[selectedIndex].count)
-        // }
-
     }
 
     deleteClick(target) {

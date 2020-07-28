@@ -1,14 +1,17 @@
+import menuData from './menuData.js'
+
 class MenuList {
     constructor() {
         this.$nav = document.querySelector('.ul_nav') //반복적으로 변수에 할당을 하고싶지 않을때, 전역변수 대신에 이곳에 선언을 하는 것(과부하 방지)
         this.$menuList = document.querySelector('.menu_list');
         //this.data = menuData
         this.selectTab = null;
+        this.data = menuData
+        this.setState(0)
     }
 
-    setState(data, selectTab) { //app.js에서 데이터를 받아서 데이터를 갱신해주는 용도 
+    setState(selectTab) { //app.js에서 데이터를 받아서 데이터를 갱신해주는 용도 
         //상태를 변경해주는 함수
-        this.data = data;
         this.selectTab = selectTab;
         this.navRender();
         this.listRender();
