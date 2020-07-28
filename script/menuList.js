@@ -2,6 +2,7 @@ class MenuList {
     constructor() {
         this.$nav = document.querySelector('.ul_nav') //반복적으로 변수에 할당을 하고싶지 않을때, 전역변수 대신에 이곳에 선언을 하는 것(과부하 방지)
         this.$menuList = document.querySelector('.menu_list');
+        //this.data = menuData
         this.selectTab = null;
     }
 
@@ -14,11 +15,8 @@ class MenuList {
     }
 
     navRender() { //html요소를 직접적으로 그려주는 함수
-        let contents = "";
-        for (let i = 0; i < this.data.length; i++) {
-            contents += `<li data-index="${i}" class="${i === parseInt(this.selectTab) ? "active" : ""}" data-key="navItem">${this.data[i].menu}</li>`
-        }
-        this.$nav.innerHTML = contents;
+        this.$nav.innerHTML = this.data.menu.map((menu, index) => `<li data-index="${index}" class="${index === parseInt(this.selectTab) ? "active" : ""}"
+        data-key="navItem">${menu}</li>`).join('')
     }
     //+ 기호를 앞에 붙이면 parseInt처럼 사용가능 
     listRender() {

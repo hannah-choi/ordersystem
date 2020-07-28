@@ -1,6 +1,5 @@
 import App from './app.js'
-import menuData from './menuData.js'
 
-let app = new App(menuData)
+let app = new App()
 
 app.init()
