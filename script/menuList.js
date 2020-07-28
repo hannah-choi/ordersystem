@@ -27,10 +27,9 @@ class MenuList {
         let list = this.data.list.filter(data => data.category === +selectTab)
         let fileNameList = list.map(data => data.name)
 
-        this.$menuList.innerHTML = list.map((item, index) => `<li data-key="menuItem"><img data-key="menuItem" data-index="${index}"
+        this.$menuList.innerHTML = list.map((item, index) => `<li data-key="menuItem"><img data-key="menuItem" data-id="${item.id}"
         src="images/${item.category}_${fileNameList[index].split(' ').join('').toLowerCase()}.webp"> 
         <span class="prod_name">${item.name}</span><span class="prod_price">£ ${item.price.toFixed(2)}</span></li>`).join('')
-
     }
 }
 

@@ -1,26 +1,19 @@
+import menuData from './menuData.js'
+
 class OrderList {
 
     constructor() {
         this.$table = document.querySelector('.order_table')
         this.$total = document.querySelector('.total')
         this.data = []
-        //this.setState(this.data, this.menuData, this.menuList)
-        // this.selected = this.menudata[this.menuList.selectTab].list[target.dataset.index];
-        // this.selectedIndex = this.menudata.findIndex(data => data === selected) //위와 어떻게 다른가?
+        this.menuData = menuData
     }
 
-    setState(data, menuData, menuList) {
+    setState(data) {
         this.data = data;
-        this.menuData = menuData;
-        this.menuList = menuList;
         this.orderRender();
     }
-    // selected(target) {
-    //     return this.menuData[this.menuList.selectTab].list[target.dataset.index]
-    // }
-    // selectedIndex(target) {
-    //     return this.orderData.findIndex(data => data === this.selected(target))
-    // }
+
     makeSelect(count) { //카운트 파라메터를 받아서 i랑 비교할 것 
         let options = ""
         for (let i = 1; i <= 10; i++) {
@@ -48,26 +41,11 @@ class OrderList {
         }
         this.$table.innerHTML = contents;
         this.totalRender(itemTotal.toFixed(2));
-
     }
 
     totalRender(value) {
         let totalDiv = `<span class="total_text">Total</span><span class="total_value">£ ${value}</span>`
         this.$total.innerHTML = totalDiv
-    }
-
-    menuItemClick(target) {
-        const selectedList = this.menuData.list.filter(data => data.category === this.menuList.selectTab)
-        const selected = selectedList[target.dataset.index]
-        const selectedIndex = this.data.findIndex(data => data === selected)
-        if (selectedIndex === -1) { //숙제 : find함수 말고 다른애로 변경
-            selected.count = 1;
-            this.data.push(selected)
-            this.setState(this.data, selected.count)
-        } else {
-            selected.count++;
-            this.setState(this.data, this.data[selectedIndex].count)
-        }
     }
 
     deleteClick(target) {
@@ -87,11 +65,30 @@ class OrderList {
 
     }
 
-
     changeSelectBox(target) {
         let dataindex = target.parentElement.parentElement.parentElement.dataset.index;
-        this.orderData[dataindex].count = target.value;
-        this.orderList.setState(this.orderData)
+        this.changeCount(dataindex, target.value)
+    }
+
+    addProduct(selected) { //selected로 받은 데이터를 this.data에 푸쉬
+        this.data.push(selected)
+        this.orderRender()
+    }
+
+    changeCount(index, count) {
+        //1씩 증가하는 경우: 같은 아이템을 중복 클릭했을 때 
+        //targetValue대로 count가 변해야하는 경우: 셀렉트박스로 수량을 증감시켰을때
+
+        if (!count) { //상품을 클릭했을때, 즉 카운트를 못받을 경우
+            if (this.data[index].count == 10) {
+                return;
+            }
+            this.data[index].count++;
+        }
+        else {
+            this.data[index].count = count;
+        }
+        this.orderRender()
     }
 }
 
