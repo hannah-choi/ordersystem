@@ -20,18 +20,14 @@ class MenuList {
     }
     //+ 기호를 앞에 붙이면 parseInt처럼 사용가능 
     listRender() {
-        let contents = "";
-        let index = this.selectTab; //클릭한 li의 인덱스
-        let menuList = this.data[index].list.length;
+        let selectTab = this.selectTab; //클릭한 li의 인덱스
+        let list = this.data.list.filter(data => data.category === +selectTab)
+        let fileNameList = list.map(data => data.name)
 
-        for (let i = 0; i < menuList; i++) {
-            const list = this.data[index].list[i]
-            const fileName = list.name.split(' ').join('').toLowerCase();
-            contents += `<li data-key="menuItem"><img data-key="menuItem" data-index="${i}"
-            src="images/${list.category}_${fileName}.webp"> 
-            <span class="prod_name">${list.name}</span><span class="prod_price">£ ${list.price.toFixed(2)}</span></li>`
-        }
-        this.$menuList.innerHTML = contents;
+        this.$menuList.innerHTML = list.map((item, index) => `<li data-key="menuItem"><img data-key="menuItem" data-index="${index}"
+        src="images/${item.category}_${fileNameList[index].split(' ').join('').toLowerCase()}.webp"> 
+        <span class="prod_name">${item.name}</span><span class="prod_price">£ ${item.price.toFixed(2)}</span></li>`).join('')
+
     }
 }
 
