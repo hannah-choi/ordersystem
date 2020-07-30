@@ -42,7 +42,6 @@ class App {
         })
     }
 
-
     menuItemClick(target) {
 
         // selected = 메뉴데이터에서 클릭한 해당 아이템
@@ -57,7 +56,6 @@ class App {
             this.orderList.changeCount(selectedIndex)
         }
     }
-
 }
 
 export default App
