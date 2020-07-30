@@ -46,7 +46,7 @@ class App {
 
         // selected = 메뉴데이터에서 클릭한 해당 아이템
         const selected = this.menuList.data.list.find(product => product.id == target.dataset.id)
-        const selectedIndex = this.orderList.data.findIndex(product => product.id === selected.id)
+        const selectedIndex = this.orderList.data.findIndex(product => product.id == selected.id)
         //selected가 orderdata에 없으면 
         if (selectedIndex === -1) { //객체 자체가 아닌 객체 내의 속성을 비교
             selected.count = 1;

@@ -49,15 +49,16 @@ class OrderList {
     }
 
     deleteClick(target) {
-        const selectedIndex = this.data.findIndex(product => product.id === target.dataset.id)
+        const selectedIndex = target.parentElement.parentElement.dataset.index
+        //const selectedIndex = this.data.findIndex(product => product.index === target.dataset.index)
         this.data.splice(selectedIndex, 1)
-        this.setState(this.orderData);
+        this.orderRender()
 
     }
 
     allClearClick() {
         this.data.splice(0,)
-        this.setState(this.data)
+        this.orderRender()
     }
 
     payButtonClick(target) {
