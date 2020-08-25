@@ -13,7 +13,17 @@ class App {
 
             switch (target.dataset.key) { //스위치는 괄호업ㅅ이
                 case 'navItem':
+                    $.ajax({
+                        url:'http://localhost:8080/',
+                        type: 'get',
+                        data:{
+                            menuId:target.dataset.index
+                        },
+                        success:
+                        console.log('???')
+                    })
                     this.menuList.setState(target.dataset.index)
+
                     break;
                 case 'menuItem':
                     this.menuItemClick(target)
@@ -25,7 +35,6 @@ class App {
                     this.orderList.allClearClick(target);
                     break;
                 case 'pay_button':
-                    alert('!!!')
                     this.orderList.payButtonClick(target);
                     break;
                 default:
@@ -55,6 +64,20 @@ class App {
             //index = 선택한 orderData의 인덱스를 가지고 오는것: 배열이 두개 있다는 것에 주의!
             this.orderList.changeCount(selectedIndex)
         }
+
+        // $.ajax({
+        //     url:"http://localhost:8080/addOrder",
+        //     type:'get',
+        //     data:{
+        //         name: selected.name,
+        //         count: selected.count,
+        //         category: selected.category,
+        //         price: selected.price
+        //     },
+        //     success:
+        //     console.log('!!!')
+        // })
+
     }
 }
 
