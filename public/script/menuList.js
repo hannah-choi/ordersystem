@@ -14,7 +14,7 @@ class MenuList {
 
 
     ajaxCall(){
-        const menuList = this
+        const menuList = this //****** */
 
         $.ajax({
             
