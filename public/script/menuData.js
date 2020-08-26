@@ -108,3 +108,8 @@ const menuData = {
 }
 
 export default menuData;
+// let fileNameList = menuData.list.map(data => data.name)
+
+// let a = fileNameList.map(item => item.split(' ').join('').toLowerCase()).join(`\n`)
+
+// console.log(a)

@@ -9,21 +9,23 @@ class App {
         this.$app = document.querySelector('#app') //선언하는 부분이므로 constructor안에 넣는다
     }
     init() {
+
+
         this.$app.addEventListener('click', ({ target }) => {
 
             switch (target.dataset.key) { //스위치는 괄호업ㅅ이
                 case 'navItem':
+                    const menuList = this.menuList
                     $.ajax({
-                        url:'http://localhost:8080/',
+                        url:'http://localhost:8080/product',
                         type: 'get',
                         data:{
                             menuId:target.dataset.index
                         },
-                        success:
-                        console.log('???')
+                        success:function(data){ // 여기서의 data(혹은 result)는 서버에서 응답으로 보내주는 data를 의미한다
+                            menuList.setState(target.dataset.index, data)
+                        }
                     })
-                    this.menuList.setState(target.dataset.index)
-
                     break;
                 case 'menuItem':
                     this.menuItemClick(target)
@@ -64,20 +66,6 @@ class App {
             //index = 선택한 orderData의 인덱스를 가지고 오는것: 배열이 두개 있다는 것에 주의!
             this.orderList.changeCount(selectedIndex)
         }
-
-        // $.ajax({
-        //     url:"http://localhost:8080/addOrder",
-        //     type:'get',
-        //     data:{
-        //         name: selected.name,
-        //         count: selected.count,
-        //         category: selected.category,
-        //         price: selected.price
-        //     },
-        //     success:
-        //     console.log('!!!')
-        // })
-
     }
 }
 

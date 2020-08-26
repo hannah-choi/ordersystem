@@ -90,10 +90,10 @@ class OrderList {
         console.log(dataArray)
 
         $.ajax({
-            url:"http://localhost:8080/addOrder",
+            url:"http://localhost:8080/order",
             type:"post",
             dataType: "json",
-            data: JSON.stringify({ data: dataArray }),
+            data: {data:JSON.stringify(dataArray)},
             success: function(){
                         
             }
