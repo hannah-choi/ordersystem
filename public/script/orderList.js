@@ -26,17 +26,17 @@ class OrderList {
 
 
     orderRender() {
+        console.log(this.data)
         let contents = "";
         let itemTotal = 0;
-
         for (let i = 0; i < this.data.length; i++) {
             itemTotal += this.data[i].price * this.data[i].count;
             contents += `<tr data-key="orderedItem" data-index="${i}" data-id="${this.data[i].id}">
-            <td class="order_prod_name">${this.data[i].name}</td>
+            <td class="order_prod_name">${this.data[i].prodName}</td>
             <td class="order_quantity"><label for="quantity">
                 ${this.makeSelect(this.data[i].count)}
                     </td>
-            <td class="order_price">£ ${(this.data[i].price * this.data[i].count).toFixed(2)}</td>
+            <td class="order_price">£ ${this.data[i].price.toFixed(2)}</td>
             <td class="order_delete"><input type="button" class="order_delete" value="×" data-key="deleteItem"></td>
         </tr>`
 
@@ -85,9 +85,7 @@ class OrderList {
     }
 
     payButtonClick() {
-
         const dataArray = this.data;
-        console.log(dataArray)
 
         $.ajax({
             url:"http://localhost:8080/order",
@@ -121,9 +119,18 @@ class OrderList {
 
     addProduct(selected) { //selected로 받은 데이터를 this.data에 푸쉬
 
-        this.data.push(selected),
-        this.orderRender()
-       
+        const orderList = this;
+
+        $.ajax({
+            url:"http://localhost:8080/cart",
+            type:"post",
+            dataType: "json",
+            data: {data:JSON.stringify(selected)},
+            success: function(orderedItem){
+                orderList.data.push(orderedItem),
+                orderList.orderRender()
+            }
+        })
         // this.data.push(selected)
         // this.orderRender()
     }

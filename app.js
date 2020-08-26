@@ -47,21 +47,28 @@ app.delete('/order', (req,res)=>{
     })
 })
 
-app.put('/countupdateone',(req,res)=>{
-    db.query(`UPDATE orderData SET count = ${req.query.count} WHERE prodID = ${req.query.prodId}`, (err,rows)=>{
-        res.sendStatus('200')
-    })
-})
-
-//RESTful API대로 라우터를 정리할 것
-//
-//get
-
 app.put('/count',(req,res)=>{
     db.query(`UPDATE orderData SET count = ${req.query.count} WHERE prodID = ${req.query.prodId}`, (err,rows)=>{
         res.sendStatus('200')
     })
 })
+
+app.post(('/cart'), (req, res)=> {
+    const bodyData = JSON.parse(req.body.data) //배열인지 문자인지 구분을 못하기 때문에, 배열을 객체 형태로 쓰기 위해 JSON 형식을 쓰고, 그를 쓰기 위해서 parsing을 해줘야한다
+    db.query(`INSERT INTO cartData (prodId, orderStatus) VALUES(${bodyData.id}, 0)`, (err,rows)=>{
+        console.log(`SELECT * FROM menuData WHERE id = ${bodyData.id}`)
+        db.query(`SELECT * FROM menuData WHERE id = ${bodyData.id}`, (err,orderedItem)=>{
+            console.log(orderedItem[0])
+            res.send(orderedItem[0])
+
+        })
+})
+})
+//RESTful API대로 라우터를 정리할 것
+//
+//get
+
+
 
 app.get('/delete', (req,res)=>{
     db.query(`DELETE FROM orderData where prodId = ${req.query.prodId}`, (err,rows)=>{

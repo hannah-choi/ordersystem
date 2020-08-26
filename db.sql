@@ -37,3 +37,12 @@ CREATE TABLE `orderData` (
   UNIQUE KEY `prodId` (`prodId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
 
+
+CREATE TABLE `cartData` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `prodId` tinyint NOT NULL,
+  `quantity` tinyint NOT NULL DEFAULT '1',
+  `orderStatus` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+

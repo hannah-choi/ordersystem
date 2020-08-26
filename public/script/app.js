@@ -12,20 +12,9 @@ class App {
 
 
         this.$app.addEventListener('click', ({ target }) => {
-
             switch (target.dataset.key) { //스위치는 괄호업ㅅ이
                 case 'navItem':
-                    const menuList = this.menuList
-                    $.ajax({
-                        url:'http://localhost:8080/product',
-                        type: 'get',
-                        data:{
-                            menuId:target.dataset.index
-                        },
-                        success:function(data){ // 여기서의 data(혹은 result)는 서버에서 응답으로 보내주는 data를 의미한다
-                            menuList.setState(target.dataset.index, data)
-                        }
-                    })
+                    this.menuList.productLoad(target.dataset.index)
                     break;
                 case 'menuItem':
                     this.menuItemClick(target)
@@ -56,12 +45,13 @@ class App {
     menuItemClick(target) {
 
         // selected = 메뉴데이터에서 클릭한 해당 아이템
-        const selected = this.menuList.data.list.find(product => product.id == target.dataset.id)
+        const selected = this.menuList.data.find(product => product.id == target.dataset.id)
         const selectedIndex = this.orderList.data.findIndex(product => product.id == selected.id)
         //selected가 orderdata에 없으면 
         if (selectedIndex === -1) { //객체 자체가 아닌 객체 내의 속성을 비교
             selected.count = 1;
             this.orderList.addProduct(selected)
+
         } else {
             //index = 선택한 orderData의 인덱스를 가지고 오는것: 배열이 두개 있다는 것에 주의!
             this.orderList.changeCount(selectedIndex)
