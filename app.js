@@ -12,12 +12,12 @@ app.use(express.static('public')) //public 폴더를 서버에 제공하는 방�
 // app.listen(port, () => console.log(`http://localhost:${port}`))
 //public폴더에 넣은 파일을 제공
 
-app.get('/',(req,res)=>{
-    console.log(req.query.menuId)
-    db.query(`SELECT * FROM menuData WHERE category = 0`, (err, rows)=>{
-        res.send(rows)
-    })
-})
+// app.get('/',(req,res)=>{
+//     console.log(req.query.menuId)
+//     db.query(`SELECT * FROM menuData WHERE category = 0`, (err, rows)=>{
+//         res.send(rows)
+//     })
+// })
 
 app.post(('/order'), (req, res)=> {
     const bodyData = JSON.parse(req.body.data) //배열인지 문자인지 구분을 못하기 때문에, 배열을 객체 형태로 쓰기 위해 JSON 형식을 쓰고, 그를 쓰기 위해서 parsing을 해줘야한다
@@ -41,13 +41,13 @@ app.get('/product',(req,res)=>{
     //서버 측에서 응답시, 이 데이터를 ajax의 success 부분의 파라메터로 전달해준다.  
     })
 
-app.get('/allclear', (req,res)=>{
+app.delete('/order', (req,res)=>{
     db.query(`DELETE FROM orderData`,(err,rows)=>{
         res.sendStatus('200')
     })
 })
 
-app.get('/countupdateone',(req,res)=>{
+app.put('/countupdateone',(req,res)=>{
     db.query(`UPDATE orderData SET count = ${req.query.count} WHERE prodID = ${req.query.prodId}`, (err,rows)=>{
         res.sendStatus('200')
     })

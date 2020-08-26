@@ -1,7 +1,5 @@
 import menuData from './menuData.js'
 
-
-
 class MenuList {
     constructor() {
         this.$nav = document.querySelector('.ul_nav') //반복적으로 변수에 할당을 하고싶지 않을때, 전역변수 대신에 이곳에 선언을 하는 것(과부하 방지)
@@ -14,6 +12,23 @@ class MenuList {
         this.ajaxCall()
     }
 
+
+    ajaxCall(){
+        const menuList = this
+
+        $.ajax({
+            
+            url:'http://localhost:8080/product',
+            type: 'get',
+            data:{
+                menuId:0
+            },
+            success:function(data){ // 여기서의 data(혹은 result)는 서버에서 응답으로 보내주는 data를 의미한다
+                menuList.setState(0, data)
+            }
+        })
+    }
+
     setState(selectTab, data) { //app.js에서 데이터를 받아서 데이터를 갱신해주는 용도 
         //상태를 변경해주는 함수
         this.selectTab = selectTab;
@@ -21,19 +36,7 @@ class MenuList {
         this.navRender();
         this.listRender();
 
-        const menuList = this.menuList
-
-        $.ajax({
-            
-            url:'http://localhost:8080/',
-            type: 'get',
-            data:{
-                menuId:0
-            },
-            success:function(data){ // 여기서의 data(혹은 result)는 서버에서 응답으로 보내주는 data를 의미한다
-                menuList.setState(selectTab, data)
-            }
-        })
+        
     }
 
     navRender() { //html요소를 직접적으로 그려주는 함수
