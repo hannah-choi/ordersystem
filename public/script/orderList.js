@@ -15,6 +15,7 @@ class OrderList {
     }
 
     makeSelect(count) { //카운트 파라메터를 받아서 i랑 비교할 것 
+
         let options = ""
         for (let i = 1; i <= 10; i++) {
             options += `<option value="${i}" ${i === +count ? "selected" : ""}>${i}</option>`
@@ -138,38 +139,45 @@ class OrderList {
     changeCount(index, count) {
         //1씩 증가하는 경우: 같은 아이템을 중복 클릭했을 때 
         //targetValue대로 count가 변해야하는 경우: 셀렉트박스로 수량을 증감시켰을때
-
+        const orderList = this
         const selected = this.data[index]
 
         if (!count) { //상품을 클릭했을때, 즉 카운트를 못받을 경우
             if (this.data[index].count == 10) {
                 return;
             }
-            this.data[index].count++;
-
+            orderList.data[index].count++;
+            
             $.ajax({
-                url:"http://localhost:8080/countupdateone",
-                type:"get",
-                data:{
+                url:"http://localhost:8080/cart",
+                type:"put",
+                dataType:"json",
+                data: { data: JSON.stringify({
                     prodId: selected.id,
-                    count:selected.count
-                }
-            })
+                    count: selected.count
+                })},
+                success: function(){
+                    console.log('count:success')
+                    
+                }})
+
         }
         else {
-            this.data[index].count = count;
-
             $.ajax({
-                url:"http://localhost:8080/countupdatemultiple",
-                type:"get",
-                data:{
+                url:"http://localhost:8080/cart",
+                type:"put",
+                dataType:"json",
+                data: { data: JSON.stringify({
                     prodId: selected.id,
-                    count:selected.count
-                }
+                    count: selected.count
+                })},
+                success: function(){
+                    console.log('count:success')
+                    orderList.data[index].count = count;
+                    orderList.orderRender()}
             })
-
         }
-        this.orderRender()
+        
     }
 }
 
