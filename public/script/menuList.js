@@ -18,7 +18,7 @@ class MenuList {
                 menuId: menuID
             },
             success:function(data){ // 여기서의 data(혹은 result)는 서버에서 응답으로 보내주는 data를 의미한다
-                menuList.setState(0, data)
+                menuList.setState(menuID, data)
             }
         })
     }
@@ -47,5 +47,4 @@ class MenuList {
         <span class="prod_name">${item.prodName}</span><span class="prod_price">£ ${item.price.toFixed(2)}</span></li>`).join('')
     }
 }
-
 export default MenuList

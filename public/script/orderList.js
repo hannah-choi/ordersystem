@@ -1,7 +1,6 @@
 import menuData from './menuData.js'
 
 class OrderList {
-
     constructor() {
         this.$table = document.querySelector('.order_table')
         this.$total = document.querySelector('.total')
@@ -15,7 +14,6 @@ class OrderList {
     }
 
     makeSelect(count) { //카운트 파라메터를 받아서 i랑 비교할 것 
-
         let options = ""
         for (let i = 1; i <= 10; i++) {
             options += `<option value="${i}" ${i === +count ? "selected" : ""}>${i}</option>`
@@ -24,7 +22,6 @@ class OrderList {
         let selectbox = `<select name="quantity" id="quantity" data-key="selectbox">${options}</select>`
         return selectbox
     }
-
 
     orderRender() {
         //console.log(this.data)
@@ -37,14 +34,13 @@ class OrderList {
             <td class="order_quantity"><label for="quantity">
                 ${this.makeSelect(this.data[i].count)} 
                     </td>
-            <td class="order_price">£ ${this.data[i].price.toFixed(2)}</td>
+            <td class="order_price">£ ${(this.data[i].price * this.data[i].count).toFixed(2)}</td>
             <td class="order_delete"><input type="button" class="order_delete" value="×" data-key="deleteItem"></td>
         </tr>`
 
         }
         this.$table.innerHTML = contents;
         this.totalRender(itemTotal.toFixed(2));
-
         ////
     }
 
@@ -57,7 +53,6 @@ class OrderList {
         const selectedIndex = target.parentElement.parentElement.dataset.index
         //const selectedIndex = this.data.findIndex(product => product.index === target.dataset.index)
         const selectedId = this.data[selectedIndex].id;
-
         $.ajax({
             url:'http://localhost:8080/delete',
             type:'get',
@@ -67,30 +62,25 @@ class OrderList {
             success:
             console.log('delete')
         })
-        
         this.data.splice(selectedIndex, 1)
         this.orderRender()
-
     }
 
     allClearClick() {
-
         $.ajax({
             url:"http://localhost:8080/allclear",
             type:"get",
             success:
             console.log('allclear')
         })
-
         this.data.splice(0,)
         this.orderRender()
-
     }
 
     payButtonClick() {
-        const dataArray = this.data;
-        console.log(dataArray)
-
+        const orderList = this;
+        let dataArray = this.data;
+        console.log('dataArray',dataArray)
         $.ajax({
             url:"http://localhost:8080/order",
             type:"post",
@@ -98,9 +88,10 @@ class OrderList {
             data: {data:JSON.stringify(dataArray)},
             success: function(){
                 alert("Order completed")
+                orderList.data = [];
+                orderList.orderRender();
             }
         })
-
         // if (this.data.length > 0) {
         //     //console.log(JSON.stringify(this.data))
         //     fetch(`http://127.0.0.1:3000/write?data=${JSON.stringify(this.data)}`)
@@ -112,7 +103,6 @@ class OrderList {
         // } else {
         //     alert('Please add a product')
         // }
-
     }
 
     changeSelectBox(target) {
@@ -121,9 +111,7 @@ class OrderList {
     }
 
     addProduct(selected) { //selected로 받은 데이터를 this.data에 푸쉬
-
         const orderList = this;
-
         $.ajax({
             url:"http://localhost:8080/cart",
             type:"post",
@@ -143,25 +131,24 @@ class OrderList {
         //targetValue대로 count가 변해야하는 경우: 셀렉트박스로 수량을 증감시켰을때
         const orderList = this
         const selected = this.data[index]
+        console.log(selected)
         //console.log('count:',count)
-
         if (!count) { //상품을 클릭했을때, 즉 카운트를 못받을 경우
             if (this.data[index].count == 10) {
                 return;
             }
-
             $.ajax({
                 url:"http://localhost:8080/cart",
                 type:"put",
                 dataType:"json",
                 data: { data: JSON.stringify({
                     prodId: selected.id,
+                    count: selected.count+1
                 })},
                 success: function(){
                     orderList.data[index].count++;
                     orderList.orderRender()}
             })
-
         }
         else {
             $.ajax({
@@ -176,8 +163,7 @@ class OrderList {
                     orderList.data[index].count = count;
                     orderList.orderRender()}
             })
-        }
-        
+        }   
     }
 }
 

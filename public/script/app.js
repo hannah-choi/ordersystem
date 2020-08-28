@@ -10,7 +10,6 @@ class App {
     }
     init() {
 
-
         this.$app.addEventListener('click', ({ target }) => {
             switch (target.dataset.key) { //스위치는 괄호업ㅅ이
                 case 'navItem':
