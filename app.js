@@ -64,9 +64,13 @@ app.post(('/cart'), (req, res)=> {
 
 app.put(('/cart'),(req,res)=>{
     const bodyData = JSON.parse(req.body.data)
-    db.query(`UPDATE cartData SET count = ${bodyData.prodId} WHERE prodId = ${parseInt(bodyData.count)}`,(err,rows)=>{
-        res.sendStatus(200);
-    })
+    db.query(`UPDATE cartData SET count = ${bodyData.count? parseInt(bodyData.count) : 'count+1'} WHERE prodId = ${bodyData.prodId}`,(err,rows)=>{
+        res.sendStatus(200)
+    })   
+        // db.query(`SELECT count FROM cartData where prodId = ${bodyData.prodId}`, (err,result)=>{
+        //     res.send(result[0])
+        // })
+        
 })
 
 

@@ -27,7 +27,7 @@ class OrderList {
 
 
     orderRender() {
-        console.log(this.data)
+        //console.log(this.data)
         let contents = "";
         let itemTotal = 0;
         for (let i = 0; i < this.data.length; i++) {
@@ -35,7 +35,7 @@ class OrderList {
             contents += `<tr data-key="orderedItem" data-index="${i}" data-id="${this.data[i].id}">
             <td class="order_prod_name">${this.data[i].prodName}</td>
             <td class="order_quantity"><label for="quantity">
-                ${this.makeSelect(this.data[i].count)}
+                ${this.makeSelect(this.data[i].count)} 
                     </td>
             <td class="order_price">£ ${this.data[i].price.toFixed(2)}</td>
             <td class="order_delete"><input type="button" class="order_delete" value="×" data-key="deleteItem"></td>
@@ -44,6 +44,8 @@ class OrderList {
         }
         this.$table.innerHTML = contents;
         this.totalRender(itemTotal.toFixed(2));
+
+        ////
     }
 
     totalRender(value) {
@@ -141,25 +143,24 @@ class OrderList {
         //targetValue대로 count가 변해야하는 경우: 셀렉트박스로 수량을 증감시켰을때
         const orderList = this
         const selected = this.data[index]
+        //console.log('count:',count)
 
         if (!count) { //상품을 클릭했을때, 즉 카운트를 못받을 경우
             if (this.data[index].count == 10) {
                 return;
             }
-            orderList.data[index].count++;
-            
+
             $.ajax({
                 url:"http://localhost:8080/cart",
                 type:"put",
                 dataType:"json",
                 data: { data: JSON.stringify({
                     prodId: selected.id,
-                    count: selected.count
                 })},
                 success: function(){
-                    console.log('count:success')
-                    
-                }})
+                    //console.log(result.count)
+                    orderList.orderRender()}
+            })
 
         }
         else {
@@ -169,10 +170,9 @@ class OrderList {
                 dataType:"json",
                 data: { data: JSON.stringify({
                     prodId: selected.id,
-                    count: selected.count
+                    count: count
                 })},
                 success: function(){
-                    console.log('count:success')
                     orderList.data[index].count = count;
                     orderList.orderRender()}
             })

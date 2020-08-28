@@ -43,7 +43,6 @@ class App {
     }
 
     menuItemClick(target) {
-
         // selected = 메뉴데이터에서 클릭한 해당 아이템
         const selected = this.menuList.data.find(product => product.id == target.dataset.id)
         const selectedIndex = this.orderList.data.findIndex(product => product.id == selected.id)
@@ -51,10 +50,12 @@ class App {
         if (selectedIndex === -1) { //객체 자체가 아닌 객체 내의 속성을 비교
             selected.count = 1;
             this.orderList.addProduct(selected)
-
         } else {
             //index = 선택한 orderData의 인덱스를 가지고 오는것: 배열이 두개 있다는 것에 주의!
             this.orderList.changeCount(selectedIndex)
+            //target.dataset.id
+
+            
         }
     }
 }
