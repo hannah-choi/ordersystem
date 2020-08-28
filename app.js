@@ -38,8 +38,10 @@ app.post(('/order'), (req, res)=> {
         //     console.log(`${bodyData[i]}`)
         // }
         const values = bodyData.map(({prodName, category, price, count, id}) => `('${prodName}', ${category}, ${price}, ${count=null? 1:count}, ${id})`).join(',');
-        console.log(`INSERT INTO orderData (prodName, category, price, count, prodId) VALUES${values}`)
         db.query(`INSERT INTO orderData (prodName, category, price, count, prodId) VALUES${values}`, (err,rows)=>{
+            const orderIdArray = bodyData.map(({orderId})=>`id = ${orderId}`).join(' or ')
+            console.log(`UPDATE cartData SET orderStatus = 1 where ${orderIdArray}`)
+            db.query(`UPDATE cartData SET orderStatus = 1 where ${orderIdArray}`)  
             res.send({status:200})
         })
     })
@@ -59,7 +61,7 @@ app.put('/count',(req,res)=>{
 app.post(('/cart'), (req, res)=> {
     const bodyData = JSON.parse(req.body.data) //배열인지 문자인지 구분을 못하기 때문에, 배열을 객체 형태로 쓰기 위해 JSON 형식을 쓰고, 그를 쓰기 위해서 parsing을 해줘야한다
     db.query(`INSERT INTO cartData (prodId, orderStatus) VALUES(${bodyData.id}, 0)`, (err,rows)=>{
-        db.query(`SELECT prodName, price, category, count, menuData.id FROM menuData JOIN cartData on menuData.id = cartData.prodId where prodId = ${bodyData.id}`, (err,orderedItem)=>{
+        db.query(`SELECT cartData.id as orderId, prodName, price, category, count, menuData.Id as id FROM menuData JOIN cartData on menuData.id = cartData.prodId where prodId = ${bodyData.id}`, (err,orderedItem)=>{
             console.log(orderedItem[0])
             res.send(orderedItem[0]) // 배열 형태로 가져오기 때문에 보낼때는 가장 첫번째 아이템만 보내준다
         })
