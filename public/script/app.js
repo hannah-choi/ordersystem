@@ -54,8 +54,6 @@ class App {
             //index = 선택한 orderData의 인덱스를 가지고 오는것: 배열이 두개 있다는 것에 주의!
             this.orderList.changeCount(selectedIndex)
             //target.dataset.id
-
-            
         }
     }
 }

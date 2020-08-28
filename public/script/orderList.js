@@ -89,6 +89,7 @@ class OrderList {
 
     payButtonClick() {
         const dataArray = this.data;
+        console.log(dataArray)
 
         $.ajax({
             url:"http://localhost:8080/order",
@@ -96,10 +97,9 @@ class OrderList {
             dataType: "json",
             data: {data:JSON.stringify(dataArray)},
             success: function(){
-                        
+                alert("Order completed")
             }
         })
-
 
         // if (this.data.length > 0) {
         //     //console.log(JSON.stringify(this.data))
@@ -158,7 +158,7 @@ class OrderList {
                     prodId: selected.id,
                 })},
                 success: function(){
-                    //console.log(result.count)
+                    orderList.data[index].count++;
                     orderList.orderRender()}
             })
 

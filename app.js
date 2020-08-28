@@ -19,17 +19,7 @@ app.use(express.static('public')) //public 폴더를 서버에 제공하는 방�
 //     })
 // })
 
-app.post(('/order'), (req, res)=> {
-    const bodyData = JSON.parse(req.body.data) //배열인지 문자인지 구분을 못하기 때문에, 배열을 객체 형태로 쓰기 위해 JSON 형식을 쓰고, 그를 쓰기 위해서 parsing을 해줘야한다
-    // for(let i = 0; i< bodyData.length; i++){
-    //     const {name, category, price, id} = bodyData[i]
-    //     console.log(`${bodyData[i]}`)
-    // }
-    const values = bodyData.map(({name, category, price, id}) => `('${name}', ${category}, ${price}, ${id})`).join(',')
-    db.query(`INSERT INTO orderData (prodName, category, price, prodId) VALUES${values}`, (err,rows)=>{
-        res.sendStatus('200')
-    })
-})
+
 
 app.get('/product',(req,res)=>{
     //console.log(req.query.menuId);
@@ -39,6 +29,20 @@ app.get('/product',(req,res)=>{
     //요청을 할때 메뉴id를 보내고, 그를 이 라우터에서 받는다. 
     //클라이언트는 db에 있는 데이터를 요청을 한 것이므로 menuid를 보낸 것이고, 그 id 값이 있는 db 데이터를 받아서 다시 클라이언트 쪽으로 응답해준다. 
     //서버 측에서 응답시, 이 데이터를 ajax의 success 부분의 파라메터로 전달해준다.  
+    })
+
+
+app.post(('/order'), (req, res)=> {
+        const bodyData = JSON.parse(req.body.data) //배열인지 문자인지 구분을 못하기 때문에, 배열을 객체 형태로 쓰기 위해 JSON 형식을 쓰고, 그를 쓰기 위해서 parsing을 해줘야한다
+        // for(let i = 0; i< bodyData.length; i++){
+        //     const {name, category, price, id} = bodyData[i]
+        //     console.log(`${bodyData[i]}`)
+        // }
+        const values = bodyData.map(({prodName, category, price, id}) => `('${prodName}', ${category}, ${price}, ${id})`).join(',');
+        console.log(`INSERT INTO orderData (prodName, category, price, prodId) VALUES${values}`)
+        db.query(`INSERT INTO orderData (prodName, category, price, prodId) VALUES${values}`, (err,rows)=>{
+            res.sendStatus('200')
+        })
     })
 
 app.delete('/order', (req,res)=>{
@@ -88,5 +92,5 @@ app.get('/delete', (req,res)=>{
 
 
 app.listen(port, function () {
-    console.log('@@@')
+    console.log('http://localhost:8080')
 })
