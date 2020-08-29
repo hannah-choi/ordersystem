@@ -18,8 +18,6 @@ app.use(express.static('public')) //public 폴더를 서버에 제공하는 방�
 //     })
 // })
 
-
-
 app.get('/product',(req,res)=>{
     //console.log(req.query.menuId);
     db.query(`SELECT * FROM menuData WHERE category = ${parseInt(req.query.menuId)}`,(err,rows)=>{
@@ -37,7 +35,7 @@ app.post(('/order'), (req, res)=> {
         //     const {name, category, price, id} = bodyData[i]
         //     console.log(`${bodyData[i]}`)
         // }
-        const values = bodyData.map(({prodName, category, price, count, id}) => `('${prodName}', ${category}, ${price}, ${count=null? 1:count}, ${id})`).join(',');
+        const values = bodyData.map(({prodName, category, price, count, id}) => `('${prodName}', ${category}, ${price}, ${count===null? 1:count}, ${id})`).join(',');
         db.query(`INSERT INTO orderData (prodName, category, price, count, prodId) VALUES${values}`, (err,rows)=>{
             const orderIdArray = bodyData.map(({orderId})=>`id = ${orderId}`).join(' or ')
             console.log(`UPDATE cartData SET orderStatus = 1 where ${orderIdArray}`)
@@ -52,11 +50,11 @@ app.delete('/order', (req,res)=>{
     })
 })
 
-app.put('/count',(req,res)=>{
-    db.query(`UPDATE orderData SET count = ${req.query.count} WHERE prodID = ${req.query.prodId}`, (err,rows)=>{
-        res.sendStatus('200')
-    })
-})
+// app.put('/count',(req,res)=>{
+//     db.query(`UPDATE orderData SET count = ${req.query.count} WHERE prodID = ${req.query.prodId}`, (err,rows)=>{
+//         res.sendStatus('200')
+//     })
+// })
 
 app.post(('/cart'), (req, res)=> {
     const bodyData = JSON.parse(req.body.data) //배열인지 문자인지 구분을 못하기 때문에, 배열을 객체 형태로 쓰기 위해 JSON 형식을 쓰고, 그를 쓰기 위해서 parsing을 해줘야한다
@@ -90,10 +88,8 @@ app.get('/delete', (req,res)=>{
     })
 })
 
-
 app.listen(port, function () {
     console.log('http://localhost:8080')
 })
-
 
     /////
