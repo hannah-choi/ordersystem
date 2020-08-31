@@ -2,9 +2,11 @@ import menuData from './menuData.js'
 
 class OrderList {
     constructor() {
-        this.$table = document.querySelector('.order_table')
+        this.$table = document.getElementById('tableArea')
         this.$total = document.querySelector('.total')
+        this.$title = document.getElementById('billTitle')
         this.data = []
+        this.orderedData = []
         this.menuData = menuData
     }
 
@@ -25,24 +27,49 @@ class OrderList {
 
     orderRender() {
         //console.log(this.data)
+        this.$title.innerText = "SHOPPING CART"
         let contents = "";
         let itemTotal = 0;
         for (let i = 0; i < this.data.length; i++) {
             itemTotal += this.data[i].price * this.data[i].count;
-            contents += `<tr data-key="orderedItem" data-index="${i}" data-id="${this.data[i].id}">
-            <td class="order_prod_name">${this.data[i].prodName}</td>
-            <td class="order_quantity"><label for="quantity">
+            contents += `<table class="cartTable">
+            <tr data-key="cartItem" data-index="${i}" data-id="${this.data[i].id}">
+            <td class="cartProdName">${this.data[i].prodName}</td>
+            <td class="cartQuantity"><label for="quantity">
                 ${this.makeSelect(this.data[i].count)} 
                     </td>
-            <td class="order_price">£ ${(this.data[i].price * this.data[i].count).toFixed(2)}</td>
-            <td class="order_delete"><input type="button" class="order_delete" value="×" data-key="deleteItem"></td>
-        </tr>`
+            <td class="cartPrice">£ ${(this.data[i].price * this.data[i].count).toFixed(2)}</td>
+            <td class="cartDelete"><input type="button" class="cartdelete" value="×" data-key="deleteItem"></td>
+        </tr></table>`
 
         }
         this.$table.innerHTML = contents;
         this.totalRender(itemTotal.toFixed(2));
         ////
     }
+
+    orderViewRender(){
+        this.$title.innerText = "VIEW ORDER"
+        let contents = "";
+        let itemTotal = 0;
+
+        for (let i = 0; i < this.orderedData.length; i++) {
+            //itemTotal += this.data[i].price * this.data[i].count;
+            contents += `<table class="orderDataTable">
+                            <tr class ="orderInfo" data-key="prodInfo">
+                                <td colspan="5" class="orderProdName">${this.orderedData[i].prodName}</td>
+                                <td class="prodId">ID: ${this.orderedData[i].id}</td>
+                            </tr>
+                            <tr class ="orderDetail" data-key="orderData" data-index="${i}" data-id="${this.orderedData[i].id}">
+                                <td class="orderDataImage"><img src="images/${this.orderedData[i].image}.webp"></td>
+                                <td class="orderDataPrice">£ ${(this.orderedData[i].price).toFixed(2)}</td>
+                                <td class="orderQuantity"><label for="quantity">${this.orderedData[i].count}</td>
+                                <td colspan="3" class="orderDate">${this.orderedData[i].orderDate}</td>
+                        </table>`
+              }
+              this.$table.innerHTML = contents;
+    }
+
 
     totalRender(value) {
         let totalDiv = `<span class="total_text">Total</span><span class="total_value">£ ${value}</span>`
@@ -77,6 +104,25 @@ class OrderList {
         this.orderRender()
     }
 
+    orderDataButtonClick(){
+        //console.log(this.data)
+        const orderList = this;
+        let orderDataArray = this.orderedData;
+        console.log(orderDataArray)
+        $.ajax({
+            url:"http://localhost:8080/orderdetail",
+            type:"post",
+            dataType: "json",
+            data: {data:JSON.stringify(
+                orderDataArray)},
+            success: function(){
+                console.log('success')
+                orderList.orderViewRender();
+            }
+        })
+             //this.totalRender(itemTotal.toFixed(2));      
+    }
+
     payButtonClick() {
         const orderList = this;
         let dataArray = this.data;
@@ -88,6 +134,7 @@ class OrderList {
             data: {data:JSON.stringify(dataArray)},
             success: function(){
                 alert("Order completed")
+                orderList.orderedData = dataArray;
                 orderList.data = [];
                 orderList.orderRender();
             }

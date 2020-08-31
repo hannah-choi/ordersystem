@@ -11,12 +11,6 @@ app.use(express.static('public')) //public 폴더를 서버에 제공하는 방�
 // app.listen(port, () => console.log(`http://localhost:${port}`))
 //public폴더에 넣은 파일을 제공
 
-// app.get('/',(req,res)=>{
-//     console.log(req.query.menuId)
-//     db.query(`SELECT * FROM menuData WHERE category = 0`, (err, rows)=>{
-//         res.send(rows)
-//     })
-// })
 
 app.get('/product',(req,res)=>{
     //console.log(req.query.menuId);
@@ -38,7 +32,6 @@ app.post(('/order'), (req, res)=> {
         const values = bodyData.map(({prodName, category, price, count, id}) => `('${prodName}', ${category}, ${price}, ${count===null? 1:count}, ${id})`).join(',');
         db.query(`INSERT INTO orderData (prodName, category, price, count, prodId) VALUES${values}`, (err,rows)=>{
             const orderIdArray = bodyData.map(({orderId})=>`id = ${orderId}`).join(' or ')
-            console.log(`UPDATE cartData SET orderStatus = 1 where ${orderIdArray}`)
             db.query(`UPDATE cartData SET orderStatus = 1 where ${orderIdArray}`)  
             res.send({status:200})
         })
@@ -60,7 +53,6 @@ app.post(('/cart'), (req, res)=> {
     const bodyData = JSON.parse(req.body.data) //배열인지 문자인지 구분을 못하기 때문에, 배열을 객체 형태로 쓰기 위해 JSON 형식을 쓰고, 그를 쓰기 위해서 parsing을 해줘야한다
     db.query(`INSERT INTO cartData (prodId, orderStatus) VALUES(${bodyData.id}, 0)`, (err,rows)=>{
         db.query(`SELECT cartData.id as orderId, prodName, price, category, count, menuData.Id as id FROM menuData JOIN cartData on menuData.id = cartData.prodId where prodId = ${bodyData.id}`, (err,orderedItem)=>{
-            console.log(orderedItem[0])
             res.send(orderedItem[0]) // 배열 형태로 가져오기 때문에 보낼때는 가장 첫번째 아이템만 보내준다
         })
 })
@@ -68,15 +60,34 @@ app.post(('/cart'), (req, res)=> {
 
 app.put(('/cart'),(req,res)=>{
     const bodyData = JSON.parse(req.body.data)
-    console.log(bodyData)
     db.query(`UPDATE cartData SET count = ${bodyData.count? parseInt(bodyData.count) : 'count+1'} WHERE prodId = ${bodyData.prodId}`,(err,rows)=>{
         res.send({status:200})
     })   
         // db.query(`SELECT count FROM cartData where prodId = ${bodyData.prodId}`, (err,result)=>{
         //     res.send(result[0])
         // })
-        
 })
+
+
+app.post('/orderdetail', (req,res)=>{ //주문 이후 주문한 데이터를 가져오는 라우터
+    const bodyData = JSON.parse(req.body.data)
+    //bodyData.orderDate = '';
+    console.log('bodydata:',bodyData)
+    db.query(`SELECT orderData.id, prodId, orderData.prodName as prodName, orderData.price as price, count, image, date_format(orderDate, '%d/%m/%y %T') as orderDate from orderData JOIN menuData on orderData.prodId = menuData.id where prodId = ${bodyData[0].id}`, (err,rows)=>{
+        //console.log(`SELECT orderData.id, prodId, orderData.prodName as prodName, orderData.price as price, count, image, date_format(orderDate, '%d/%m/%y %T') as orderDate from orderData JOIN menuData on orderData.prodId = menuData.id where prodId = ${bodyData[0].id}`)
+        rows[0].orderDate = '';
+        rows[0].image = '';
+        console.log(rows[0])
+        res.send(rows[0])
+    })
+})
+
+
+// app.get('/order', (req,res)=>{ //주문 이후 주문한 데이터를 가져오는 라우터
+//     db.query(`SELECT orderData.id, prodId, orderData.prodName as prodName, orderData.price as price, count, image from orderData JOIN menuData on orderData.prodId = menuData.id`, (err,rows)=>{
+//         res.sendStatus(200)
+//     })
+// })
 
 //RESTful API대로 라우터를 정리할 것
 //
@@ -91,5 +102,3 @@ app.get('/delete', (req,res)=>{
 app.listen(port, function () {
     console.log('http://localhost:8080')
 })
-
-    /////
