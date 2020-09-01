@@ -39,13 +39,11 @@ CREATE TABLE `cartData` (
 CREATE TABLE `orderData` (
   `id` int NOT NULL AUTO_INCREMENT,
   `count` tinyint DEFAULT NULL,
-  `prodName` varchar(50) NOT NULL,
-  `price` tinyint NOT NULL,
   `orderDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `category` int NOT NULL DEFAULT '0',
   `prodId` tinyint DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `prodId` (`prodId`)
-) ENGINE=InnoDB AUTO_INCREMENT=428 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB AUTO_INCREMENT=465 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
 
 
