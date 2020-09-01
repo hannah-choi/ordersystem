@@ -111,8 +111,7 @@ class OrderList {
             url:"http://localhost:8080/orderdetail",
             type:"post",
             dataType: "json",
-            data: {data:JSON.stringify(
-                orderDataArray)},
+            data: {data:JSON.stringify(orderDataArray)},
             success: function(result){
                 console.log('success')
                 orderList.orderViewRender(result);
