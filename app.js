@@ -24,6 +24,14 @@ app.get("/product", (req, res) => {
     //서버 측에서 응답시, 이 데이터를 ajax의 success 부분의 파라메터로 전달해준다.
 });
 
+app.get("/cart",(req,res)=>{ //처음 로딩시에 카트(에 아이템이 있다면) 보여주기
+    db.query(
+        `SELECT cartData.id as orderId, prodName, price, category, count, menuData.Id as id FROM menuData JOIN cartData on menuData.id = cartData.prodId`, (err,rows)=>{
+            res.send(rows)
+        }
+    )
+})
+
 app.post("/order", (req, res) => {
     const bodyData = JSON.parse(req.body.data); //배열인지 문자인지 구분을 못하기 때문에, 배열을 객체 형태로 쓰기 위해 JSON 형식을 쓰고, 그를 쓰기 위해서 parsing을 해줘야한다
     // for(let i = 0; i< bodyData.length; i++){
@@ -38,7 +46,7 @@ app.post("/order", (req, res) => {
             console.log(`INSERT INTO orderData (count, prodId) VALUES${values}`)
             const orderIdArray = bodyData.map(({ orderId }) => `id = ${orderId}`).join(" or ");
             db.query(
-                `UPDATE cartData SET orderStatus = 1 where ${orderIdArray}`
+                `DELETE FROM cartData`
             );
             res.send({ status: 200 });
         }
@@ -51,10 +59,16 @@ app.delete("/order", (req, res) => {
     });
 });
 
+// app.put('/count',(req,res)=>{
+//     db.query(`UPDATE orderData SET count = ${req.query.count} WHERE prodID = ${req.query.prodId}`, (err,rows)=>{
+//         res.sendStatus('200')
+//     })
+// })
+
 app.post("/cart", (req, res) => {
     const bodyData = JSON.parse(req.body.data); //배열인지 문자인지 구분을 못하기 때문에, 배열을 객체 형태로 쓰기 위해 JSON 형식을 쓰고, 그를 쓰기 위해서 parsing을 해줘야한다
     db.query(
-        `INSERT INTO cartData (prodId, orderStatus) VALUES(${bodyData.id}, 0)`,(err, rows) => {
+        `INSERT INTO cartData (prodId) VALUES(${bodyData.id})`,(err, rows) => {
             db.query(
                 `SELECT cartData.id as orderId, prodName, price, category, count, menuData.Id as id FROM menuData JOIN cartData on menuData.id = cartData.prodId where prodId = ${bodyData.id}`,
                 (err, orderedItem) => {
@@ -80,16 +94,9 @@ app.put("/cart", (req, res) => {
     // })
 });
 
-app.post("/orderdetail", (req, res) => {
+app.get("/order/history", (req, res) => {
     //주문 이후 주문한 데이터를 가져오는 라우터
-    const bodyData = JSON.parse(req.body.data);
-    //bodyData.orderDate = '';
-    console.log(bodyData);
-
-    //console.log('bodydata:',bodyData)
-    const orderIdArray = bodyData.map(({ id }) => `prodId = ${id}`).join(" or ");
-    console.log(orderIdArray);
-    db.query(`SELECT prodId, prodName, count, category, price, date_format(orderDate, '%d/%m/%y %T') as orderDate from orderData join menuData on orderData.prodId = menuData.id where ${orderIdArray}`, (err, rows) => {
+    db.query(`SELECT prodId, prodName, count, category, price, date_format(orderDate, '%d/%m/%y %T') as orderDate from orderData join menuData on orderData.prodId = menuData.id`, (err, rows) => {
         res.send(rows);
     });
 });

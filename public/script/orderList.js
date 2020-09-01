@@ -8,12 +8,26 @@ class OrderList {
         this.data = []
         this.orderedData = []
         this.menuData = menuData
+        this.getCartData();
     }
 
     setState(data) {
         this.data = data;
         this.orderRender();
     }
+
+    getCartData(){
+        const orderList = this;
+            $.ajax({
+                url:"http://localhost:8080/cart",
+                type:"get",
+                dataType:"json",
+                success:function(result){
+                    orderList.setState(result)
+                }
+            })
+    }
+
 
     makeSelect(count) { //카운트 파라메터를 받아서 i랑 비교할 것 
         let options = ""
@@ -59,7 +73,7 @@ class OrderList {
                                 <td class="prodId"></td>
                             </tr>
                             <tr class ="orderDetail" data-key="orderData" data-index="${i}" data-id="${rows[i].id}">
-                                <td class="orderDataImage">ID: ${rows[i].prodId}</td>
+                                <td class="orderDataImage"></td>
                                 <td class="orderDataPrice">£ ${(rows[i].price).toFixed(2)}</td>
                                 <td class="orderQuantity"><label for="quantity">${rows[i].count}</td>
                                 <td colspan="3" class="orderDate">${rows[i].orderDate}</td>
@@ -108,8 +122,8 @@ class OrderList {
         let orderDataArray = this.orderedData;
         console.log(orderDataArray)
         $.ajax({
-            url:"http://localhost:8080/orderdetail",
-            type:"post",
+            url:"http://localhost:8080/order/history",
+            type:"get",
             dataType: "json",
             data: {data:JSON.stringify(orderDataArray)},
             success: function(result){
