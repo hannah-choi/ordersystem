@@ -48,23 +48,21 @@ class OrderList {
         ////
     }
 
-    orderViewRender(){
+    orderViewRender(rows){
         this.$title.innerText = "VIEW ORDER"
         let contents = "";
-        let itemTotal = 0;
-
-        for (let i = 0; i < this.orderedData.length; i++) {
+        for (let i = 0; i < rows.length; i++) {
             //itemTotal += this.data[i].price * this.data[i].count;
             contents += `<table class="orderDataTable">
                             <tr class ="orderInfo" data-key="prodInfo">
-                                <td colspan="5" class="orderProdName">${this.orderedData[i].prodName}</td>
-                                <td class="prodId">ID: ${this.orderedData[i].id}</td>
+                                <td colspan="5" class="orderProdName">${rows[i].prodName}</td>
+                                <td class="prodId"></td>
                             </tr>
-                            <tr class ="orderDetail" data-key="orderData" data-index="${i}" data-id="${this.orderedData[i].id}">
-                                <td class="orderDataImage"><img src="images/${this.orderedData[i].image}.webp"></td>
-                                <td class="orderDataPrice">£ ${(this.orderedData[i].price).toFixed(2)}</td>
-                                <td class="orderQuantity"><label for="quantity">${this.orderedData[i].count}</td>
-                                <td colspan="3" class="orderDate">${this.orderedData[i].orderDate}</td>
+                            <tr class ="orderDetail" data-key="orderData" data-index="${i}" data-id="${rows[i].id}">
+                                <td class="orderDataImage">ID: ${rows[i].prodId}</td>
+                                <td class="orderDataPrice">£ ${(rows[i].price).toFixed(2)}</td>
+                                <td class="orderQuantity"><label for="quantity">${rows[i].count}</td>
+                                <td colspan="3" class="orderDate">${rows[i].orderDate}</td>
                         </table>`
               }
               this.$table.innerHTML = contents;
@@ -115,9 +113,9 @@ class OrderList {
             dataType: "json",
             data: {data:JSON.stringify(
                 orderDataArray)},
-            success: function(){
+            success: function(result){
                 console.log('success')
-                orderList.orderViewRender();
+                orderList.orderViewRender(result);
             }
         })
              //this.totalRender(itemTotal.toFixed(2));      

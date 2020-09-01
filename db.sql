@@ -25,24 +25,27 @@ INSERT INTO study.menuData (id, prodName, price, category, image) VALUES (15, 'A
 INSERT INTO study.menuData (id, prodName, price, category, image) VALUES (16, 'Si ji Chun + Lightly roasted Oolong Tea', 30.00, 2, '16_sijichun+lightlyroastedoolongtea');
 INSERT INTO study.menuData (id, prodName, price, category, image) VALUES (17, 'Lightly Roasted Oolong Tea + Premium Jasmine Green Tea', 35.00, 2, '17_lightlyroastedoolongtea+premiumjasminegreentea');
 
-CREATE TABLE `orderData` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `prodName` varchar(50) NOT NULL,
-  `prodId` tinyint DEFAULT NULL,
-  `price` tinyint NOT NULL,
-  `count` int NOT NULL,
-  `orderDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `category` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `prodId` (`prodId`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
-
 
 CREATE TABLE `cartData` (
   `id` int NOT NULL AUTO_INCREMENT,
   `prodId` tinyint NOT NULL,
-  `quantity` tinyint NOT NULL DEFAULT '1',
+  `count` tinyint DEFAULT '1',
   `orderStatus` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `cartData_prodId_uindex` (`prodId`)
+) ENGINE=InnoDB AUTO_INCREMENT=798 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+CREATE TABLE `orderData` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `count` tinyint DEFAULT NULL,
+  `prodName` varchar(50) NOT NULL,
+  `price` tinyint NOT NULL,
+  `orderDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `category` int NOT NULL DEFAULT '0',
+  `prodId` tinyint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `prodId` (`prodId`)
+) ENGINE=InnoDB AUTO_INCREMENT=428 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
 

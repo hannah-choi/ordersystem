@@ -7,8 +7,6 @@ table.orderDataTable th:first-child{
 }
 
 table.orderDataTable{
-    margin-bottom: 1rem;
-    margin-top:0.5rem;
     width:100%;
 }
 
@@ -18,6 +16,7 @@ table.orderDataTable tr{
 }
 
 table.orderDataTable tr.orderDetail{
+    line-height: 2;
     border-bottom: 1px solid #d8d8d8;
 }
 
@@ -38,6 +37,8 @@ table.orderDataTable td.orderDataImage img{
 
 table.orderDataTable td.orderProdName{
     padding: 0.5rem 0 0.5rem 0;
+    font-size: 1rem;
+    font-weight: 700;
 }
 
 table.orderDataTable td.orderDataPrice{
