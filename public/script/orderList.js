@@ -104,13 +104,12 @@ class OrderList {
         //const selectedIndex = this.data.findIndex(product => product.index === target.dataset.index)
         const selectedId = this.data[selectedIndex].id;
 
-        fetch('/cart/delete', {
-            method:'get',
+        fetch(`/cart?id=${selectedId}`, {
+            method:'delete',
             headers:{
                 "Accept": "application/json",
                 "Content-type": "application/json; charset = UTF-8"
-            },
-            data: JSON.stringify({selectedId:selectedId}),
+            }
         })
         .then(res => {
             if (!res.ok) {                                   

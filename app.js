@@ -55,8 +55,8 @@ app.post("/order", (req, res) => {
 
 app.delete("/cart", (req, res) => {
     console.log(req.query)
-    db.query(`DELETE FROM cartData where prodId = ${bodyData.id}`, (err, rows) => {
-        res.sendStatus("200");
+    db.query(`DELETE FROM cartData where prodId = ${parseInt(req.query.id)}`, (err, rows) => {
+        res.send({ status: 200 });
     });
 });
 
