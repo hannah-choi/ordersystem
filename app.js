@@ -10,7 +10,7 @@ app.use(express.static("public")); //public 폴더를 서버에 제공하는 방
 // app.listen(port, () => console.log(`http://localhost:${port}`))
 //public폴더에 넣은 파일을 제공
 
-app.get("/product", (req, res) => {
+app.get('/product', (req, res) => {
     console.log(req.query)
     db.query(
         `SELECT * FROM menuData WHERE category = ${parseInt(req.query.menuId)}`,
@@ -54,6 +54,7 @@ app.post("/order", (req, res) => {
 });
 
 app.delete("/cart", (req, res) => {
+    console.log(req.query)
     db.query(`DELETE FROM cartData where prodId = ${bodyData.id}`, (err, rows) => {
         res.sendStatus("200");
     });
@@ -106,7 +107,7 @@ app.get("/order/history", (req, res) => {
 //get
 
 app.get("/cart/delete", (req, res) => { //////////
-    console.log(req.query.prodId)
+    //console.log(req.query.prodId)
     db.query(
         `DELETE FROM cartData where prodId = ${req.query.prodId}`,
         (err, rows) => {

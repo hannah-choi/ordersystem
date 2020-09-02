@@ -10,13 +10,12 @@ class MenuList {
     }
 
     productLoad(menuID = 0) {
-        fetch('/product', {
+        fetch(`/product?menuId=${menuID}`, {
             method:'get',
             headers:{
                 "Accept": "application/json",
                 "Content-type": "application/json; charset = UTF-8"
-            },
-            data: JSON.stringify({menuID:menuID})
+            }
         }
         )
         .then(res => {
