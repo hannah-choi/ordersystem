@@ -1,4 +1,5 @@
 import menuData from './menuData.js'
+import { response } from 'express'
 
 class OrderList {
     constructor() {
@@ -73,8 +74,8 @@ class OrderList {
                                 <td class="prodId"></td>
                             </tr>
                             <tr class ="orderDetail" data-key="orderData" data-index="${i}" data-id="${rows[i].id}">
-                                <td class="orderDataImage"></td>
-                                <td class="orderDataPrice">£ ${(rows[i].price).toFixed(2)}</td>
+                                <td class="orderDataImage"><img src="images/${rows[i].image}.webp"></td>
+                                <td class="orderDataPrice">£ ${(rows[i].price * rows[i].count).toFixed(2)}</td>
                                 <td class="orderQuantity"><label for="quantity">${rows[i].count}</td>
                                 <td colspan="3" class="orderDate">${rows[i].orderDate}</td>
                         </table>`
@@ -180,8 +181,7 @@ class OrderList {
                 orderList.orderRender()
             }
         })
-        // this.data.push(selected)
-        // this.orderRender()
+        
     }
 
     changeCount(index, count) {
@@ -189,7 +189,6 @@ class OrderList {
         //targetValue대로 count가 변해야하는 경우: 셀렉트박스로 수량을 증감시켰을때
         const orderList = this
         const selected = this.data[index]
-        console.log(selected)
         //console.log('count:',count)
         if (!count) { //상품을 클릭했을때, 즉 카운트를 못받을 경우
             if (this.data[index].count == 10) {
