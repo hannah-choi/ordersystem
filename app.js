@@ -11,7 +11,7 @@ app.use(express.static("public")); //public 폴더를 서버에 제공하는 방
 //public폴더에 넣은 파일을 제공
 
 app.get("/product", (req, res) => {
-    //console.log(req.query.menuId);
+    console.log(req.query)
     db.query(
         `SELECT * FROM menuData WHERE category = ${parseInt(req.query.menuId)}`,
         (err, rows) => {
@@ -33,7 +33,7 @@ app.get("/cart",(req,res)=>{ //처음 로딩시에 카트(에 아이템이 있�
 })
 
 app.post("/order", (req, res) => {
-    const bodyData = JSON.parse(req.body.data); //배열인지 문자인지 구분을 못하기 때문에, 배열을 객체 형태로 쓰기 위해 JSON 형식을 쓰고, 그를 쓰기 위해서 parsing을 해줘야한다
+    const bodyData = req.body; //배열인지 문자인지 구분을 못하기 때문에, 배열을 객체 형태로 쓰기 위해 JSON 형식을 쓰고, 그를 쓰기 위해서 parsing을 해줘야한다
     // for(let i = 0; i< bodyData.length; i++){
     //     const {name, category, price, id} = bodyData[i]
     //     console.log(`${bodyData[i]}`)
@@ -53,8 +53,8 @@ app.post("/order", (req, res) => {
     );
 });
 
-app.delete("/order", (req, res) => {
-    db.query(`DELETE FROM orderData`, (err, rows) => {
+app.delete("/cart", (req, res) => {
+    db.query(`DELETE FROM cartData where prodId = ${bodyData.id}`, (err, rows) => {
         res.sendStatus("200");
     });
 });
@@ -66,15 +66,13 @@ app.delete("/order", (req, res) => {
 // })
 
 app.post("/cart", (req, res) => {
-    console.log(req.body)
-    //console.log(req.body)
-    const bodyData = JSON.parse(req.body); //배열인지 문자인지 구분을 못하기 때문에, 배열을 객체 형태로 쓰기 위해 JSON 형식을 쓰고, 그를 쓰기 위해서 parsing을 해줘야한다
+    const bodyData = req.body; //배열인지 문자인지 구분을 못하기 때문에, 배열을 객체 형태로 쓰기 위해 JSON 형식을 쓰고, 그를 쓰기 위해서 parsing을 해줘야한다
     db.query(
         `INSERT INTO cartData (prodId) VALUES(${bodyData.id})`,(err, rows) => {
             db.query(
                 `SELECT cartData.id as orderId, prodName, price, category, count, menuData.Id as id FROM menuData JOIN cartData on menuData.id = cartData.prodId where prodId = ${bodyData.id}`,
                 (err, orderedItem) => {
-                    res.json({orderedItem: orderedItem[0]});; // 배열 형태로 가져오기 때문에 보낼때는 가장 첫번째 아이템만 보내준다
+                    res.json({'orderedItem':orderedItem[0]}); // 배열 형태로 가져오기 때문에 보낼때는 가장 첫번째 아이템만 보내준다
                 }
             );
         }
@@ -82,7 +80,7 @@ app.post("/cart", (req, res) => {
 });
 
 app.put("/cart", (req, res) => {
-    const bodyData = JSON.parse(req.body.data);
+    const bodyData = req.body;
     db.query(
         `UPDATE cartData SET count = ${
             bodyData.count ? parseInt(bodyData.count) : "count+1"
@@ -103,19 +101,14 @@ app.get("/order/history", (req, res) => {
     });
 });
 
-// app.get('/order', (req,res)=>{ //주문 이후 주문한 데이터를 가져오는 라우터
-//     db.query(`SELECT orderData.id, prodId, orderData.prodName as prodName, orderData.price as price, count, image from orderData JOIN menuData on orderData.prodId = menuData.id`, (err,rows)=>{
-//         res.sendStatus(200)
-//     })
-// })
-
 //RESTful API대로 라우터를 정리할 것
 //
 //get
 
-app.get("/delete", (req, res) => {
+app.get("/cart/delete", (req, res) => { //////////
+    console.log(req.query.prodId)
     db.query(
-        `DELETE FROM orderData where prodId = ${req.query.prodId}`,
+        `DELETE FROM cartData where prodId = ${req.query.prodId}`,
         (err, rows) => {
             res.sendStatus("200");
         }

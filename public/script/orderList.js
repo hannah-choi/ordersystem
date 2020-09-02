@@ -17,15 +17,26 @@ class OrderList {
     }
 
     getCartData(){
-        const orderList = this;
-            $.ajax({
-                url:"http://localhost:8080/cart",
-                type:"get",
-                dataType:"json",
-                success:function(result){
-                    orderList.setState(result)
+            fetch('/cart', {
+                method:'get',
+                headers:{
+                    "Accept": "application/json",
+                    "Content-type": "application/json; charset = UTF-8"
                 }
             })
+            .then(res => {
+                if (!res.ok) {                                   
+                    throw new Error("HTTP error " + res.status); 
+                }                                                
+                return res.json();
+            })
+            .then(data => {
+                this.setState(data)
+            })
+            .catch(error => {
+               console.log(error)
+            });
+
     }
 
 
@@ -92,17 +103,39 @@ class OrderList {
         const selectedIndex = target.parentElement.parentElement.dataset.index
         //const selectedIndex = this.data.findIndex(product => product.index === target.dataset.index)
         const selectedId = this.data[selectedIndex].id;
-        $.ajax({
-            url:'http://localhost:8080/delete',
-            type:'get',
-            data:{
-                prodId: selectedId
+
+        fetch('/cart/delete', {
+            method:'get',
+            headers:{
+                "Accept": "application/json",
+                "Content-type": "application/json; charset = UTF-8"
             },
-            success:
-            console.log('delete')
+            data: JSON.stringify({selectedId:selectedId}),
         })
-        this.data.splice(selectedIndex, 1)
-        this.orderRender()
+        .then(res => {
+            if (!res.ok) {                                   
+                throw new Error("HTTP error " + res.status); 
+            }                                                
+            return res.json();
+        })
+        .then(data => {
+            this.data.splice(selectedIndex, 1)
+            this.orderRender()
+        })
+        .catch(error => {
+           console.log(error)
+        });
+
+        // $.ajax({
+        //     url:'http://localhost:8080/delete',
+        //     type:'get',
+        //     data:{
+        //         prodId: selectedId
+        //     },
+        //     success:
+        //     console.log('delete')
+        // })
+        
     }
 
     allClearClick() {
@@ -118,49 +151,55 @@ class OrderList {
 
     orderDataButtonClick(){
         //console.log(this.data)
-        const orderList = this;
-        let orderDataArray = this.orderedData;
-        console.log(orderDataArray)
-        $.ajax({
-            url:"http://localhost:8080/order/history",
-            type:"get",
-            dataType: "json",
-            data: {data:JSON.stringify(orderDataArray)},
-            success: function(result){
-                console.log('success')
-                orderList.orderViewRender(result);
+        fetch('/order/history', {
+            method:'get',
+            headers:{
+                "Accept": "application/json",
+                "Content-type": "application/json; charset = UTF-8"
             }
         })
-             //this.totalRender(itemTotal.toFixed(2));      
+        .then(res => {
+            if (!res.ok) {                                   
+                throw new Error("HTTP error " + res.status); 
+            }                                                
+            return res.json();
+        })
+        .then(data => {
+            this.orderViewRender(data)
+        })
+        .catch(error => {
+           console.log(error)
+        });
+      
     }
 
     payButtonClick() {
-        const orderList = this;
         let dataArray = this.data;
         console.log('dataArray',dataArray)
-        $.ajax({
-            url:"http://localhost:8080/order",
-            type:"post",
-            dataType: "json",
-            data: {data:JSON.stringify(dataArray)},
-            success: function(){
-                alert("Order completed")
-                orderList.orderedData = dataArray;
-                orderList.data = [];
-                orderList.orderRender();
-            }
+
+        fetch('/order', {
+            method:'post',
+            headers:{
+                "Accept": "application/json",
+                "Content-type": "application/json; charset = UTF-8"
+            },
+            body: JSON.stringify(dataArray)
         })
-        // if (this.data.length > 0) {
-        //     //console.log(JSON.stringify(this.data))
-        //     fetch(`http://127.0.0.1:3000/write?data=${JSON.stringify(this.data)}`)
-        //         .then(response => response.text())
-        //         .then(data => alert("Order completed"))
-        //         .catch(() => {
-        //             console.log('error')
-        //         })
-        // } else {
-        //     alert('Please add a product')
-        // }
+        .then(res => {
+            if (!res.ok) {                                   
+                throw new Error("HTTP error " + res.status); 
+            }                                                
+            return res.json();
+        })
+        .then(data => {
+            alert("Order completed")
+            this.orderedData = dataArray;
+            this.data = [];
+            this.orderRender();
+        })
+        .catch(error => {
+           console.log(error)
+        });
     }
 
     changeSelectBox(target) {
@@ -169,9 +208,7 @@ class OrderList {
     }
 
     addProduct(selected) { //selected로 받은 데이터를 this.data에 푸쉬
-        const orderList = this;
-
-        fetch('http://localhost:8080/cart', {
+        fetch('/cart', {
             method:'post',
             headers:{
                 "Accept": "application/json",
@@ -186,25 +223,12 @@ class OrderList {
             return res.json();
         })
         .then(data => {
-            console.log(data)
+            this.data.push(data.orderedItem),
+            this.orderRender()
         })
         .catch(error => {
            console.log(error)
         });
-
-
-
-        // $.ajax({
-        //     url:"http://localhost:8080/cart",
-        //     type:"post",
-        //     dataType: "json",
-        //     data: {data:JSON.stringify(selected)},
-        //     success: function(orderedItem){
-        //         orderList.data.push(orderedItem),
-        //         orderList.orderRender()
-        //     }
-        // })
-        
     }
 
     changeCount(index, count) {
@@ -212,37 +236,64 @@ class OrderList {
         //targetValue대로 count가 변해야하는 경우: 셀렉트박스로 수량을 증감시켰을때
         const orderList = this
         const selected = this.data[index]
-        //console.log('count:',count)
+        
         if (!count) { //상품을 클릭했을때, 즉 카운트를 못받을 경우
             if (this.data[index].count == 10) {
                 return;
             }
-            $.ajax({
-                url:"http://localhost:8080/cart",
-                type:"put",
-                dataType:"json",
-                data: { data: JSON.stringify({
+
+        fetch('/cart', {
+                method:'put',
+                headers:{
+                    "Accept": "application/json",
+                    "Content-type": "application/json; charset = UTF-8"
+                    },
+                body: JSON.stringify({
                     prodId: selected.id,
-                    count: selected.count+1
-                })},
-                success: function(){
-                    orderList.data[index].count++;
-                    orderList.orderRender()}
+                    count: parseInt(selected.count+1)
+                    })
+                })
+            .then(res => {
+                if (!res.ok) {                                   
+                    throw new Error("HTTP error " + res.status); 
+                }                                                
+                return res.json();
             })
+            .then(data => {
+                this.data[index].count++;
+                this.orderRender();
+            })
+            .catch(error => {
+               console.log(error)
+            });
         }
         else {
-            $.ajax({
-                url:"http://localhost:8080/cart",
-                type:"put",
-                dataType:"json",
-                data: { data: JSON.stringify({
+            fetch('/cart', {
+                method:'put',
+                headers:{
+                    "Accept": "application/json",
+                    "Content-type": "application/json; charset = UTF-8"
+                    },
+                body: JSON.stringify({
                     prodId: selected.id,
-                    count: count
-                })},
-                success: function(){
-                    orderList.data[index].count = count;
-                    orderList.orderRender()}
+                    count: parseInt(count)
+                    })
+                })
+            .then(res => {
+                if (!res.ok) {                                   
+                    throw new Error("HTTP error " + res.status); 
+                }                                                
+                return res.json();
             })
+            .then(data => {
+                console.log(count)
+                console.log(this.data[index].count)
+                this.data[index].count = count;
+                this.orderRender();
+            })
+            .catch(error => {
+               console.log(error)
+            });
         }   
     }
 }
