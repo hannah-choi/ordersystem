@@ -1,5 +1,4 @@
 import menuData from './menuData.js'
-import { response } from 'express'
 
 class OrderList {
     constructor() {
@@ -171,16 +170,40 @@ class OrderList {
 
     addProduct(selected) { //selected로 받은 데이터를 this.data에 푸쉬
         const orderList = this;
-        $.ajax({
-            url:"http://localhost:8080/cart",
-            type:"post",
-            dataType: "json",
-            data: {data:JSON.stringify(selected)},
-            success: function(orderedItem){
-                orderList.data.push(orderedItem),
-                orderList.orderRender()
-            }
+
+        fetch('http://localhost:8080/cart', {
+            method:'post',
+            headers:{
+                "Accept": "application/json",
+                "Content-type": "application/json; charset = UTF-8"
+            },
+            body: JSON.stringify(selected),
         })
+        .then(res => {
+            if (!res.ok) {                                   
+                throw new Error("HTTP error " + res.status); 
+            }                                                
+            return res.json();
+        })
+        .then(data => {
+            console.log(data)
+        })
+        .catch(error => {
+           console.log(error)
+        });
+
+
+
+        // $.ajax({
+        //     url:"http://localhost:8080/cart",
+        //     type:"post",
+        //     dataType: "json",
+        //     data: {data:JSON.stringify(selected)},
+        //     success: function(orderedItem){
+        //         orderList.data.push(orderedItem),
+        //         orderList.orderRender()
+        //     }
+        // })
         
     }
 

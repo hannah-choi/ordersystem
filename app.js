@@ -66,14 +66,15 @@ app.delete("/order", (req, res) => {
 // })
 
 app.post("/cart", (req, res) => {
-    const bodyData = JSON.parse(req.body.data); //배열인지 문자인지 구분을 못하기 때문에, 배열을 객체 형태로 쓰기 위해 JSON 형식을 쓰고, 그를 쓰기 위해서 parsing을 해줘야한다
-    console.log(bodyData)
+    console.log(req.body)
+    //console.log(req.body)
+    const bodyData = JSON.parse(req.body); //배열인지 문자인지 구분을 못하기 때문에, 배열을 객체 형태로 쓰기 위해 JSON 형식을 쓰고, 그를 쓰기 위해서 parsing을 해줘야한다
     db.query(
         `INSERT INTO cartData (prodId) VALUES(${bodyData.id})`,(err, rows) => {
             db.query(
                 `SELECT cartData.id as orderId, prodName, price, category, count, menuData.Id as id FROM menuData JOIN cartData on menuData.id = cartData.prodId where prodId = ${bodyData.id}`,
                 (err, orderedItem) => {
-                    res.send(orderedItem[0]); // 배열 형태로 가져오기 때문에 보낼때는 가장 첫번째 아이템만 보내준다
+                    res.json({orderedItem: orderedItem[0]});; // 배열 형태로 가져오기 때문에 보낼때는 가장 첫번째 아이템만 보내준다
                 }
             );
         }
