@@ -3,8 +3,14 @@ const db = require("./db.js");
 const app = express();
 const port = 8080;
 
+let indexRouter = require('./routes/routes');
+let orderRouter = require('./routes/order');
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use('/', indexRouter);
+app.use('/order', orderRouter);
 
 app.use(express.static("public")); //public 폴더를 서버에 제공하는 방법: 정적인 파일제공
 // app.listen(port, () => console.log(`http://localhost:${port}`))
