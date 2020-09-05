@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
 });
 
 
-router.get("/order/history", (req, res) => {
+router.get("/history", (req, res) => {
     //주문 이후 주문한 데이터를 가져오는 라우터
     db.query(`SELECT prodId, prodName, count, image, category, price, date_format(orderDate, '%d/%m/%y %T') as orderDate from orderData join menuData on orderData.prodId = menuData.id`, (err, rows) => {
         res.send(rows);
