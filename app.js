@@ -5,11 +5,13 @@ const port = 8080;
 
 let indexRouter = require('./routes/routes');
 let orderRouter = require('./routes/order');
+let cartRouter = require('./routes/cart');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
+app.use('/cart', cartRouter);
 app.use('/order', orderRouter);
 
 app.use(express.static("public")); //public 폴더를 서버에 제공하는 방법: 정적인 파일제공
