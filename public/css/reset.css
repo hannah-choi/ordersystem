@@ -51,3 +51,7 @@ table {
 	border-spacing: 0;
 	vertical-align: center;
 }
+
+a{
+	text-decoration:none;
+}

@@ -1,7 +1,7 @@
 class MenuList {
     constructor() {
-        this.$nav = document.querySelector(".ul_nav"); //반복적으로 변수에 할당을 하고싶지 않을때, 전역변수 대신에 이곳에 선언을 하는 것(과부하 방지)
-        this.$menuList = document.querySelector(".menu_list");
+        this.$nav = document.querySelector(".ulNav"); //반복적으로 변수에 할당을 하고싶지 않을때, 전역변수 대신에 이곳에 선언을 하는 것(과부하 방지)
+        this.$menuList = document.querySelector(".menuList");
         //this.data = menuData
         this.selectTab = null;
         this.data = null;
@@ -10,7 +10,7 @@ class MenuList {
     }
 
     productLoad(menuID = 0) {
-        fetch(`/product?menuId=${menuID}`, {
+        fetch(`http://localhost:8080/product?menuId=${menuID}`, {
             method:'get',
             headers:{
                 "Accept": "application/json",
@@ -31,9 +31,6 @@ class MenuList {
            console.log(error)
         });
 
-
-
-        
         // $.ajax({
         //     url: "http://localhost:8080/product",
         //     type: "get",
@@ -67,7 +64,7 @@ class MenuList {
         let selectTab = this.selectTab; //클릭한 li의 인덱스
         let list = this.data;
 
-        this.$menuList.innerHTML = list.map((item,index) => `<li data-key="menuItem"><img data-key="menuItem" data-id="${item.id}" src="/images/${item.image}.webp"><span class="prod_name">${item.prodName}</span><span class="prod_price">£ ${item.price.toFixed(2)}</span></li>`)
+        this.$menuList.innerHTML = list.map((item,index) => `<li data-key="menuItem"><img data-key="menuItem" data-id="${item.id}" src="/images/${item.image}.webp"><span class="prodName">${item.prodName}</span><span class="prodPrice">£ ${item.price.toFixed(2)}</span></li>`)
             .join("");
     }
 }

@@ -11,7 +11,6 @@ router.get("/",(req,res)=>{ //처음 로딩시에 카트(에 아이템이 있다
 })
 
 router.delete("/", (req, res) => {
-    console.log(req.query)
     db.query(`DELETE FROM cartData where prodId = ${parseInt(req.query.id)}`, (err, rows) => {
         res.send({ status: 200 });
     });

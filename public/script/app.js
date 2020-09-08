@@ -21,13 +21,14 @@ class App {
                 case 'deleteItem':
                     this.orderList.deleteClick(target)
                     break;
-                case 'icon_trash': // 숙제(옵션) 삭제되는 기능까지 구현
+                case 'trashIcon': // 숙제(옵션) 삭제되는 기능까지 구현
                     this.orderList.allClearClick(target);
                     break;
                 case 'orderButton':
                     this.orderList.payButtonClick(target);
                     break;
                 case 'getOrderDataButton':
+                    this.orderList.orderHistoryChange();
                     this.orderList.orderDataButtonClick(target);
                 default:
                     return;

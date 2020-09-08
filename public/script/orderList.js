@@ -1,10 +1,15 @@
 import menuData from './menuData.js'
+//import { head } from '../../routes/cart'
 
 class OrderList {
     constructor() {
         this.$table = document.getElementById('tableArea')
         this.$total = document.querySelector('.total')
         this.$title = document.getElementById('billTitle')
+        this.$billHeader = document.getElementById('billHeader')
+        this.$tableArea = document.getElementById('tableArea')
+        this.$buttonArea = document.getElementById('buttonArea')
+        this.$total = document.querySelector('.total')
         this.data = []
         this.orderedData = []
         this.menuData = menuData
@@ -50,6 +55,9 @@ class OrderList {
         return selectbox
     }
 
+
+
+
     orderRender() {
         //console.log(this.data)
         this.$title.innerText = "SHOPPING CART"
@@ -73,8 +81,9 @@ class OrderList {
         ////
     }
 
+
+
     orderViewRender(rows){
-        this.$title.innerText = "VIEW ORDER"
         let contents = "";
         for (let i = 0; i < rows.length; i++) {
             //itemTotal += this.data[i].price * this.data[i].count;
@@ -91,11 +100,22 @@ class OrderList {
                         </table>`
               }
               this.$table.innerHTML = contents;
+
+            
     }
 
+    orderHistoryChange(){
+        this.$billHeader.innerHTML = `<h2>ORDER HISTORY</h2>`
+        this.$tableArea.style.height = "580px"
+        this.$total.style.opacity = "0"
+        
+        let orderHistoryButton = `<a href="/"><input type="button" id="backButton" data-key="backButton" value="CONTINUE SHOPPING"></a>`
+
+        this.$buttonArea.innerHTML = orderHistoryButton
+    }
 
     totalRender(value) {
-        let totalDiv = `<span class="total_text">Total</span><span class="total_value">£ ${value}</span>`
+        let totalDiv = `<span class="totalText">Total</span><span class="totalValue">£ ${value}</span>`
         this.$total.innerHTML = totalDiv
     }
 
