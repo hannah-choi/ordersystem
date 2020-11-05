@@ -1,7 +1,7 @@
 # Order System
 
 ### JSY teahouse Order System
-- A virtual cashier dashboard app for the <a href="https://www.jsy-tea.com/categories/view-all-products">Jing Sheng Yu(taiwanese tea brand)</a> store.
+- A virtual cashier dashboard app for the <a href="https://www.jsy-tea.com/categories/view-all-products" target="_blank">Jing Sheng Yu(taiwanese tea brand)</a> store.
 Created with JavaScript, Express and mySQL.
 
 ## Demo
