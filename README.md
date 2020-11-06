@@ -4,6 +4,9 @@
 - A virtual cashier dashboard app for the <a href="https://www.jsy-tea.com/categories/view-all-products" target="_blank">Jing Sheng Yu(taiwanese tea brand)</a> store.
 Created with JavaScript, Express and mySQL.
 
+![img-1581502551-99063@600 copy](https://user-images.githubusercontent.com/62843726/98331613-44406a00-2040-11eb-9c1d-70ba833fcdfe.jpg)
+
+
 ## Demo
 - Live Demo 
 
