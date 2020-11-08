@@ -1,7 +1,10 @@
 const express = require("express"); //매번 새폴더에 작업을 할때마다 설치를 해줘야한다
 const db = require("./db.js");
+const cors = require('cors')
 const app = express();
 const port = 8080;
+
+app.use(cors());
 
 let indexRouter = require('./routes/routes.js');
 let orderRouter = require('./routes/order.js');
