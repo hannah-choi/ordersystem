@@ -10,26 +10,26 @@ class MenuList {
     }
 
     productLoad(menuID = 0) {
-        fetch(`http://localhost:8080/product?menuId=${menuID}`, {
-            method:'get',
-            headers:{
+        fetch(`product?menuId=${menuID}`, {
+            method: 'get',
+            headers: {
                 "Accept": "application/json",
                 "Content-type": "application/json; charset = UTF-8"
             }
         }
         )
-        .then(res => {
-            if (!res.ok) {                                   
-                throw new Error("HTTP error " + res.status); 
-            }                                                
-            return res.json();
-        })
-        .then(data => {
-            this.setState(menuID, data);
-        })
-        .catch(error => {
-           console.log(error)
-        });
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("HTTP error " + res.status);
+                }
+                return res.json();
+            })
+            .then(data => {
+                this.setState(menuID, data);
+            })
+            .catch(error => {
+                console.log(error)
+            });
 
         // $.ajax({
         //     url: "http://localhost:8080/product",
@@ -64,7 +64,7 @@ class MenuList {
         let selectTab = this.selectTab; //클릭한 li의 인덱스
         let list = this.data;
 
-        this.$menuList.innerHTML = list.map((item,index) => `<li data-key="menuItem"><img data-key="menuItem" data-id="${item.id}" src="/images/${item.image}.webp"><span class="prodName">${item.prodName}</span><span class="prodPrice">£ ${item.price.toFixed(2)}</span></li>`)
+        this.$menuList.innerHTML = list.map((item, index) => `<li data-key="menuItem"><img data-key="menuItem" data-id="${item.id}" src="/images/${item.image}.webp"><span class="prodName">${item.prodName}</span><span class="prodPrice">£ ${item.price.toFixed(2)}</span></li>`)
             .join("");
     }
 }
