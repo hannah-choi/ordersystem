@@ -1,5 +1,4 @@
 import menuData from './menuData.js'
-//import { head } from '../../routes/cart'
 
 class OrderList {
     constructor() {
@@ -55,11 +54,7 @@ class OrderList {
         return selectbox
     }
 
-
-
-
     orderRender() {
-        //console.log(this.data)
         this.$title.innerText = "SHOPPING CART"
         let contents = "";
         let itemTotal = 0;
@@ -86,7 +81,6 @@ class OrderList {
     orderViewRender(rows) {
         let contents = "";
         for (let i = 0; i < rows.length; i++) {
-            //itemTotal += this.data[i].price * this.data[i].count;
             contents += `<table class="orderDataTable">
                             <tr class ="orderInfo" data-key="prodInfo">
                                 <td colspan="5" class="orderProdName">${rows[i].prodName}</td>
@@ -100,8 +94,6 @@ class OrderList {
                         </table>`
         }
         this.$table.innerHTML = contents;
-
-
     }
 
     orderHistoryChange() {
@@ -121,10 +113,8 @@ class OrderList {
 
     deleteClick(target) {
         const selectedIndex = target.parentElement.parentElement.dataset.index
-        //const selectedIndex = this.data.findIndex(product => product.index === target.dataset.index)
         const selectedId = this.data[selectedIndex].id;
-
-        fetch(`/cart?id=${selectedId}`, {
+        fetch(`cart?id=${selectedId}`, {
             method: 'delete',
             headers: {
                 "Accept": "application/json",
@@ -144,32 +134,22 @@ class OrderList {
             .catch(error => {
                 console.log(error)
             });
-
-        // $.ajax({
-        //     url:'http://localhost:8080/delete',
-        //     type:'get',
-        //     data:{
-        //         prodId: selectedId
-        //     },
-        //     success:
-        //     console.log('delete')
-        // })
-
     }
 
     allClearClick() {
-        $.ajax({
-            url: "http://localhost:8080/allclear",
-            type: "get",
-            success:
-                console.log('allclear')
-        })
-        this.data.splice(0,)
-        this.orderRender()
+        fetch('cart/all', {
+            method: 'delete',
+            headers: {
+                "Accept": "application/json",
+                "Content-type": "application/json; charset = UTF-8"
+            }
+        }).then(res=> res.json())
+        .then(data=>
+            {this.data.splice(0,)
+            this.orderRender()})
     }
 
     orderDataButtonClick() {
-        //console.log(this.data)
         fetch('order/history', {
             method: 'get',
             headers: {
@@ -194,7 +174,6 @@ class OrderList {
 
     payButtonClick() {
         let dataArray = this.data;
-        console.log('dataArray', dataArray)
 
         fetch('order', {
             method: 'post',
@@ -305,8 +284,6 @@ class OrderList {
                     return res.json();
                 })
                 .then(data => {
-                    console.log(count)
-                    console.log(this.data[index].count)
                     this.data[index].count = count;
                     this.orderRender();
                 })

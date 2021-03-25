@@ -3,9 +3,9 @@ var router = express.Router();
 const db = require("../db.js");
 
 router.get('/product', (req, res) => {
-    console.log(req.query)
+    const param = {category:parseInt(req.query.menuId)}
     db.query(
-        `SELECT * FROM menuData WHERE category = ${parseInt(req.query.menuId)}`,
+        `SELECT * FROM menuData WHERE ?`, param,
         (err, rows) => {
             res.send(rows);
         }

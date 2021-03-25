@@ -21,7 +21,7 @@ class App {
                 case 'deleteItem':
                     this.orderList.deleteClick(target)
                     break;
-                case 'trashIcon': // 숙제(옵션) 삭제되는 기능까지 구현
+                case 'trashIcon': 
                     this.orderList.allClearClick(target);
                     break;
                 case 'orderButton':

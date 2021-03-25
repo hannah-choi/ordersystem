@@ -30,18 +30,6 @@ class MenuList {
             .catch(error => {
                 console.log(error)
             });
-
-        // $.ajax({
-        //     url: "http://localhost:8080/product",
-        //     type: "get",
-        //     data: {
-        //         menuId: menuID,
-        //     },
-        //     success: function (data) {
-        //         // 여기서의 data(혹은 result)는 서버에서 응답으로 보내주는 data를 의미한다
-        //         menuList.setState(menuID, data);
-        //     },
-        // });
     }
 
     setState(selectTab, data) {
