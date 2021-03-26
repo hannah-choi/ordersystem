@@ -174,7 +174,7 @@ class OrderList {
 
     payButtonClick() {
         let dataArray = this.data;
-
+        if(dataArray.length === 0) {alert('No items in the cart'); return;}
         fetch('order', {
             method: 'post',
             headers: {

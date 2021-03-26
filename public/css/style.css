@@ -38,7 +38,6 @@ div.wrapper{
 }
 
 div.menuContainer{
-    /* border:1px solid blue; */
     width:57%;
     display: flex;
     flex-flow: row wrap;
@@ -121,7 +120,7 @@ ul.menuList span{
 
 
 ul.menuList li{
-    width:32%;
+    flex-basis: calc(32% - 10px);
     line-height: 1.2;
 }
 

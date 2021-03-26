@@ -2,7 +2,7 @@ const express = require("express"); //매번 새폴더에 작업을 할때마다
 const db = require("./db.js");
 const cors = require('cors')
 const app = express();
-const port = 8080;
+const port = 8082;
 
 app.use(cors());
 
@@ -24,5 +24,5 @@ app.use(express.static('public')); //public 폴더를 서버에 제공하는 방
 //public폴더에 넣은 파일을 제공
 
 app.listen(port, function () {
-    console.log("http://localhost:8080");
+    console.log(`port listening at ${port}`);
 });
