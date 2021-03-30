@@ -6,11 +6,9 @@ Created with Vanilla JavaScript, Express and mySQL.
 
 ![img-1581502551-99063@600 copy](https://user-images.githubusercontent.com/62843726/98331613-44406a00-2040-11eb-9c1d-70ba833fcdfe.jpg)
 
+<img width="1680" alt="Screenshot 2021-03-28 at 22 00 55" src="https://user-images.githubusercontent.com/62843726/112767922-45832b00-9011-11eb-93e1-70d909a0c223.png">
+<img width="1680" alt="Screenshot 2021-03-28 at 22 01 13" src="https://user-images.githubusercontent.com/62843726/112767931-4a47df00-9011-11eb-929a-1e999a85e52f.png">
 
-## Demo
-- Live Demo 
-
-<img width="963" alt="Screenshot 2020-11-05 at 22 24 54" src="https://user-images.githubusercontent.com/62843726/98246556-cfc0e900-1fb5-11eb-96e1-5ba705caca75.png">
 
 ### Features
 
