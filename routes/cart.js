@@ -16,8 +16,7 @@ router.get("/", (req, res) => { //처음 로딩시에 카트(에 아이템이 �
 })
 
 router.delete("/all", (req, res) => {
-    const table = mysql.raw('cartData')
-    db.query(`DELETE FROM cartData`, [table], (err, rows) => {
+    db.query(`DELETE FROM cartData`, (err, rows) => {
         res.send({ status: 200 });
     });
 });
