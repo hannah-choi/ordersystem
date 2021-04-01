@@ -20,10 +20,9 @@ router.post("/", (req, res) => {
 
 
 router.get("/history", (req, res) => {
-    //주문 이후 주문한 데이터를 가져오는 라우터
     const columns = mysql.raw("prodId, prodName, count, image, category, price,date_format(orderDate, '%d/%m/%y %T') as orderDate")
     const condition = mysql.raw('orderData.prodId = menuData.id')
-    db.query(`SELECT ? from orderData join menuData on ? ORDER BY UNIX_TIMESTAMP(orderDate) DESC`, [columns, condition], (err, rows) => {
+    db.query(`SELECT ? from orderData join menuData on ? ORDER BY orderDate DESC`, [columns, condition], (err, rows) => {
         res.send(rows);
     });
 });
