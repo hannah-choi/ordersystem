@@ -20,9 +20,9 @@ router.post("/", (req, res) => {
 
 
 router.get("/history", (req, res) => {
-    const columns = mysql.raw("prodId, prodName, count, image, category, price,date_format(orderDate, '%d/%m/%y %T') as orderDate")
+    const columns = mysql.raw("prodId, prodName, count, image, category, price, orderDate as timestamp, date_format(orderDate, '%d/%m/%y %T') as orderDate")
     const condition = mysql.raw('orderData.prodId = menuData.id')
-    db.query(`SELECT ? from orderData join menuData on ? ORDER BY orderDate DESC`, [columns, condition], (err, rows) => {
+    db.query(`SELECT ? from orderData join menuData on ? ORDER BY timestamp DESC`, [columns, condition], (err, rows) => {
         res.send(rows);
     });
 });
