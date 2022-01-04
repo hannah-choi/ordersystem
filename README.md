@@ -1,23 +1,34 @@
-# Order System
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-### JSY teahouse Order System
-- A virtual cashier dashboard app for the <a href="https://www.jsy-tea.com/categories/view-all-products" target="_blank">Jing Sheng Yu(taiwanese tea brand)</a> store.
-Created with Vanilla JavaScript, Express and mySQL.
+## Getting Started
 
-![img-1581502551-99063@600 copy](https://user-images.githubusercontent.com/62843726/98331613-44406a00-2040-11eb-9c1d-70ba833fcdfe.jpg)
+First, run the development server:
 
-<img width="1680" alt="Screenshot 2021-03-28 at 22 00 55" src="https://user-images.githubusercontent.com/62843726/112767922-45832b00-9011-11eb-93e1-70d909a0c223.png">
-<img width="1680" alt="Screenshot 2021-03-28 at 22 01 13" src="https://user-images.githubusercontent.com/62843726/112767931-4a47df00-9011-11eb-929a-1e999a85e52f.png">
+```bash
+npm run dev
+# or
+yarn dev
+```
 
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Features
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-- If there is cart data in database, get data when the page is first loaded 
-- Add and delete the products on the cart. The total value is calculated every time when there is change.
-- The quantity can be adjusted in both ways: by clicking the same item, and using the select box.   
-- When ‘place order’ is clicked, the items in the cart is ordered. 
-- When ‘Order history’ is clicked, the order date & product name of ordered items appear.
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Wireframe
-![wireframe](https://user-images.githubusercontent.com/62843726/98247090-83c27400-1fb6-11eb-90ef-9431fe62715b.png)
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
