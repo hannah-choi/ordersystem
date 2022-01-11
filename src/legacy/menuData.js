@@ -1,4 +1,4 @@
-export const menuData = {
+const menuData = {
     menu: ["LOOSE TEA", "TEA BAG", "GIFT BOX"],
     list: [{
         name: "Alishan Jingsyuan",

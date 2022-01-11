@@ -1,7 +1,7 @@
 class MenuList {
     constructor() {
-        this.$nav = document.querySelector(".ulNav"); //반복적으로 변수에 할당을 하고싶지 않을때, 전역변수 대신에 이곳에 선언을 하는 것(과부하 방지)
-        this.$menuList = document.querySelector(".menuList");
+        this.$nav = document.querySelector('.ulNav'); //반복적으로 변수에 할당을 하고싶지 않을때, 전역변수 대신에 이곳에 선언을 하는 것(과부하 방지)
+        this.$menuList = document.querySelector('.menuList');
         //this.data = menuData
         this.selectTab = null;
         this.data = null;
@@ -11,24 +11,23 @@ class MenuList {
 
     productLoad(menuID = 0) {
         fetch(`product?menuId=${menuID}`, {
-            method: 'get',
             headers: {
-                "Accept": "application/json",
-                "Content-type": "application/json; charset = UTF-8"
-            }
-        }
-        )
-            .then(res => {
+                Accept: 'application/json',
+                'Content-type': 'application/json; charset = UTF-8'
+            },
+            method: 'get'
+        })
+            .then((res) => {
                 if (!res.ok) {
-                    throw new Error("HTTP error " + res.status);
+                    throw new Error('HTTP error ' + res.status);
                 }
                 return res.json();
             })
-            .then(data => {
+            .then((data) => {
                 this.setState(menuID, data);
             })
-            .catch(error => {
-                console.log(error)
+            .catch((error) => {
+                console.log(error);
             });
     }
 
@@ -43,17 +42,31 @@ class MenuList {
 
     navRender() {
         //html요소를 직접적으로 그려주는 함수
-        const menuData = ["LOOSE TEA", "TEA BAG", "GIFT BOX"];
+        const menuData = ['LOOSE TEA', 'TEA BAG', 'GIFT BOX'];
         this.$nav.innerHTML = menuData
-            .map((menu, index) => `<li data-index="${index}" class="${index === parseInt(this.selectTab) ? "active" : ""}" data-key="navItem">${menu}</li>`).join("");
+            .map(
+                (menu, index) =>
+                    `<li data-index="${index}" class="${
+                        index === parseInt(this.selectTab) ? 'active' : ''
+                    }" data-key="navItem">${menu}</li>`
+            )
+            .join('');
     }
     //+ 기호를 앞에 붙이면 parseInt처럼 사용가능
     listRender() {
         let selectTab = this.selectTab; //클릭한 li의 인덱스
         let list = this.data;
 
-        this.$menuList.innerHTML = list.map((item, index) => `<li data-key="menuItem"><img data-key="menuItem" data-id="${item.id}" src="/images/${item.image}.webp"><span class="prodName">${item.prodName}</span><span class="prodPrice">£ ${item.price.toFixed(2)}</span></li>`)
-            .join("");
+        this.$menuList.innerHTML = list
+            .map(
+                (item, index) =>
+                    `<li data-key="menuItem"><img data-key="menuItem" data-id="${item.id}" src="/images/${
+                        item.image
+                    }.webp"><span class="prodName">${
+                        item.prodName
+                    }</span><span class="prodPrice">£ ${item.price.toFixed(2)}</span></li>`
+            )
+            .join('');
     }
 }
 export default MenuList;
