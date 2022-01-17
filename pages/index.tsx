@@ -7,11 +7,13 @@ import type { NextPage } from 'next';
 
 const Home: NextPage = () => {
     return (
-        <div className={styles.wrapper}>
-            <MenuContainer />
-            <BillContainer />
+        <>
+            <div className={styles.wrapper}>
+                <MenuContainer />
+                <BillContainer />
+            </div>
             <Footer />
-        </div>
+        </>
     );
 };
 

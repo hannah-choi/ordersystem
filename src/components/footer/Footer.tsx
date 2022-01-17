@@ -1,10 +1,12 @@
 import * as React from 'react';
 
+import styles from './Footer.module.scss';
+
 interface IFooterProps {}
 
 const Footer: React.FunctionComponent<IFooterProps> = (props) => {
     return (
-        <>
+        <footer className={styles.footer}>
             <p className='secondary'>© 2020 Hannah Choi</p>
             <a
                 className='git_link'
@@ -15,7 +17,7 @@ const Footer: React.FunctionComponent<IFooterProps> = (props) => {
                 <img src='images/github_black.png' />
                 GITHUB REPO
             </a>
-        </>
+        </footer>
     );
 };
 

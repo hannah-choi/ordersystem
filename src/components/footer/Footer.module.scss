@@ -1,0 +1,33 @@
+.footer {
+    width: 950px;
+    color: #fff;
+    font-size: 0.85rem;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+    margin-top: -40px;
+    border: 1px solid orange;
+    position: relative;
+}
+
+.footer .secondary {
+    width: 150px;
+}
+
+.footer a {
+    width: 105px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: #fff;
+}
+
+.footer a img {
+    width: 15px;
+}
+
+.footer a:hover {
+    background-color: transparent;
+    color: #000;
+}
