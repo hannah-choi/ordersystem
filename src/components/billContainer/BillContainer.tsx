@@ -1,10 +1,12 @@
 import * as React from 'react';
 
+import styles from './BillContainer.module.scss';
+
 interface BillContainerProps {}
 
 const BillContainer: React.FunctionComponent<BillContainerProps> = (props) => {
     return (
-        <div className='billContainer'>
+        <div className={styles.billContainer}>
             <header id='billHeader'>
                 <h2 id='billTitle'>SHOPPING CART</h2>
                 <span className='deleteIcon'>
