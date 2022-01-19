@@ -12,7 +12,7 @@ const Home: NextPage = () => {
                 <MenuContainer />
                 <BillContainer />
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </>
     );
 };

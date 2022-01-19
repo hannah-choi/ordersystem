@@ -1,15 +1,32 @@
 import * as React from 'react';
 
-interface IMenuListProps {}
+import { menuData } from '../../data/data';
+import MenuItem from '../menuItem/menuItem';
 
-const MenuList: React.FunctionComponent<IMenuListProps> = (props) => {
+import styles from './MenuList.module.scss';
+
+interface MenuListProps {
+    categoryNo: number;
+}
+
+const MenuList: React.FunctionComponent<MenuListProps> = ({ categoryNo = 0 }) => {
+    const data = menuData.list.filter((item) => item.category === categoryNo); //선택한 카테고리의 아이템만 거른다
+    const getImageName = (name: string, id: number) => {
+        console.log(id + '_' + name.split(' ').join('').toLowerCase());
+        return id + '_' + name.split(' ').join('').toLowerCase();
+    };
+
     return (
         <ul className='menuList' id='menu'>
-            <li>
-                <img src='https://shoplineimg.com/5cee0a99c4efc60001a5fe6b/5d6244e1622a563c02a2b3fd/800x.webp?source_format=png' />
-                <span className='prod_name'>Si Ji Chun</span>
-                <span className='prod_price'>17.00</span>
-            </li>
+            {data.map((prod) => (
+                <MenuItem
+                    key={prod.id}
+                    imageName={getImageName(prod.name, prod.id)}
+                    price={prod.price}
+                    prodId={prod.id}
+                    prodName={prod.name}
+                />
+            ))}
         </ul>
     );
 };
