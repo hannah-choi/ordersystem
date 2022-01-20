@@ -1,0 +1,22 @@
+.menuItem {
+    flex-basis: calc(32% - 10px);
+    line-height: 1.2;
+
+    img {
+        width: 100%;
+    }
+
+    span {
+        display: block;
+    }
+
+    span.prodName {
+        margin-top: 0.6rem;
+        color: #777777;
+        margin-bottom: 0.3rem;
+    }
+
+    span.prodPrice {
+        margin-bottom: 1rem;
+    }
+}

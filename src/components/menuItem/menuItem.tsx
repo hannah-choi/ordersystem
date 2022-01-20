@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { menuData } from '../../data/data';
+import styles from './menuItem.module.scss';
 
 interface MenuItemProps {
     prodName: string;
@@ -11,10 +11,10 @@ interface MenuItemProps {
 
 const MenuItem: React.FunctionComponent<MenuItemProps> = ({ imageName, price, prodId, prodName }) => {
     return (
-        <li key={prodId} data-key='menuItem'>
+        <li key={prodId} className={styles.menuItem} data-key='menuItem'>
             <img alt={prodName} data-id={prodId} data-key='menuItem' src={`/images/${imageName}.webp`} />
-            <span className='prodName'>{prodName}</span>
-            <span className='prodPrice'>£ {price.toFixed(2)}</span>
+            <span className={styles.prodName}>{prodName}</span>
+            <span className={styles.prodPrice}>£ {price.toFixed(2)}</span>
         </li>
     );
 };

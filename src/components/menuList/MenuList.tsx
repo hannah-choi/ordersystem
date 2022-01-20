@@ -17,7 +17,7 @@ const MenuList: React.FunctionComponent<MenuListProps> = ({ categoryNo = 0 }) =>
     };
 
     return (
-        <ul className='menuList' id='menu'>
+        <ul className={styles.menuList} id='menu'>
             {data.map((prod) => (
                 <MenuItem
                     key={prod.id}
