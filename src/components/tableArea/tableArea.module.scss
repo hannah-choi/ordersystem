@@ -1,0 +1,59 @@
+.tableArea {
+    min-height: 67%;
+    overflow-y: auto;
+    border: 1px solid lightgray;
+}
+
+.cartTable {
+    margin-bottom: 1rem;
+    width: 100%;
+
+    tr {
+        width: 100%;
+        /* border:1px solid salmon; */
+        border-bottom: 1px solid #d8d8d8;
+    }
+
+    td.cartProdName {
+        width: 50%;
+    }
+
+    td {
+        padding: 0rem 0 1rem 0;
+        vertical-align: center;
+    }
+
+    td:last-child {
+        text-align: right;
+    }
+
+    /* td:first-child{
+        padding:1rem 0 1rem 0;
+        vertical-align: center;
+    } */
+
+    td.cartQuantity {
+        text-align: right;
+        padding-left: 1.2rem;
+    }
+
+    td.cartPrice {
+        padding-left: 0.5rem;
+        font-size: 1rem;
+        width: 24%;
+        text-align: right;
+    }
+
+    td.cartDelete {
+        padding-left: 1rem;
+        width: 5%;
+    }
+
+    input.cartDelete {
+        background-color: inherit;
+        border: none;
+        font-family: 'Raleway', sans-serif;
+        font-size: 2rem;
+        top: 3px;
+    }
+}

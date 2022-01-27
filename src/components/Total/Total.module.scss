@@ -1,0 +1,14 @@
+.total {
+    padding: 1rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: unset;
+    bottom: 11rem;
+    font-size: 1.1rem;
+
+    .totalValue {
+        font-size: 1.5rem;
+    }
+}
