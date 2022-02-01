@@ -1,18 +1,19 @@
 import * as React from 'react';
 
 import { menuData } from '../../data/data';
-import MenuItem from '../menuItem/menuItem';
+import { MenuItem } from '../menuItem/menuItem';
 
 import styles from './MenuList.module.scss';
 
 interface MenuListProps {
     categoryNo: number;
+    listItemClick: (id: number, name: string, price: number) => void;
 }
 
-const MenuList: React.FunctionComponent<MenuListProps> = ({ categoryNo = 0 }) => {
+const MenuList: React.FunctionComponent<MenuListProps> = ({ categoryNo = 0, listItemClick }) => {
     const data = menuData.list.filter((item) => item.category === categoryNo); //선택한 카테고리의 아이템만 거른다
     const getImageName = (name: string, id: number) => {
-        console.log(id + '_' + name.split(' ').join('').toLowerCase());
+        // console.log(id + '_' + name.split(' ').join('').toLowerCase());
         return id + '_' + name.split(' ').join('').toLowerCase();
     };
 
@@ -22,6 +23,7 @@ const MenuList: React.FunctionComponent<MenuListProps> = ({ categoryNo = 0 }) =>
                 <MenuItem
                     key={prod.id}
                     imageName={getImageName(prod.name, prod.id)}
+                    listItemClick={listItemClick}
                     price={prod.price}
                     prodId={prod.id}
                     prodName={prod.name}

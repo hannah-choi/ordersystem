@@ -41,6 +41,8 @@
         "no-param-reassign": "error",
         "@typescript-eslint/no-unused-vars": "error",
         "@typescript-eslint/ban-ts-comment": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-noninteractive-element-interactions": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "react/self-closing-comp": ["error", {
             "component": true,

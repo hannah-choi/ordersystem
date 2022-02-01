@@ -3,12 +3,15 @@ import * as React from 'react';
 import ButtonArea from '../ButtonArea/ButtonArea';
 import { TableArea } from '../tableArea/tableArea';
 import Total from '../Total/Total';
+import { Cart } from '../../../pages/index';
 
 import styles from './BillContainer.module.scss';
 
-interface BillContainerProps {}
+interface BillContainerProps {
+    contents: [];
+}
 
-const BillContainer: React.FunctionComponent<BillContainerProps> = (props) => {
+const BillContainer: React.FunctionComponent<BillContainerProps> = ({ contents }) => {
     return (
         <section className={styles.billContainer}>
             <header>
@@ -17,7 +20,7 @@ const BillContainer: React.FunctionComponent<BillContainerProps> = (props) => {
                     <i className='far fa-trash-alt' data-key='trashIcon' />
                 </span>
             </header>
-            <TableArea />
+            <TableArea contents={contents} />
             <Total />
             <ButtonArea />
         </section>
