@@ -1,12 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-
-// import { cart, Cart } from '../../service/cart/Cart';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { TableItem } from '../tableItem/TableItem';
 
 // import { cart } from '../../service/cart/Cart';
-import { setCartItem } from '../../store/cartSlice';
 import { RootState } from '../../store/store';
 
 import styles from './tableArea.module.scss';
