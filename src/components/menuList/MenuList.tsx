@@ -13,7 +13,6 @@ interface MenuListProps {
 const MenuList: React.FC<MenuListProps> = ({ categoryNo = 0 }) => {
     const data = menuData.list.filter((item) => item.category === categoryNo); //선택한 카테고리의 아이템만 거른다
     const getImageName = (name: string, id: number) => {
-        // console.log(id + '_' + name.split(' ').join('').toLowerCase());
         return id + '_' + name.split(' ').join('').toLowerCase();
     };
 

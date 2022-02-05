@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { CartObj } from '../service/cart/Cart';
+export interface CartObj {
+    price: number;
+    prodId: number;
+    prodName: string;
+    quantity: number;
+}
 
 import type { RootState } from './store';
 
@@ -21,7 +26,16 @@ export const cartSlice = createSlice({
     name: 'cart',
     reducers: {
         setCartItem: (state, action: PayloadAction<CartObj>) => {
-            state.value.push(action.payload);
+            if (!state.value.find((item, i) => item.prodId === action.payload.prodId)) {
+                state.value.push(action.payload);
+            } else {
+                if (state.value)
+                    state.value = state.value.map((item, i) =>
+                        item.prodId === action.payload.prodId
+                            ? { ...item, quantity: item.quantity < 10 ? item.quantity + 1 : item.quantity }
+                            : item
+                    );
+            }
         }
     }
 });

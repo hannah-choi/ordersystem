@@ -25,7 +25,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ imageName, price, prodId, pr
             className={styles.menuItem}
             data-key='menuItem'
             onClick={() => {
-                dispatch(setCartItem({ price, prodId, prodName }));
+                dispatch(setCartItem({ price, prodId, prodName, quantity: 1 }));
             }}
         >
             <img alt={prodName} data-id={prodId} data-key='menuItem' src={`/images/${imageName}.webp`} />

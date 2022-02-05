@@ -22,7 +22,13 @@ export const TableArea: React.FC<TableAreaProps> = ({}) => {
 
     if (tableRef.current) {
         contents = cart.map((prod, i) => (
-            <TableItem key={prod.prodId} price={prod.price} prodId={prod.prodId} prodName={prod.prodName} />
+            <TableItem
+                key={prod.prodId}
+                price={prod.price}
+                prodId={prod.prodId}
+                prodName={prod.prodName}
+                quantity={prod.quantity}
+            />
         ));
     }
 

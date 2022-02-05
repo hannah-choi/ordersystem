@@ -1,0 +1,51 @@
+.tableItem {
+    width: 100%;
+    border-bottom: 1px solid #d8d8d8;
+
+    &:last-of-type {
+        border: none;
+    }
+
+    td {
+        vertical-align: middle;
+        padding: 0.5rem 0;
+
+        .cartProdName {
+            width: 50%;
+        }
+
+        &:first-of-type {
+            vertical-align: center;
+        }
+
+        &:last-of-type {
+            text-align: right;
+        }
+    }
+
+    .cartQuantity {
+        text-align: right;
+        padding-left: 1.2rem;
+    }
+
+    .cartPrice {
+        padding-left: 0.5rem;
+        font-size: 1rem;
+        width: 24%;
+        text-align: right;
+    }
+
+    .cartDelete {
+        padding-left: 1rem;
+        width: 5%;
+        vertical-align: middle;
+
+        input {
+            background-color: inherit;
+            border: none;
+            font-family: 'Raleway', sans-serif;
+            font-size: 2rem;
+            top: 3px;
+        }
+    }
+}
