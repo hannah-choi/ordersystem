@@ -6,7 +6,7 @@ import { TableItem } from '../tableItem/TableItem';
 // import { cart } from '../../service/cart/Cart';
 import { RootState } from '../../store/store';
 
-import styles from './tableArea.module.scss';
+import styles from './TableArea.module.scss';
 
 interface TableAreaProps {}
 

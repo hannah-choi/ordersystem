@@ -27,6 +27,11 @@ export const cartSlice = createSlice({
 
     name: 'cart',
     reducers: {
+        changeCartQuantity: (state, action: PayloadAction<{ prodId: number; quantity: string }>) => {
+            state.value = state.value.map((item) =>
+                item.prodId === action.payload.prodId ? { ...item, quantity: parseInt(action.payload.quantity) } : item
+            );
+        },
         deleteCartItem: (state, action: PayloadAction<number>) => {
             state.value = state.value.filter((item) => action.payload !== item.prodId);
         },
@@ -45,7 +50,7 @@ export const cartSlice = createSlice({
     }
 });
 
-export const { deleteCartItem, setCartItem } = cartSlice.actions;
+export const { changeCartQuantity, deleteCartItem, setCartItem } = cartSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCartItem = (state: RootState) => state.cart.value;

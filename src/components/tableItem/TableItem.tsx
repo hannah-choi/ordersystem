@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { deleteCartItem } from '../../store/cartSlice';
+import { changeCartQuantity, deleteCartItem } from '../../store/cartSlice';
 
 import styles from './TableItem.module.scss';
 
@@ -21,7 +21,13 @@ export const TableItem: React.FC<TableItemProps> = ({ price, prodId, prodName, q
             <td className={styles.cartProdName}>{prodName}</td>
             <td className={styles.cartQuantity}>
                 <label htmlFor='quantity' />
-                <select data-key='selectbox' id='quantity' name='quantity' value={quantity}>
+                <select
+                    data-key='selectbox'
+                    id='quantity'
+                    name='quantity'
+                    value={quantity}
+                    onChange={(e) => dispatch(changeCartQuantity({ prodId: prodId, quantity: e.target.value }))}
+                >
                     {optionArray.map((num) => (
                         <option key={Math.random()} value={num + 1}>
                             {num + 1}

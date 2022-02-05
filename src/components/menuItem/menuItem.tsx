@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCartItem } from '../../store/cartSlice';
 import { RootState } from '../../store/store';
 
-import styles from './menuItem.module.scss';
+import styles from './MenuItem.module.scss';
 
 interface MenuItemProps {
     prodName: string;
@@ -28,7 +28,9 @@ export const MenuItem: React.FC<MenuItemProps> = ({ imageName, price, prodId, pr
                 dispatch(setCartItem({ price, prodId, prodName, quantity: 1 }));
             }}
         >
-            <img alt={prodName} data-id={prodId} data-key='menuItem' src={`/images/${imageName}.webp`} />
+            <div className={styles.img}>
+                <img alt={prodName} data-id={prodId} data-key='menuItem' src={`/images/${imageName}.webp`} />
+            </div>
             <span className={styles.prodName}>{prodName}</span>
             <span className={styles.prodPrice}>£ {price.toFixed(2)}</span>
         </li>

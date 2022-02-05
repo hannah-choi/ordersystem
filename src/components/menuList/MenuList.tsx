@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { menuData } from '../../data/data';
-import { MenuItem } from '../menuItem/menuItem';
+import { MenuItem } from '../menuItem/MenuItem';
 
 import styles from './MenuList.module.scss';
 

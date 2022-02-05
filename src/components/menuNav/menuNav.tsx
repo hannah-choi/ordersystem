@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import styles from './menuNav.module.scss';
+import styles from './MenuNav.module.scss';
 
 interface MenuNavProps {}
 

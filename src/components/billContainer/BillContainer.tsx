@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import ButtonArea from '../ButtonArea/ButtonArea';
-import { TableArea } from '../tableArea/tableArea';
+import ButtonArea from '../buttonArea/ButtonArea';
+import { TableArea } from '../tableArea/TableArea';
 import Total from '../Total/Total';
 import { Cart } from '../../../pages/index';
 

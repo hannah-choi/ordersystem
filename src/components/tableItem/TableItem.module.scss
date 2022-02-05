@@ -2,6 +2,10 @@
     width: 100%;
     border-bottom: 1px solid #d8d8d8;
 
+    &:hover {
+        background-color: #d8d8d8;
+    }
+
     &:last-of-type {
         border: none;
     }
@@ -16,6 +20,7 @@
 
         &:first-of-type {
             vertical-align: center;
+            padding-left: 1rem;
         }
 
         &:last-of-type {
@@ -25,7 +30,7 @@
 
     .cartQuantity {
         text-align: right;
-        padding-left: 1.2rem;
+        padding-left: 1rem;
     }
 
     .cartPrice {
@@ -36,7 +41,7 @@
     }
 
     .cartDelete {
-        padding-left: 1rem;
+        padding: 0 1rem 0.5rem 1rem;
         width: 5%;
         vertical-align: middle;
 

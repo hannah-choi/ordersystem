@@ -2,13 +2,11 @@ import * as React from 'react';
 
 import Header from '../header/Header';
 import MenuList from '../menuList/MenuList';
-import MenuNav from '../menuNav/menuNav';
+import MenuNav from '../menuNav/MenuNav';
 
 import styles from './MenuContainer.module.scss';
 
-interface MenuContainerProps {
-    // listItemClick: (id: number, name: string, price: number) => void;
-}
+interface MenuContainerProps {}
 
 const MenuContainer: React.FC<MenuContainerProps> = ({}) => (
     <div className={styles.menuContainer}>
