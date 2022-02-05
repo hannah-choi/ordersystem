@@ -7,11 +7,9 @@ import { Cart } from '../../../pages/index';
 
 import styles from './BillContainer.module.scss';
 
-interface BillContainerProps {
-    contents: [];
-}
+interface BillContainerProps {}
 
-const BillContainer: React.FunctionComponent<BillContainerProps> = ({ contents }) => {
+const BillContainer: React.FC<BillContainerProps> = ({}) => {
     return (
         <section className={styles.billContainer}>
             <header>
@@ -20,7 +18,7 @@ const BillContainer: React.FunctionComponent<BillContainerProps> = ({ contents }
                     <i className='far fa-trash-alt' data-key='trashIcon' />
                 </span>
             </header>
-            <TableArea contents={contents} />
+            <TableArea />
             <Total />
             <ButtonArea />
         </section>

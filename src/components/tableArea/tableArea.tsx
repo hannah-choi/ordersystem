@@ -1,25 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+
+// import { cart, Cart } from '../../service/cart/Cart';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { TableItem } from '../tableItem/TableItem';
 
+// import { cart } from '../../service/cart/Cart';
+import { setCartItem } from '../../store/cartSlice';
+import { RootState } from '../../store/store';
+
 import styles from './tableArea.module.scss';
 
-interface TableAreaProps {
-    contents: [];
-}
+interface TableAreaProps {}
 
-export const TableArea: React.FC<TableAreaProps> = ({ contents }) => {
-    // useEffect(() => {
-    //     console.log(cartArray);
-    //     contents = cartArray.map((prod, i) => (
-    //         <TableItem key={prod.prodId} price={prod.price} prodId={prod.prodId} prodName={prod.prodName} />
-    //     ));
-    // }, [cartArray]);
+export const TableArea: React.FC<TableAreaProps> = ({}) => {
+    const cart = useSelector((state: RootState) => state.cart.value);
+
+    const tableRef = useRef(null);
+
+    let contents = null;
+
+    if (tableRef.current) {
+        contents = cart.map((prod, i) => (
+            <TableItem key={prod.prodId} price={prod.price} prodId={prod.prodId} prodName={prod.prodName} />
+        ));
+    }
 
     return (
         <section className={styles.tableArea}>
             <table className={styles.cartTable}>
-                <tbody>{contents}</tbody>
+                <tbody ref={tableRef}>{contents}</tbody>
             </table>
         </section>
     );

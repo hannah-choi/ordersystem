@@ -7,14 +7,14 @@ import MenuNav from '../menuNav/menuNav';
 import styles from './MenuContainer.module.scss';
 
 interface MenuContainerProps {
-    listItemClick: (id: number, name: string, price: number) => void;
+    // listItemClick: (id: number, name: string, price: number) => void;
 }
 
-const MenuContainer: React.FC<MenuContainerProps> = ({ listItemClick }) => (
+const MenuContainer: React.FC<MenuContainerProps> = ({}) => (
     <div className={styles.menuContainer}>
         <Header />
         <MenuNav />
-        <MenuList categoryNo={0} listItemClick={listItemClick} />
+        <MenuList categoryNo={0} />
     </div>
 );
 export default MenuContainer;
