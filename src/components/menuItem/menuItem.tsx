@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // import { cart } from '../../service/cart/Cart';
 import { setCartItem } from '../../store/cartSlice';
-import { RootState } from '../../store/store';
 
 import styles from './MenuItem.module.scss';
 
@@ -12,11 +11,9 @@ interface MenuItemProps {
     prodId: number;
     imageName: string;
     price: number;
-    // listItemClick: (id: number, name: string, price: number) => void;
 }
 
 export const MenuItem: React.FC<MenuItemProps> = ({ imageName, price, prodId, prodName }) => {
-    const cart = useSelector((state: RootState) => state.cart.value);
     const dispatch = useDispatch();
 
     return (

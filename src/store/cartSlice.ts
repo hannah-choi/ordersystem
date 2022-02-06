@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { CartObj } from './cartSlice';
-
 export interface CartObj {
     price: number;
     prodId: number;
@@ -22,11 +20,13 @@ const initialState: CartState = {
 };
 
 export const cartSlice = createSlice({
-    // `createSlice` will infer the state type from the `initialState` argument
     initialState,
 
     name: 'cart',
     reducers: {
+        allClear: (state) => {
+            state.value = initialState.value;
+        },
         changeCartQuantity: (state, action: PayloadAction<{ prodId: number; quantity: string }>) => {
             state.value = state.value.map((item) =>
                 item.prodId === action.payload.prodId ? { ...item, quantity: parseInt(action.payload.quantity) } : item
@@ -50,7 +50,7 @@ export const cartSlice = createSlice({
     }
 });
 
-export const { changeCartQuantity, deleteCartItem, setCartItem } = cartSlice.actions;
+export const { allClear, changeCartQuantity, deleteCartItem, setCartItem } = cartSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCartItem = (state: RootState) => state.cart.value;

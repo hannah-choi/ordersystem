@@ -25,4 +25,18 @@
         display: inline;
         margin-bottom: 1.5rem;
     }
+
+    .deleteIcon {
+        img {
+            width: 1.3rem;
+            cursor: pointer;
+            transform: scale(1);
+            transition: all 0.1s ease-in-out;
+
+            &:hover,
+            &:active {
+                transform: scale(1.2);
+            }
+        }
+    }
 }
