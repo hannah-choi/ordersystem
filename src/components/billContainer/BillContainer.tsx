@@ -19,8 +19,9 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
     const order = useSelector((state: RootState) => state.order.value);
 
     const payButtonClick = () => {
+        //렌더해서 리스트 만들기
         alert('pay');
-        const orderNumber = (Math.random() * 100).toString();
+        const orderNumber = 'JSY' + (Math.random() * 100).toString();
         const orderDate = getTime();
         const orderedItem = cart;
 
@@ -29,14 +30,16 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
     };
 
     const getTime = () => {
-        let yourDate = new Date();
-        const offset = yourDate.getTimezoneOffset();
-        yourDate = new Date(yourDate.getTime() + offset * 60 * 1000);
-        return yourDate.toISOString().split('T')[0];
+        //서비스로 따로 뺼것
+        let userDate = new Date();
+        const offset = userDate.getTimezoneOffset();
+        userDate = new Date(userDate.getTime() + offset * 60 * 1000);
+        return userDate.toISOString().split('T')[0];
     };
 
     const viewOrderHistory = () => {
         setBillType('order');
+        console.log('order');
     };
 
     return (
@@ -49,8 +52,17 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
                             <img alt='Clear the cart' src='/images/rubbish.png' onClick={() => dispatch(allClear())} />
                         </span>
                     </header>
-                    <TableArea />
+                    <TableArea billType={billType} />
                     <Total />
+                    <ButtonArea payButtonClick={payButtonClick} viewOrderHistory={viewOrderHistory} />
+                </>
+            )}
+            {billType === 'order' && (
+                <>
+                    <header>
+                        <h2 id='billTitle'>ORDER HISTORY</h2>
+                    </header>
+                    <TableArea billType={billType} />
                     <ButtonArea payButtonClick={payButtonClick} />
                 </>
             )}
