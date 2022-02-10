@@ -3,41 +3,42 @@ import { useDispatch } from 'react-redux';
 
 import { changeCartQuantity, deleteCartItem } from '../../store/cartSlice';
 
-import styles from './TableItem.module.scss';
+import styles from './OrderItem.module.scss';
 
-interface TableItemProps {
+interface OrderItemProps {
     prodId: number;
     price: number;
     prodName: string;
     quantity: number;
+    orderDate: string;
 }
 
-export const TableItem: React.FC<TableItemProps> = ({ price, prodId, prodName, quantity }) => {
+export const OrderItem: React.FC<OrderItemProps> = ({ orderDate, price, prodId, prodName, quantity }) => {
     const dispatch = useDispatch();
 
     return (
-        <tr className={styles.tableItem} data-id={prodId} data-key={prodId}>
-            <td className={styles.cartProdName}>{prodName}</td>
-            <td className={styles.cartQuantity}>
-                <label htmlFor='quantity' />
-                <select
-                    data-key='selectbox'
-                    id='quantity'
-                    name='quantity'
-                    value={quantity}
-                    onChange={(e) => dispatch(changeCartQuantity({ prodId: prodId, quantity: e.target.value }))}
-                >
-                    {optionArray.map((num) => (
-                        <option key={Math.random()} value={num + 1}>
-                            {num + 1}
-                        </option>
-                    ))}
-                </select>
-            </td>
-            <td className={styles.cartPrice}>£ {price.toFixed(2)}</td>
-            <td className={styles.cartDelete}>
-                <input data-key='deleteItem' type='button' value='×' onClick={() => dispatch(deleteCartItem(prodId))} />
-            </td>
-        </tr>
+        <>
+            <tr className={styles.orderItem} data-id={prodId} data-key={prodId}>
+                <tr className='orderInfo' data-key='prodInfo'>
+                    <td className='orderProdName' colSpan='5'>
+                        {prodName}
+                    </td>
+                    <td className='prodId' />
+                </tr>
+                <tr className='orderDetail' data-key='orderData'>
+                    <td className='orderDataImage'>
+                        <img src='images/${rows[i].image}.webp' />
+                    </td>
+                    <td className='orderDataPrice'>£ {price * quantity.toFixed(2)}</td>
+                    <td className='orderQuantity'>
+                        <label htmlFor='quantity' />
+                        {quantity}
+                    </td>
+                    <td className='orderDate' colSpan='3'>
+                        {orderDate}
+                    </td>
+                </tr>
+            </tr>
+        </>
     );
 };

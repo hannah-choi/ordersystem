@@ -1,0 +1,23 @@
+.orderItem {
+    width: 100%;
+    border-bottom: 1px solid #d8d8d8;
+
+    &:hover,
+    &:active {
+        background-color: #d8d8d8;
+    }
+
+    &:last-of-type {
+        border: none;
+    }
+
+    td {
+        vertical-align: middle;
+        padding: 0.5rem 0;
+        border: 1px solid salmon;
+
+        // .cartProdName {
+        //     width: 50%;
+        // }
+    }
+}
