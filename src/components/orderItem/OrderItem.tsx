@@ -15,30 +15,33 @@ interface OrderItemProps {
 
 export const OrderItem: React.FC<OrderItemProps> = ({ orderDate, price, prodId, prodName, quantity }) => {
     const dispatch = useDispatch();
+    const getImageName = (name: string, id: number) => {
+        return id + '_' + name.split(' ').join('').toLowerCase();
+    };
 
     return (
-        <>
-            <tr className={styles.orderItem} data-id={prodId} data-key={prodId}>
-                <tr className='orderInfo' data-key='prodInfo'>
-                    <td className='orderProdName' colSpan='5'>
-                        {prodName}
-                    </td>
-                    <td className='prodId' />
-                </tr>
-                <tr className='orderDetail' data-key='orderData'>
-                    <td className='orderDataImage'>
-                        <img src='images/${rows[i].image}.webp' />
-                    </td>
-                    <td className='orderDataPrice'>£ {price * quantity.toFixed(2)}</td>
-                    <td className='orderQuantity'>
-                        <label htmlFor='quantity' />
-                        {quantity}
-                    </td>
-                    <td className='orderDate' colSpan='3'>
-                        {orderDate}
-                    </td>
-                </tr>
+        <tr className={styles.orderItem} data-id={prodId} data-key={prodId}>
+            <tr className={styles.orderDetail} data-key='orderData'>
+                <td className={styles.orderDataImage} rowSpan={2}>
+                    <img alt={prodName} src={`images/${getImageName(prodName, prodId)}.webp`} />
+                </td>
+                <td className={styles.orderProdName} colSpan={3}>
+                    {prodName}
+                </td>
+                <td className={styles.prodId}>
+                    <label htmlFor='quantity' />
+                    {prodId}
+                </td>
             </tr>
-        </>
+            <tr className={styles.orderInfo}>
+                <td className={styles.price}>£ {price}</td>
+                <td className={styles.multiply}> &#215; </td>
+                <td className={styles.orderQuantity}>
+                    <label htmlFor='quantity' />
+                    {quantity}
+                </td>
+                <td className={styles.total}>£ {(price * quantity).toFixed()}</td>
+            </tr>
+        </tr>
     );
 };

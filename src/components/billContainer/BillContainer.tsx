@@ -49,7 +49,6 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
     };
 
     const selectOrder = (orderNumber: string) => {
-        console.log(orderNumber);
         const picked = order.find((item) => item.orderNumber === orderNumber);
         console.log(picked);
         setSelectedOrder(picked);
@@ -105,18 +104,16 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
                     <header>
                         <h2 id='billTitle'>ORDER DETAIL</h2>
                     </header>
+                    <p>Order Date: {selectedOrder.orderDate}</p>
+                    <p>Order Total:</p>
                     <TableArea>
-                        <thead>
-                            <th>Name</th>
-                            <th>Quantity</th>
-                        </thead>
-
-                        {selectedOrder.orderedItem.map((item, i) => (
+                        {selectedOrder.orderedItem.map((item) => (
                             <OrderItem
                                 key={item.prodId}
                                 orderDate={selectedOrder.orderDate}
                                 price={item.price}
                                 prodId={item.prodId}
+                                prodName={item.prodName}
                                 quantity={item.quantity}
                             />
                         ))}

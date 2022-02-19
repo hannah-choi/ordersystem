@@ -1,6 +1,9 @@
 .orderItem {
-    width: 100%;
     border-bottom: 1px solid #d8d8d8;
+
+    tr {
+        width: 100%;
+    }
 
     &:hover,
     &:active {
@@ -12,12 +15,44 @@
     }
 
     td {
-        vertical-align: middle;
-        padding: 0.5rem 0;
-        border: 1px solid salmon;
+        padding: 0.2rem;
+        // border: 1px solid salmon;
+    }
 
-        // .cartProdName {
-        //     width: 50%;
-        // }
+    tr.orderDetail {
+        td {
+            vertical-align: bottom;
+        }
+
+        .orderProdName {
+            width: 67%;
+            padding-top: 0.2rem;
+        }
+
+        .prodId {
+            width: 15%;
+        }
+
+        .orderDataImage {
+            width: 18%;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+
+    tr.orderInfo {
+        td {
+            vertical-align: top;
+        }
+
+        .price {
+            width: 15%;
+        }
+
+        .multiply {
+            width: 10%;
+        }
     }
 }
