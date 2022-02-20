@@ -11,9 +11,10 @@ interface MenuItemProps {
     prodId: number;
     imageName: string;
     price: number;
+    prodCode: string;
 }
 
-export const MenuItem: React.FC<MenuItemProps> = ({ imageName, price, prodId, prodName }) => {
+export const MenuItem: React.FC<MenuItemProps> = ({ imageName, price, prodCode, prodId, prodName }) => {
     const dispatch = useDispatch();
 
     return (
@@ -22,11 +23,11 @@ export const MenuItem: React.FC<MenuItemProps> = ({ imageName, price, prodId, pr
             className={styles.menuItem}
             data-key='menuItem'
             onClick={() => {
-                dispatch(setCartItem({ price, prodId, prodName, quantity: 1 }));
+                dispatch(setCartItem({ price, prodCode, prodId, prodName, quantity: 1 }));
             }}
         >
             <div className={styles.img}>
-                <img alt={prodName} data-id={prodId} data-key='menuItem' src={`/images/${imageName}.webp`} />
+                <img alt={prodName} src={`/images/${imageName}.webp`} />
             </div>
             <span className={styles.prodName}>{prodName}</span>
             <span className={styles.prodPrice}>£ {price.toFixed(2)}</span>

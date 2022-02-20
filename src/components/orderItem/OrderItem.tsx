@@ -1,7 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-
-import { changeCartQuantity, deleteCartItem } from '../../store/cartSlice';
 
 import styles from './OrderItem.module.scss';
 
@@ -10,11 +7,10 @@ interface OrderItemProps {
     price: number;
     prodName: string;
     quantity: number;
-    orderDate: string;
+    prodCode: string;
 }
 
-export const OrderItem: React.FC<OrderItemProps> = ({ orderDate, price, prodId, prodName, quantity }) => {
-    const dispatch = useDispatch();
+export const OrderItem: React.FC<OrderItemProps> = ({ price, prodCode, prodId, prodName, quantity }) => {
     const getImageName = (name: string, id: number) => {
         return id + '_' + name.split(' ').join('').toLowerCase();
     };
@@ -26,21 +22,15 @@ export const OrderItem: React.FC<OrderItemProps> = ({ orderDate, price, prodId, 
                     <img alt={prodName} src={`images/${getImageName(prodName, prodId)}.webp`} />
                 </td>
                 <td className={styles.orderProdName} colSpan={3}>
-                    {prodName}
+                    {prodName.length > 24 ? prodName.slice(0, 24) + ' ...' : prodName}
                 </td>
-                <td className={styles.prodId}>
-                    <label htmlFor='quantity' />
-                    {prodId}
-                </td>
+                <td className={styles.prodCode}>{prodCode}</td>
             </tr>
             <tr className={styles.orderInfo}>
-                <td className={styles.price}>£ {price}</td>
+                <td className={styles.price}>£ {price.toFixed(2)}</td>
                 <td className={styles.multiply}> &#215; </td>
-                <td className={styles.orderQuantity}>
-                    <label htmlFor='quantity' />
-                    {quantity}
-                </td>
-                <td className={styles.total}>£ {(price * quantity).toFixed()}</td>
+                <td className={styles.orderQuantity}>{quantity}</td>
+                <td className={styles.total}>£ {(price * quantity).toFixed(2)}</td>
             </tr>
         </tr>
     );

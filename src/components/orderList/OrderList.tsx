@@ -16,12 +16,14 @@ export const OrderList: React.FC<OrderListProps> = ({ orderDate, orderNumber, or
     const dispatch = useDispatch();
 
     return (
-        <tr className={styles.orderList} data-key={orderDate}>
+        <tr className={styles.orderList}>
             <td className={styles.orderDate}>{orderDate}</td>
             <td className={styles.orderNumber} onClick={() => selectOrder(orderNumber)}>
                 {orderNumber}
             </td>
-            <td className={styles.orderTotal}>{orderedItems.reduce((acc, item) => acc + item.price, 1)}</td>
+            <td className={styles.orderTotal}>
+                £ {orderedItems.reduce((acc, item) => acc + item.price, 1).toFixed(2)}
+            </td>
         </tr>
     );
 };

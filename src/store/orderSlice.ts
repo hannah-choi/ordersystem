@@ -4,6 +4,7 @@ export interface OrderObj {
     orderDate: string;
     orderNumber: string;
     orderedItem: CartObj[];
+    orderTotal: number;
 }
 
 import { CartObj } from './cartSlice';
@@ -29,6 +30,7 @@ export const orderSlice = createSlice({
             state.value.push({
                 orderDate: action.payload.orderDate,
                 orderNumber: action.payload.orderNumber,
+                orderTotal: action.payload.orderTotal,
                 orderedItem: action.payload.orderedItem
             });
         }

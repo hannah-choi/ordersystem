@@ -23,6 +23,7 @@ const MenuList: React.FC<MenuListProps> = ({ categoryNo = 0 }) => {
                     key={prod.id}
                     imageName={getImageName(prod.name, prod.id)}
                     price={prod.price}
+                    prodCode={prod.code}
                     prodId={prod.id}
                     prodName={prod.name}
                 />

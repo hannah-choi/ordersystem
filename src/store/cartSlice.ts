@@ -4,6 +4,7 @@ export interface CartObj {
     price: number;
     prodId: number;
     prodName: string;
+    prodCode: string;
     quantity: number;
 }
 

@@ -5,6 +5,7 @@
     &:hover,
     &:active {
         background-color: #d8d8d8;
+        cursor: pointer;
     }
 
     &:last-of-type {
@@ -22,36 +23,11 @@
         &:first-of-type {
             vertical-align: center;
             padding-left: 1rem;
+            width: 30%;
         }
 
         &:last-of-type {
-            text-align: right;
+            width: 20%;
         }
     }
-
-    // .cartQuantity {
-    //     text-align: right;
-    //     padding-left: 1rem;
-    // }
-
-    // .cartPrice {
-    //     padding-left: 0.5rem;
-    //     font-size: 1rem;
-    //     width: 24%;
-    //     text-align: right;
-    // }
-
-    // .cartDelete {
-    //     padding: 0 1rem 0.5rem 1rem;
-    //     width: 5%;
-    //     vertical-align: middle;
-
-    //     input {
-    //         background-color: inherit;
-    //         border: none;
-    //         font-family: 'Raleway', sans-serif;
-    //         font-size: 2rem;
-    //         top: 3px;
-    //     }
-    // }
 }

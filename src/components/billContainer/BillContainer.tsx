@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ButtonArea from '../buttonArea/ButtonArea';
 import { TableArea } from '../tableArea/TableArea';
 import Total from '../Total/Total';
-import { allClear } from '../../store/cartSlice';
+import { allClear, CartObj } from '../../store/cartSlice';
 import { setOrder } from '../../store/orderSlice';
 import { RootState } from '../../store/store';
 import { TableItem } from '../tableItem/TableItem';
@@ -26,11 +26,12 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
     const payButtonClick = () => {
         //렌더해서 리스트 만들기
         alert('pay');
-        const orderNumber = 'JSY' + (Math.random() * 100).toString();
+        const orderNumber = 'JSY' + Date.now().toString();
         const orderDate = getTime();
         const orderedItem = cart;
+        const orderTotal = cart.reduce((acc: number, item: CartObj) => acc + item.price * item.quantity, 0).toFixed(2);
 
-        dispatch(setOrder({ orderDate, orderNumber, orderedItem }));
+        dispatch(setOrder({ orderDate, orderNumber, orderTotal, orderedItem }));
         dispatch(allClear);
         console.log(order);
     };
@@ -104,14 +105,18 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
                     <header>
                         <h2 id='billTitle'>ORDER DETAIL</h2>
                     </header>
-                    <p>Order Date: {selectedOrder.orderDate}</p>
-                    <p>Order Total:</p>
+                    <div className={styles.orderInfo}>
+                        <p>Order no.: {selectedOrder.orderNumber}</p>
+                        <p>Order Date: {selectedOrder.orderDate}</p>
+                        <p>Order Total: £ {selectedOrder.orderTotal}</p>
+                    </div>
                     <TableArea>
                         {selectedOrder.orderedItem.map((item) => (
                             <OrderItem
                                 key={item.prodId}
                                 orderDate={selectedOrder.orderDate}
                                 price={item.price}
+                                prodCode={item.prodCode}
                                 prodId={item.prodId}
                                 prodName={item.prodName}
                                 quantity={item.quantity}
