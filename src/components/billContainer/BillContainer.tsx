@@ -32,8 +32,7 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
         const orderTotal = cart.reduce((acc: number, item: CartObj) => acc + item.price * item.quantity, 0).toFixed(2);
 
         dispatch(setOrder({ orderDate, orderNumber, orderTotal, orderedItem }));
-        dispatch(allClear);
-        console.log(order);
+        dispatch(allClear());
     };
 
     const getTime = () => {
@@ -46,12 +45,14 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
 
     const viewOrderHistory = () => {
         setBillType('order');
-        console.log('order');
+    };
+
+    const backToCart = () => {
+        setBillType('cart');
     };
 
     const selectOrder = (orderNumber: string) => {
         const picked = order.find((item) => item.orderNumber === orderNumber);
-        console.log(picked);
         setSelectedOrder(picked);
         setBillType('orderDetail');
     };
@@ -78,7 +79,11 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
                         ))}
                     </TableArea>
                     <Total />
-                    <ButtonArea payButtonClick={payButtonClick} viewOrderHistory={viewOrderHistory} />
+                    <ButtonArea
+                        billType={billType}
+                        payButtonClick={payButtonClick}
+                        viewOrderHistory={viewOrderHistory}
+                    />
                 </>
             )}
             {billType === 'order' && (
@@ -97,7 +102,7 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
                             />
                         ))}
                     </TableArea>
-                    <ButtonArea payButtonClick={payButtonClick} />
+                    <ButtonArea backToCart={backToCart} billType={billType} />
                 </>
             )}
             {billType === 'orderDetail' && (
@@ -123,6 +128,7 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
                             />
                         ))}
                     </TableArea>
+                    <ButtonArea backToCart={backToCart} billType={billType} viewOrderHistory={viewOrderHistory} />
                 </>
             )}
         </section>

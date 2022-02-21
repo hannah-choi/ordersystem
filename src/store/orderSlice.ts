@@ -23,7 +23,6 @@ const initialState: OrderState = {
 
 export const orderSlice = createSlice({
     initialState,
-
     name: 'order',
     reducers: {
         setOrder: (state, action: PayloadAction<OrderObj>) => {
