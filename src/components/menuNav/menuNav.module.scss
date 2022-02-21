@@ -5,16 +5,20 @@
     letter-spacing: 1.5px;
     cursor: pointer;
     padding-left: 2rem;
-}
 
-.menuNav li {
-    display: inline-block;
-    padding: 0.5rem;
-    font-size: 1rem;
-    margin-right: 1rem;
+    li {
+        display: inline-block;
+        padding: 0.5rem;
+        font-size: 1rem;
+        margin-right: 1rem;
 
-    &:hover,
-    &:active {
+        &:hover,
+        &:active {
+            color: black;
+        }
+    }
+
+    .selected {
         color: black;
     }
 }

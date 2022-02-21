@@ -6,13 +6,11 @@ import MenuNav from '../menuNav/MenuNav';
 
 import styles from './MenuContainer.module.scss';
 
-interface MenuContainerProps {}
-
-const MenuContainer: React.FC<MenuContainerProps> = ({}) => (
+const MenuContainer: React.FC = () => (
     <div className={styles.menuContainer}>
         <Header />
         <MenuNav />
-        <MenuList categoryNo={0} />
+        <MenuList />
     </div>
 );
 export default MenuContainer;
