@@ -5,6 +5,7 @@ import ButtonArea from '../buttonArea/ButtonArea';
 import { TableArea } from '../tableArea/TableArea';
 import Total from '../Total/Total';
 import { allClear, CartObj } from '../../store/cartSlice';
+import { setBill } from '../../store/billSlice';
 import { setOrder } from '../../store/orderSlice';
 import { RootState } from '../../store/store';
 import { TableItem } from '../tableItem/TableItem';
@@ -13,26 +14,31 @@ import { OrderItem } from '../orderItem/OrderItem';
 
 import styles from './BillContainer.module.scss';
 
-interface BillContainerProps {}
-
-const BillContainer: React.FC<BillContainerProps> = ({}) => {
-    const [billType, setBillType] = useState('cart');
+const BillContainer: React.FC = () => {
     const dispatch = useDispatch();
     const cart = useSelector((state: RootState) => state.cart.value);
     const order = useSelector((state: RootState) => state.order.value);
+    const bill = useSelector((state: RootState) => state.bill.type);
 
     const [selectedOrder, setSelectedOrder] = useState(null);
 
     const payButtonClick = () => {
         //렌더해서 리스트 만들기
-        alert('pay');
-        const orderNumber = 'JSY' + Date.now().toString();
-        const orderDate = getTime();
-        const orderedItem = cart;
-        const orderTotal = cart.reduce((acc: number, item: CartObj) => acc + item.price * item.quantity, 0).toFixed(2);
 
-        dispatch(setOrder({ orderDate, orderNumber, orderTotal, orderedItem }));
-        dispatch(allClear());
+        if (cart.length > 0) {
+            alert('pay');
+            const orderNumber = 'JSY' + Date.now().toString();
+            const orderDate = getTime();
+            const orderedItem = cart;
+            const orderTotal = cart
+                .reduce((acc: number, item: CartObj) => acc + item.price * item.quantity, 0)
+                .toFixed(2);
+
+            dispatch(setOrder({ orderDate, orderNumber, orderTotal, orderedItem }));
+            dispatch(allClear());
+        } else {
+            alert('no items');
+        }
     };
 
     const getTime = () => {
@@ -43,23 +49,15 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
         return userDate.toISOString().split('T')[0];
     };
 
-    const viewOrderHistory = () => {
-        setBillType('order');
-    };
-
-    const backToCart = () => {
-        setBillType('cart');
-    };
-
     const selectOrder = (orderNumber: string) => {
         const picked = order.find((item) => item.orderNumber === orderNumber);
         setSelectedOrder(picked);
-        setBillType('orderDetail');
+        dispatch(setBill('orderDetail'));
     };
 
     return (
         <section className={styles.billContainer}>
-            {billType === 'cart' && (
+            {bill === 'cart' && (
                 <>
                     <header>
                         <h2 id='billTitle'>SHOPPING CART</h2>
@@ -79,14 +77,10 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
                         ))}
                     </TableArea>
                     <Total />
-                    <ButtonArea
-                        billType={billType}
-                        payButtonClick={payButtonClick}
-                        viewOrderHistory={viewOrderHistory}
-                    />
+                    <ButtonArea payButtonClick={payButtonClick} />
                 </>
             )}
-            {billType === 'order' && (
+            {bill === 'order' && (
                 <>
                     <header>
                         <h2 id='billTitle'>ORDER HISTORY</h2>
@@ -102,10 +96,10 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
                             />
                         ))}
                     </TableArea>
-                    <ButtonArea backToCart={backToCart} billType={billType} />
+                    <ButtonArea />
                 </>
             )}
-            {billType === 'orderDetail' && (
+            {bill === 'orderDetail' && (
                 <>
                     <header>
                         <h2 id='billTitle'>ORDER DETAIL</h2>
@@ -128,7 +122,7 @@ const BillContainer: React.FC<BillContainerProps> = ({}) => {
                             />
                         ))}
                     </TableArea>
-                    <ButtonArea backToCart={backToCart} billType={billType} viewOrderHistory={viewOrderHistory} />
+                    <ButtonArea />
                 </>
             )}
         </section>

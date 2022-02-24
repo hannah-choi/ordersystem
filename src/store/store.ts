@@ -3,9 +3,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import cartReducer from './cartSlice';
 import orderReducer from './orderSlice';
 import menuReducer from './menuSlice';
+import billReducer from './billSlice';
 
 export const store = configureStore({
     reducer: {
+        bill: billReducer,
         cart: cartReducer,
         menu: menuReducer,
         order: orderReducer

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-// import { cart } from '../../service/cart/Cart';
+import { RootState } from '../../store/store';
 import { setCartItem } from '../../store/cartSlice';
 
 import styles from './MenuItem.module.scss';
@@ -16,6 +16,7 @@ interface MenuItemProps {
 
 export const MenuItem: React.FC<MenuItemProps> = ({ imageName, price, prodCode, prodId, prodName }) => {
     const dispatch = useDispatch();
+    const bill = useSelector((state: RootState) => state.bill.type);
 
     return (
         <li
@@ -23,7 +24,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ imageName, price, prodCode, 
             className={styles.menuItem}
             data-key='menuItem'
             onClick={() => {
-                dispatch(setCartItem({ price, prodCode, prodId, prodName, quantity: 1 }));
+                bill === 'cart' ? dispatch(setCartItem({ price, prodCode, prodId, prodName, quantity: 1 })) : null;
             }}
         >
             <div className={styles.img}>

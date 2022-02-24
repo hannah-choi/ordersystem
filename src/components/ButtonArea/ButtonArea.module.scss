@@ -8,5 +8,11 @@
         background-color: black;
         color: white;
         display: block;
+        cursor: pointer;
+
+        &:hover,
+        &:active {
+            background-color: gray;
+        }
     }
 }

@@ -1,42 +1,56 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { RootState } from '../../store/store';
+import { setBill } from '../../store/billSlice';
 
 interface ButtonAreaProps {
     payButtonClick?: () => void;
-    viewOrderHistory?: () => void;
-    backToCart?: () => void;
-    billType: 'cart' | 'order' | 'orderDetail';
 }
 
 import styles from './ButtonArea.module.scss';
 
-const ButtonArea: React.FC<ButtonAreaProps> = ({ backToCart, billType, payButtonClick, viewOrderHistory }) => {
+const ButtonArea: React.FC<ButtonAreaProps> = ({ payButtonClick }) => {
+    const dispatch = useDispatch();
+    const bill = useSelector((state: RootState) => state.bill.type);
+
     return (
         <section className={styles.buttonArea}>
-            {billType === 'cart' && (
+            {bill === 'cart' && (
                 <>
                     <input data-key='orderButton' type='button' value='PLACE ORDER' onClick={payButtonClick} />
                     <input
                         data-key='getOrderDataButton'
                         type='button'
                         value='ORDER HISTORY'
-                        onClick={viewOrderHistory}
+                        onClick={() => dispatch(setBill('order'))}
                     />
                 </>
             )}
-            {billType === 'order' && (
+            {bill === 'order' && (
                 <>
-                    <input data-key='orderButton' type='button' value='BACK TO CART' onClick={backToCart} />
+                    <input
+                        data-key='orderButton'
+                        type='button'
+                        value='BACK TO CART'
+                        onClick={() => dispatch(setBill('cart'))}
+                    />
                 </>
             )}
-            {billType === 'orderDetail' && (
+            {bill === 'orderDetail' && (
                 <>
                     <input
                         data-key='orderButton'
                         type='button'
                         value='BACK TO ORDER HISTORY'
-                        onClick={viewOrderHistory}
+                        onClick={() => dispatch(setBill('order'))}
                     />
-                    <input data-key='getOrderDataButton' type='button' value='BACK TO CART' onClick={backToCart} />
+                    <input
+                        data-key='getOrderDataButton'
+                        type='button'
+                        value='BACK TO CART'
+                        onClick={() => dispatch(setBill('cart'))}
+                    />
                 </>
             )}
         </section>
