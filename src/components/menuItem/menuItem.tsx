@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from '../../store/store';
@@ -24,7 +24,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ imageName, price, prodCode, 
             className={styles.menuItem}
             data-key='menuItem'
             onClick={() => {
-                bill === 'cart' ? dispatch(setCartItem({ price, prodCode, prodId, prodName, quantity: 1 })) : null;
+                dispatch(setCartItem({ price, prodCode, prodId, prodName, quantity: 1 }));
             }}
         >
             <div className={styles.img}>

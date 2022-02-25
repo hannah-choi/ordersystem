@@ -1,7 +1,6 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
-import { CartObj, changeCartQuantity, deleteCartItem } from '../../store/cartSlice';
+import { CartObj } from '../../store/cartSlice';
 
 import styles from './OrderList.module.scss';
 
@@ -13,8 +12,6 @@ interface OrderListProps {
 }
 
 export const OrderList: React.FC<OrderListProps> = ({ orderDate, orderNumber, orderedItems, selectOrder }) => {
-    const dispatch = useDispatch();
-
     return (
         <tr className={styles.orderList}>
             <td className={styles.orderDate}>{orderDate}</td>

@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
+import { motion } from 'framer-motion';
 
 import { menuData } from '../../data/data';
 import { MenuItem } from '../menuItem/MenuItem';
@@ -7,12 +8,14 @@ import { RootState } from '../../store/store';
 
 import styles from './MenuList.module.scss';
 
-const MenuList: React.FC<MenuListProps> = () => {
+const MenuList: React.FC = () => {
     const categoryNo = useSelector((state: RootState) => state.menu.active);
     const data = menuData.list.filter((item) => item.category === categoryNo); //선택한 카테고리의 아이템만 거른다
     const getImageName = (name: string, id: number) => {
         return id + '_' + name.split(' ').join('').toLowerCase();
     };
+
+    const bill = useSelector((state: RootState) => state.bill.type);
 
     return (
         <ul className={styles.menuList} id='menu'>
