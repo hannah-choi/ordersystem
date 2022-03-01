@@ -1,3 +1,5 @@
+import { NONAME } from 'dns';
+
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
@@ -17,19 +19,35 @@ const MenuList: React.FC = () => {
 
     const bill = useSelector((state: RootState) => state.bill.type);
 
+    const variants = {
+        hide: { display: 'none', opacity: 0 },
+        show: { display: 'block', opacity: 1 }
+    };
+
     return (
-        <ul className={styles.menuList} id='menu'>
-            {data.map((prod) => (
-                <MenuItem
-                    key={prod.id}
-                    imageName={getImageName(prod.name, prod.id)}
-                    price={prod.price}
-                    prodCode={prod.code}
-                    prodId={prod.id}
-                    prodName={prod.name}
-                />
-            ))}
-        </ul>
+        <>
+            <ul className={styles.menuList} id='menu'>
+                <motion.div
+                    animate={bill !== 'cart' ? 'show' : 'hide'}
+                    className={styles.wrapper}
+                    initial={{ display: 'none', opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    variants={variants}
+                >
+                    <p className={styles.message}>To order, please go back to the cart</p>
+                </motion.div>
+                {data.map((prod) => (
+                    <MenuItem
+                        key={prod.id}
+                        imageName={getImageName(prod.name, prod.id)}
+                        price={prod.price}
+                        prodCode={prod.code}
+                        prodId={prod.id}
+                        prodName={prod.name}
+                    />
+                ))}
+            </ul>
+        </>
     );
 };
 

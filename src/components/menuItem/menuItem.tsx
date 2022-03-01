@@ -1,7 +1,6 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { RootState } from '../../store/store';
 import { setCartItem } from '../../store/cartSlice';
 
 import styles from './MenuItem.module.scss';
@@ -16,7 +15,6 @@ interface MenuItemProps {
 
 export const MenuItem: React.FC<MenuItemProps> = ({ imageName, price, prodCode, prodId, prodName }) => {
     const dispatch = useDispatch();
-    const bill = useSelector((state: RootState) => state.bill.type);
 
     return (
         <li
